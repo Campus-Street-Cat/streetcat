@@ -77,21 +77,32 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@id/layout2"
-            android:id="@+id/layout3">
+            android:id="@+id/layout3"
+            android:weightSum="2">
             <Button
-                android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상세 정보"
+                android:textSize="20sp"
+                android:textColor="@color/white"
                 android:id="@+id/detail_info"
-                android:textSize="20sp"/>
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                />
             <Button
-                android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="고양이가 이상해요!"
+                android:textSize="20sp"
+                android:textColor="@color/white"
                 android:id="@+id/cat_health"
-                android:textSize="20sp"/>
+                android:layout_weight="1"
+                android:background="@color/orange"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -107,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:numColumns="3"
-                android:id="@+id/list"/>
+                android:id="@+id/gridView"/>
 
         </LinearLayout>
 
@@ -119,30 +130,46 @@
             android:weightSum="4"
             android:id="@+id/nav">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/home"
                 android:layout_weight="1"
-                android:text="홈"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:src="@drawable/cat"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:padding="5dp"
+                />
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/Photos"
                 android:layout_weight="1"
-                android:text="사진"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:src="@drawable/gallary2"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:padding="5dp"
+                />
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/Alarm"
                 android:layout_weight="1"
-                android:text="알림"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:src="@drawable/notification"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:padding="5dp"
+                />
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/Setting"
                 android:layout_weight="1"
-                android:text="설정"/>
+                android:src="@drawable/settings"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:padding="5dp"
+                />
         </LinearLayout>
 
     </RelativeLayout>

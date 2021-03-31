@@ -105,48 +105,56 @@
         app:srcCompat="@drawable/add" />
 
     <LinearLayout
+        android:id="@+id/nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
-        android:weightSum="1"
+        android:weightSum="4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton4">
 
-        <Button
-            android:id="@+id/btn_maincat"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="0.25"
-            android:background="@drawable/pawprint"
-            android:orientation="horizontal"
-            app:backgroundTint="#000000"></Button>
+        <ImageButton
+            android:id="@+id/home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cat" />
 
-        <Button
-            android:id="@+id/btn_album"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="0.25"
-            android:background="@drawable/gallery"
-            app:backgroundTint="#000000">
+        <ImageButton
+            android:id="@+id/Photos"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/gallary2" />
 
-        </Button>
+        <ImageButton
+            android:id="@+id/Alarm"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/notification" />
 
-        <Button
-            android:id="@+id/btn_alarm"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="0.25"
-            android:background="@drawable/notification"
-            app:backgroundTint="#000000"></Button>
-
-        <Button
-            android:id="@+id/btn_setting"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="0.25"
-            android:background="@drawable/settings"
-            app:backgroundTint="#000000"></Button>
-
+        <ImageButton
+            android:id="@+id/Setting"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings" />
     </LinearLayout>
 
 

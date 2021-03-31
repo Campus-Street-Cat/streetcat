@@ -6,10 +6,16 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val database = Firebase.database
+        val myRef = database.getReference("nickname")
+
+        myRef.setValue("Hello, World!")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -29,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CatActivity::class.java); //화면이동
             startActivity(intent);
         }
+
 
 
     }
