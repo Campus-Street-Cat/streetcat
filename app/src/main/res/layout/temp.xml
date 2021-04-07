@@ -19,7 +19,7 @@
             android:id="@+id/univ_logo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="25dp"
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/kau"
             />
@@ -41,38 +41,67 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="7dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/univ_banner"
         tools:layout_editor_absoluteX="48dp"
         tools:listitem="@layout/item_recycler_view" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
+    <LinearLayout
         android:id="@+id/favorite_cats"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView">
 
-        android:text="즐겨찾는 고양이"
-        android:textSize="20sp"
-        android:textColor="@color/black"
+        <ImageView
+            android:id="@+id/favorite_star"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="25dp"
+            />
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:id="@+id/favorite_cats_text"
+
+            android:text="즐겨찾는 고양이"
+            android:textSize="20sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="2dp"
 
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toBottomOf="@+id/favorite_cats"
         tools:listitem="@layout/item_recycler_view" />
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray"
+        app:iconifiedByDefault="false"
+
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
+        app:layout_constraintVertical_bias="0.2"
+        app:queryHint="고양이 또는 학교 검색" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
