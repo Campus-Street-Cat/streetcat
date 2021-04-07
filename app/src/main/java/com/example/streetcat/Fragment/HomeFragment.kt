@@ -47,17 +47,12 @@ class HomeFragment : Fragment() {
         recyclerView1.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView1.adapter = adapter
 
-        /*adapter.setOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener{
-            override fun onItemClick(view: View, position: Int) {
-                /*val intent = Intent(context, CatInfo::class.java)
+        adapter.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener{
+            override fun onClick(view : View, position : Int){
+                val intent = Intent(context, CatInfo::class.java)
                 startActivity(intent)
-                activity?.finish()*/
-                Toast.makeText(context, "토스트 메세지 띄우기 입니다.", Toast.LENGTH_SHORT).show()
             }
-        })*/
-
-
-
+        })
 
         // 즐겨찾는 고양이 recyclerView
         recyclerView2 = rootView.findViewById(R.id.recyclerView2!!)as RecyclerView
