@@ -2,47 +2,68 @@ package com.example.streetcat.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
-import com.example.streetcat.CatActivity
-import com.example.streetcat.CatInfo
-import com.example.streetcat.MainActivity
-import com.example.streetcat.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.streetcat.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.temp.*
 
 
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+    var cats = arrayListOf<list_cats>(list_cats(R.drawable.p1, "폼폼이1"),
+            list_cats(R.drawable.p2, "폼폼이2"), list_cats(R.drawable.p3, "폼폼이3"),
+            list_cats(R.drawable.p4, "폼폼이4"), list_cats(R.drawable.pompom1, "폼폼이5"),
+            list_cats(R.drawable.add, "추가"))
+    lateinit var recyclerView1 : RecyclerView
+    lateinit var recyclerView2 : RecyclerView
+
+    private val adapter = RecyclerViewAdapter(cats)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*pom.setOnClickListener()
-        {
-            val intent = Intent(activity, CatInfo::class.java); //화면이동
-            startActivity(intent);
-        }
-
-        btn_add.setOnClickListener()
-        {
-            val intent = Intent(activity, CatActivity::class.java); //화면이동
-            startActivity(intent);
-        }
-*/
     }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        savedInstanceState: Bundle? ): View? {
+        var rootView =  inflater.inflate(R.layout.temp, container, false)
+
+        /*recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = RecyclerViewAdapter(cats)*/
+
+        // 위아래 뭐가 다른건지는 잘 모르겠는데 findViewById 쓰니까 되네..
+
+        // 학교 고양이 recyclerView
+        recyclerView1 = rootView.findViewById(R.id.recyclerView!!)as RecyclerView
+        recyclerView1.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView1.adapter = adapter
+
+        /*adapter.setOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener{
+            override fun onItemClick(view: View, position: Int) {
+                /*val intent = Intent(context, CatInfo::class.java)
+                startActivity(intent)
+                activity?.finish()*/
+                Toast.makeText(context, "토스트 메세지 띄우기 입니다.", Toast.LENGTH_SHORT).show()
+            }
+        })*/
+
+
+
+
+        // 즐겨찾는 고양이 recyclerView
+        recyclerView2 = rootView.findViewById(R.id.recyclerView2!!)as RecyclerView
+        recyclerView2.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView2.adapter = RecyclerViewAdapter(cats)
+
+        return rootView
     }
-
-
 }
