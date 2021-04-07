@@ -2,13 +2,14 @@
     <!-- Base application theme. -->
     <style name="Theme.Streetcat" parent="Theme.AppCompat.DayNight">
         <!-- Primary brand color. -->
-        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/blue</item>
         <item name="colorScheme">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/white</item>
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

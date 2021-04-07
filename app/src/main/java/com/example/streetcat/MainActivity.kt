@@ -35,32 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         configureBottomNavigation()
 
-
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("message")
-        myRef.setValue("Hello, World!")
-
-        /*
-        val pom: ImageButton = findViewById(R.id.pom);
-        pom.setOnClickListener()
-        {
-
-            val intent = Intent(this, CatInfo::class.java); //화면이동
-            startActivity(intent);
-        }
-
-        val btn_add: ImageButton = findViewById(R.id.btn_add);
-        btn_add.setOnClickListener()
-        {
-            Toast.makeText(this@MainActivity, "고양이를 추가합니다.", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, CatActivity::class.java); //화면이동
-            startActivity(intent);
-        }
-        */
-
-
-
     }
 
 

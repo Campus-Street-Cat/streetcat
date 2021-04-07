@@ -156,7 +156,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/layout3"
-            android:numColumns="3" />
+            android:id="@+id/layout4">
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"
+                android:id="@+id/gridView"/>
+
+        </LinearLayout>
 
 
     </RelativeLayout>

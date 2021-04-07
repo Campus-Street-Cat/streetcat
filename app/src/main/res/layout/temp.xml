@@ -75,6 +75,7 @@
             android:textColor="@color/black" />
     </LinearLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
@@ -85,6 +86,7 @@
         app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toBottomOf="@+id/favorite_cats"
         tools:listitem="@layout/item_recycler_view" />
+
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
@@ -100,5 +102,6 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
         app:layout_constraintVertical_bias="0.2"
         app:queryHint="고양이 또는 학교 검색" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

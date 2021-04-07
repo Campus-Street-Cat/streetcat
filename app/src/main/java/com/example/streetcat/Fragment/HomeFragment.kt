@@ -37,20 +37,20 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle? ): View? {
         var rootView =  inflater.inflate(R.layout.temp, container, false)
 
-        /*recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = RecyclerViewAdapter(cats)*/
-
-        // 위아래 뭐가 다른건지는 잘 모르겠는데 findViewById 쓰니까 되네..
-
-        // 학교 고양이 recyclerView
         recyclerView1 = rootView.findViewById(R.id.recyclerView!!)as RecyclerView
         recyclerView1.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView1.adapter = adapter
 
         adapter.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener{
             override fun onClick(view : View, position : Int){
-                val intent = Intent(context, CatInfo::class.java)
-                startActivity(intent)
+                if(position == 0) {
+                    val intent = Intent(context, CatInfo::class.java)
+                    startActivity(intent)
+                }
+                else if(position == 5){
+                    val intent = Intent(context, CatAdd::class.java)
+                    startActivity(intent)
+                }
             }
         })
 
