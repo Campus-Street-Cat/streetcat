@@ -111,7 +111,6 @@
             android:orientation="vertical"
             android:background="@color/white"
             android:layout_below="@id/layout3"
-            android:layout_above="@id/nav"
             android:id="@+id/layout4">
 
             <GridView
@@ -122,87 +121,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            android:id="@+id/nav">
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/home"
-                android:layout_weight="1"
-                android:src="@drawable/cat"
-                android:scaleType="fitCenter"
-                android:background="@color/white"
-                android:padding="5dp"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/Photos"
-                android:layout_weight="1"
-                android:src="@drawable/gallary2"
-                android:scaleType="fitCenter"
-                android:background="@color/white"
-                android:padding="5dp"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/Alarm"
-                android:layout_weight="1"
-                android:src="@drawable/notification"
-                android:scaleType="fitCenter"
-                android:background="@color/white"
-                android:padding="5dp"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/Setting"
-                android:layout_weight="1"
-                android:src="@drawable/settings"
-                android:scaleType="fitCenter"
-                android:background="@color/white"
-                android:padding="5dp"
-                />
-        </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>
-
-    <!--<GridView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:numColumns="3"-->
-    <!--android:id="@+id/gridView1"/>-->
-
-
-
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <!--<LinearLayout-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--    android:orientation="vertical" >-->
-
-    <!--    <ImageView-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="300dp"-->
-    <!--        android:src="@drawable/pj2"/>-->
-    <!--    <ImageView-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="300dp"-->
-    <!--        android:src="@drawable/pj2"/>-->
-    <!--    <ImageView-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="300dp"-->
-    <!--        android:src="@drawable/pj2"/>-->
-    <!--</LinearLayout>-->
-    <!--</ScrollView>-->
