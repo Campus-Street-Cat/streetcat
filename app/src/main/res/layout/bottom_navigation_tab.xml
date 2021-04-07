@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_margin="7dp"
             android:src="@drawable/cat" />
     </RelativeLayout>
 
@@ -28,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/gallery" />
+            android:layout_margin="10dp"
+            android:src="@drawable/gallary2" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -40,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_margin="10dp"
             android:src="@drawable/notification" />
     </RelativeLayout>
 
@@ -52,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_margin="10dp"
             android:src="@drawable/settings" />
     </RelativeLayout>
 
