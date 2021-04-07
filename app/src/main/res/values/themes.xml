@@ -2,8 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.Streetcat" parent="Theme.AppCompat.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
         <item name="colorScheme">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
