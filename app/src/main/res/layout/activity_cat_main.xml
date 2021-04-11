@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:weightSum="10"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -19,16 +18,21 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/Back"
+            <ImageButton
+                android:id="@+id/catInfo_backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="뒤로" />
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="16dp"
+                android:background="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="?attr/actionModeCloseDrawable" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Back"
+                android:layout_below="@id/catInfo_backButton"
                 android:layout_centerHorizontal="true"
                 android:text="고양이 정보"
                 android:textSize="20sp" />
@@ -151,21 +155,14 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <GridView
-            android:id="@+id/gridView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/galleryView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:layout_below="@id/layout3"
-            android:id="@+id/layout4">
-
-            <GridView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:numColumns="3"
-                android:id="@+id/gridView"/>
-
-        </LinearLayout>
-
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_gallery" />
 
     </RelativeLayout>
 </LinearLayout>

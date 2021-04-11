@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,102 +7,84 @@
     tools:context=".Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/univ_logo"
-        android:layout_width="70dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/kau" />
 
-    <TextView
-        android:id="@+id/univ_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="한국항공대학교"
-        android:textColor="#000000"
-        android:textColorHighlight="#000000"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.415"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/univ_banner"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/univ_cat_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="35dp"
-        android:text="우리학교 고양이"
-        android:textColor="#020000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/univ_logo" />
+        <ImageView
+            android:id="@+id/univ_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/kau"
+            />
 
-    <TextView
-        android:id="@+id/plus_cat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
-        android:text="즐겨찾는 고양이"
-        android:textColor="#020000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pom" />
+        <TextView
+            android:id="@+id/univ_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="한국항공대학교"
+            android:textColor="#000000"
+            android:textColorHighlight="#000000"
+            android:textSize="25sp"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/pom"
-        android:layout_width="100dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/univ_cat_list"
-        app:srcCompat="@drawable/pompom1" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/univ_cats_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="7dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/univ_banner"
+        tools:layout_editor_absoluteX="48dp"
+        tools:listitem="@layout/item_recycler_view" />
 
-    <ImageButton
-        android:id="@+id/pom2"
-        android:layout_width="100dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plus_cat"
-        app:srcCompat="@drawable/pompom1" />
+    <LinearLayout
+        android:id="@+id/favorite_cats"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/univ_cats_view">
 
-    <ImageButton
-        android:id="@+id/btn_add"
-        android:layout_width="100dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="#0000"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/pom"
-        app:layout_constraintTop_toBottomOf="@+id/univ_cat_list"
-        app:srcCompat="@drawable/add" />
+        <ImageView
+            android:id="@+id/favorite_star"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/star"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="25dp"
+            />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="100dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="#0000"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/pom2"
-        app:layout_constraintTop_toBottomOf="@+id/plus_cat"
-        app:srcCompat="@drawable/add" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:id="@+id/favorite_cats_text"
+
+            android:text="즐겨찾는 고양이"
+            android:textSize="20sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_cats_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="2dp"
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="@+id/univ_cats_view"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_cats"
+        tools:listitem="@layout/item_recycler_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
