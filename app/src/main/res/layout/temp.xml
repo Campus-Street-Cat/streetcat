@@ -38,7 +38,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/univ_cats_view"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="7dp"
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView">
+        app:layout_constraintTop_toBottomOf="@id/univ_cats_view">
 
         <ImageView
             android:id="@+id/favorite_star"
@@ -77,13 +77,13 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/favorite_cats_view"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="2dp"
 
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="@+id/univ_cats_view"
         app:layout_constraintTop_toBottomOf="@+id/favorite_cats"
         tools:listitem="@layout/item_recycler_view" />
 
@@ -99,7 +99,7 @@
         android:layout_marginHorizontal="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_cats_view"
         app:layout_constraintVertical_bias="0.2"
         app:queryHint="고양이 또는 학교 검색" />
 

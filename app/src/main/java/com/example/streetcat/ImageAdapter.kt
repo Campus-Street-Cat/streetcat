@@ -14,7 +14,7 @@ class ImageAdapter(private val context: Context) : BaseAdapter() {
         R.drawable.p1, R.drawable.p2, R.drawable.p3,
         R.drawable.p4, R.drawable.pompom1, R.drawable.p6,
         R.drawable.p1, R.drawable.p2, R.drawable.p3,
-        R.drawable.p4, R.drawable.pompom1, R.drawable.p6,)
+        R.drawable.p4, R.drawable.pompom1, R.drawable.p6)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val imageView:ImageView

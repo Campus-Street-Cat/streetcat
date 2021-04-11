@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetcat.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.temp.*
 
 
@@ -21,8 +22,8 @@ class HomeFragment : Fragment() {
             list_cats(R.drawable.p2, "폼폼이2"), list_cats(R.drawable.p3, "폼폼이3"),
             list_cats(R.drawable.p4, "폼폼이4"), list_cats(R.drawable.pompom1, "폼폼이5"),
             list_cats(R.drawable.add, "추가"))
-    lateinit var recyclerView1 : RecyclerView
-    lateinit var recyclerView2 : RecyclerView
+    //lateinit var recyclerView1 : RecyclerView
+    //lateinit var recyclerView2 : RecyclerView
 
     private val adapter = RecyclerViewAdapter(cats)
 
@@ -35,11 +36,14 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
-        var rootView =  inflater.inflate(R.layout.temp, container, false)
+        var rootView =  inflater.inflate(R.layout.fragment_home, container, false)
 
-        recyclerView1 = rootView.findViewById(R.id.recyclerView!!)as RecyclerView
+        /*recyclerView1 = rootView.findViewById(R.id.univ_cats_view!!)as RecyclerView
         recyclerView1.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView1.adapter = adapter
+        recyclerView1.adapter = adapter*/
+
+        rootView.univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rootView.univ_cats_view.adapter = adapter
 
         adapter.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener{
             override fun onClick(view : View, position : Int){
@@ -55,9 +59,12 @@ class HomeFragment : Fragment() {
         })
 
         // 즐겨찾는 고양이 recyclerView
-        recyclerView2 = rootView.findViewById(R.id.recyclerView2!!)as RecyclerView
+        /*recyclerView2 = rootView.findViewById(R.id.favorite_cats_view!!)as RecyclerView
         recyclerView2.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView2.adapter = RecyclerViewAdapter(cats)
+        recyclerView2.adapter = RecyclerViewAdapter(cats)*/
+
+        rootView.favorite_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rootView.favorite_cats_view.adapter = adapter
 
         return rootView
     }
