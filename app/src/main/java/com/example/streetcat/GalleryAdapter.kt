@@ -4,15 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streetcat.Fragment.HomeFragment
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_recycler_view.view.*
+import kotlinx.android.synthetic.main.item_gallery.view.*
 
-
-class RecyclerViewAdapter(private val catList: ArrayList<list_cats>) :
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class GalleryAdapter(private val photos : ArrayList<GalleryPhoto>) :
+        RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     interface ItemClickListener{
         fun onClick(view : View, position: Int)
@@ -25,33 +21,26 @@ class RecyclerViewAdapter(private val catList: ArrayList<list_cats>) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
         val imageView : ImageView
 
         init {
-            textView = view.name
-            imageView = view.image
+            imageView = view.gallery_image
         }
-
     }
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_recycler_view, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_gallery, viewGroup, false)
 
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = catList[position].name
-        Picasso.get().load(catList[position].img).into(viewHolder.imageView)
+        viewHolder.imageView.setImageResource(photos[position].photo)
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
     }
 
-    override fun getItemCount() = catList.size
+    override fun getItemCount() = photos.size
 }

@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ListResult
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.temp.*
 import java.io.File
 
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
-        var rootView =  inflater.inflate(R.layout.temp, container, false)
+        var rootView =  inflater.inflate(R.layout.fragment_home, container, false)
 
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference.child("폼폼이").child("pictures")
@@ -73,11 +74,9 @@ class HomeFragment : Fragment() {
             }
         }
 
-/*
+        rootView.univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rootView.univ_cats_view.adapter = adapter
 
-        recyclerView.adapter = RecyclerViewAdapter(cats)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-*/
         adapter.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener{
             override fun onClick(view : View, position : Int){
                 if(position == 0) {
@@ -95,6 +94,8 @@ class HomeFragment : Fragment() {
         /*recyclerView2 = rootView.findViewById(R.id.recyclerView2!!)as RecyclerView
         recyclerView2.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView2.adapter = RecyclerViewAdapter(cats)*/
+        rootView.favorite_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rootView.favorite_cats_view.adapter = adapter
 
         return rootView
     }
