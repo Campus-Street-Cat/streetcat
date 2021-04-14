@@ -116,6 +116,7 @@
 
     </RelativeLayout>
 
+
     <LinearLayout
         android:id="@+id/layout3"
         android:layout_width="match_parent"
@@ -153,6 +154,7 @@
         android:id="@+id/galleryView"
         android:layout_width="match_parent"
         android:layout_height="395dp"
+
 
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/layout3"

@@ -11,11 +11,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.streetcat"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,6 +39,11 @@ android {
 }
 
 dependencies {
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.2.2'
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
     def nav_version = "2.3.0-beta01"
 
     // Java language implementation
@@ -79,6 +84,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
