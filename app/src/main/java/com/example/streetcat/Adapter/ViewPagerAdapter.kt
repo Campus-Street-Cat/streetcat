@@ -9,8 +9,8 @@ class ViewPagerAdapter(fm : FragmentManager, private val fragmentCount : Int) : 
     override fun getItem(position: Int): Fragment {
         when(position){
             0 -> return HomeFragment()
-            1 -> return NoticeFragment()
-            2 -> return PostFragment()
+            1 -> return PostFragment()
+            2 -> return NoticeFragment()
             else -> return SettingFragment()
         }
     }
