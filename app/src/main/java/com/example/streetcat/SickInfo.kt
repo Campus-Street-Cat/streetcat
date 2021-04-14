@@ -9,14 +9,14 @@ import com.example.streetcat.R
 import kotlinx.android.synthetic.main.activity_sick_info.*
 
 
-class MainActivity : AppCompatActivity() {
+class SickInfo : AppCompatActivity() {
     //
     var data1 = arrayOf("열이 나요", "토를 했어요", "피부병이 있어요", "설사를 했어요", "눈물을 흘려요")
     var data2 = arrayOf("열이 나요", "토를 했어요", "피부병이 있어요", "설사를 했어요", "눈물을 흘려요")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_sick_info)
 
         var adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, data1)
         var adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item,data2)
@@ -59,7 +59,5 @@ class MainActivity : AppCompatActivity() {
         override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             TODO("Not yet implemented")
         }
-
-
     }
 }

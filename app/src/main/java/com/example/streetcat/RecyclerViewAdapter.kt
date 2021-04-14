@@ -46,7 +46,8 @@ class RecyclerViewAdapter(private val catList: ArrayList<list_cats>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.textView.text = catList[position].name
-        Picasso.get().load(catList[position].img).into(viewHolder.imageView)
+        viewHolder.imageView.setImageResource(catList[position].img)
+        //Picasso.get().load(catList[position].img).into(viewHolder.imageView)
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)

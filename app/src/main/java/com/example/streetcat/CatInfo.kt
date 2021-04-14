@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.streetcat.Fragment.SickInfo
 import kotlinx.android.synthetic.main.activity_cat_main.*
 import kotlinx.android.synthetic.main.activity_post.*
 
@@ -23,6 +24,11 @@ class CatInfo : AppCompatActivity() {
 
         detail_info.setOnClickListener{
             val intent = Intent(this, CatDetailInfo::class.java)
+            startActivity(intent)
+        }
+
+        cat_health.setOnClickListener{
+            val intent = Intent(this, SickInfo::class.java)
             startActivity(intent)
         }
     }

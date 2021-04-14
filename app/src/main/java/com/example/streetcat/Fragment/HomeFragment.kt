@@ -27,15 +27,15 @@ import java.io.File
 
 
 class HomeFragment : Fragment() {
-    /*
+
     var cats = arrayListOf<list_cats>(list_cats(R.drawable.p1, "폼폼이1"),
             list_cats(R.drawable.p2, "폼폼이2"), list_cats(R.drawable.p3, "폼폼이3"),
             list_cats(R.drawable.p4, "폼폼이4"), list_cats(R.drawable.pompom1, "폼폼이5"),
             list_cats(R.drawable.add, "추가"))
 
-     */
 
-    var cats = ArrayList<list_cats>()
+
+    //var cats = ArrayList<list_cats>()
     var adapter = RecyclerViewAdapter(cats)
     //cats.add(list_cats(R.drawable.add, "추가"))
     lateinit var recyclerView1 : RecyclerView
@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         val storageRef = storage.reference.child("폼폼이").child("pictures")
 
 
-        val listAllTask: Task<ListResult> = storageRef.listAll()
+        /*val listAllTask: Task<ListResult> = storageRef.listAll()
 
         listAllTask.addOnCompleteListener { result ->
             val items: List<StorageReference> = result.result!!.items
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                     recyclerView.adapter = RecyclerViewAdapter(cats)
                 }
             }
-        }
+        }*/
 
         rootView.univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rootView.univ_cats_view.adapter = adapter

@@ -24,20 +24,17 @@
         <activity android:name=".CatInfo"></activity>
         <activity android:name=".CatAdd"></activity>
         <activity android:name=".MainActivity">
-        <activity android:name=".PostActivity"></activity>
-        <activity android:name=".CatDetailInfo"></activity>
-        <activity
-            android:name=".Fragment.SickInfo"
-            android:label="@string/title_activity_sick_info"
-            android:theme="@style/Theme.Streetcat.NoActionBar"></activity>
-          
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".CatDetailInfo"></activity>
+        <activity android:name=".Fragment.SickInfo"></activity>
+
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.streetcat.fileprovider"
@@ -48,5 +45,6 @@
                 android:resource="@xml/file_paths"/>
         </provider>
     </application>
+
 
 </manifest>
