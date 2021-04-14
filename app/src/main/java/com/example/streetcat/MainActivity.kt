@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         tl_ac_main_bottom_menu.getTabAt(1)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_search_tab) as RelativeLayout
         tl_ac_main_bottom_menu.getTabAt(2)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_add_tab) as RelativeLayout
         tl_ac_main_bottom_menu.getTabAt(3)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_like_tab) as RelativeLayout
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -36,6 +35,4 @@ class MainActivity : AppCompatActivity() {
         configureBottomNavigation()
 
     }
-
-
 }

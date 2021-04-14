@@ -1,5 +1,6 @@
 package com.example.streetcat.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.streetcat.GalleryAdapter
-import com.example.streetcat.GalleryPhoto
-import com.example.streetcat.R
+import com.example.streetcat.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_post.view.*
 
@@ -40,6 +39,15 @@ class PostFragment : Fragment() {
 
         rootView.post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)
         rootView.post_gallery.adapter = adapter
+
+        adapter.setItemClickListener(object : GalleryAdapter.ItemClickListener{
+            override fun onClick(view : View, position : Int){
+                if(position == 0) {
+                    val intent = Intent(context, PostActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        })
 
         return rootView
     }

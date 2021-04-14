@@ -38,10 +38,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle? ): View? {
         var rootView =  inflater.inflate(R.layout.fragment_home, container, false)
 
-        /*recyclerView1 = rootView.findViewById(R.id.univ_cats_view!!)as RecyclerView
-        recyclerView1.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView1.adapter = adapter*/
-
         rootView.univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rootView.univ_cats_view.adapter = adapter
 
@@ -57,11 +53,6 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
-        // 즐겨찾는 고양이 recyclerView
-        /*recyclerView2 = rootView.findViewById(R.id.favorite_cats_view!!)as RecyclerView
-        recyclerView2.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView2.adapter = RecyclerViewAdapter(cats)*/
 
         rootView.favorite_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rootView.favorite_cats_view.adapter = adapter
