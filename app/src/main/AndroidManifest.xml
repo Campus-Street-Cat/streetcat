@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
-        <activity android:name=".CatInfo"></activity>
-        <activity android:name=".CatAdd"></activity>
+        <activity
+            android:name=".Fragment.SickInfo"
+            android:label="@string/title_activity_sick_info"
+            android:theme="@style/Theme.Streetcat.NoActionBar"></activity>
+        <activity android:name=".CatInfo" />
+        <activity android:name=".CatAdd" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
