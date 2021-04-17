@@ -5,5 +5,4 @@ import android.media.Image
 import android.net.Uri
 import android.widget.ImageView
 
-class list_cats(val img : Int, val name : String) {
-}
+data class ListCats(val img : Uri, val name : String)

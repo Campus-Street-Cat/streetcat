@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streetcat.Fragment.HomeFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 
 
-class RecyclerViewAdapter(private val catList: ArrayList<list_cats>) :
+class RecyclerViewAdapter(private val catList: ArrayList<ListCats>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     interface ItemClickListener{
@@ -46,8 +45,7 @@ class RecyclerViewAdapter(private val catList: ArrayList<list_cats>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.textView.text = catList[position].name
-        viewHolder.imageView.setImageResource(catList[position].img)
-        //Picasso.get().load(catList[position].img).into(viewHolder.imageView)
+        Picasso.get().load(catList[position].img).into(viewHolder.imageView)
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)

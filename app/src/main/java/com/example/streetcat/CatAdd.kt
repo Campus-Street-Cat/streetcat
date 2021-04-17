@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -161,7 +162,7 @@ class CatAdd : AppCompatActivity() {
         // database 생성
         val database = FirebaseDatabase.getInstance()
         val ref = database.getReference("cats")
-        var sex = "male"
+        var gender = "male"
         var neutral = false
 
 
@@ -179,25 +180,30 @@ class CatAdd : AppCompatActivity() {
 
             val name = input_catName.editableText.toString()
             val birth = input_catBirth.editableText.toString()
-            var timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            var imgFileName = name + "main" + ".png"
+            val school = input_catSchool.editableText.toString()
+            var imgFileName = name + ".png"
 
             var fbStorage = FirebaseStorage.getInstance()
 
             var storageRef = fbStorage.reference.child(name).child("main").child(imgFileName)
-            storageRef.putFile(uriPhoto!!)
+            storageRef.putFile(uriPhoto!!).addOnSuccessListener {
+                var img_url = it.uploadSessionUri.toString()
+
+                ref.child(name).child("picture").setValue(img_url)
+            }
             if(input_male.isChecked) {
-                sex = "male"
+                gender = "male"
             }
             else{
-                sex = "female"
+                gender = "female"
             }
             neutral = input_neutral.isChecked
 
-            val info_cat = CatAddClass(birth, sex, neutral)
+            val info_cat = CatAddClass(name, birth, gender, neutral, school)
             ref.child(name).setValue(info_cat)
             Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()
         }
     }
 }
+
 

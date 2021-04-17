@@ -60,14 +60,52 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
         android:text="사진 등록하기"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="136dp"
+        android:text="가장 잘 나온 사진을\n    추가해주세요!"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@+id/input_catPicture"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <Button
+        android:id="@+id/addCatBtn"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/round_btn"
+        android:text="등록하기"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_catPicture" />
+
+    <ImageButton
+        android:id="@+id/input_catPicture"
+        android:layout_width="145dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:srcCompat="@drawable/camera" />
 
     <TextView
         android:id="@+id/textView5"
@@ -97,7 +135,7 @@
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="96dp"
         android:background="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -127,32 +165,6 @@
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/input_female" />
-
-    <ImageButton
-        android:id="@+id/input_catPicture"
-        android:layout_width="145dp"
-        android:layout_height="136dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="28dp"
-        android:scaleType="centerInside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:srcCompat="@drawable/camera" />
-
-    <Button
-        android:id="@+id/addCatBtn"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/round_btn"
-        android:text="등록하기"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_catPicture" />
 
     <CheckBox
         android:id="@+id/input_female"
@@ -185,15 +197,25 @@
         app:layout_constraintTop_toBottomOf="@+id/input_catName" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="116dp"
-        android:text="가장 잘 나온 사진을\n    추가해주세요!"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:text="학교"
         android:textColor="#000000"
-        android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@+id/input_catPicture"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <EditText
+        android:id="@+id/input_catSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/input_catBirth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
