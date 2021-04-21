@@ -1,20 +1,22 @@
-package com.example.streetcat
+package com.example.streetcat.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.streetcat.data.GalleryPhoto
+import com.example.streetcat.R
 import kotlinx.android.synthetic.main.item_gallery.view.*
 
-class GalleryAdapter(private val photos : ArrayList<GalleryPhoto>) :
-        RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
+class CatInfoGalleryAdapter(private val photos : ArrayList<GalleryPhoto>) :
+        RecyclerView.Adapter<CatInfoGalleryAdapter.ViewHolder>() {
 
     interface ItemClickListener{
         fun onClick(view : View, position: Int)
     }
 
-    private lateinit var itemClickListener :  ItemClickListener
+    private lateinit var itemClickListener : ItemClickListener
 
     fun setItemClickListener(itemClickListener: ItemClickListener){
         this.itemClickListener = itemClickListener

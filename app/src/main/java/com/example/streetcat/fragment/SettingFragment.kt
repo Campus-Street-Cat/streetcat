@@ -1,4 +1,4 @@
-package com.example.streetcat.Fragment
+package com.example.streetcat.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.streetcat.R
 
-
-class NoticeFragment : Fragment() {
+class SettingFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -22,7 +21,8 @@ class NoticeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notice, container, false)
+        return inflater.inflate(R.layout.fragment_setting, container, false)
     }
+
 
 }

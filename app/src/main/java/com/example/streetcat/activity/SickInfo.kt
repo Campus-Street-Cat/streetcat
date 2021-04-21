@@ -1,4 +1,4 @@
-package com.example.streetcat.Fragment
+package com.example.streetcat.activity
 
 import android.os.Bundle
 import android.view.View

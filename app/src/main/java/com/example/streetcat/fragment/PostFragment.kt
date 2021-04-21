@@ -1,4 +1,4 @@
-package com.example.streetcat.Fragment
+package com.example.streetcat.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,23 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_post.*
+import com.example.streetcat.activity.PostActivity
+import com.example.streetcat.activity.WritePost
+import com.example.streetcat.adapter.CatInfoGalleryAdapter
+import com.example.streetcat.data.GalleryPhoto
 import kotlinx.android.synthetic.main.fragment_post.view.*
 
 
 class PostFragment : Fragment() {
-    var images = arrayListOf<GalleryPhoto>(GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
+    var images = arrayListOf<GalleryPhoto>(
+        GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
             GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6),
             GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
             GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6),
             GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
             GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6),
             GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
-            GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6))
-    private val adapter = GalleryAdapter(images)
+            GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6)
+    )
+    private val adapter = CatInfoGalleryAdapter(images)
 
     //private var param1: String? = null
     //private var param2: String? = null
@@ -41,7 +44,7 @@ class PostFragment : Fragment() {
         rootView.post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)
         rootView.post_gallery.adapter = adapter
 
-        adapter.setItemClickListener(object : GalleryAdapter.ItemClickListener{
+        adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener{
             override fun onClick(view : View, position : Int){
                 if(position == 0) {
                     val intent = Intent(context, PostActivity::class.java)

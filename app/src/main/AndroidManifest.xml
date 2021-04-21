@@ -21,19 +21,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
-        <activity android:name=".CatInfo"></activity>
-        <activity android:name=".CatAdd"></activity>
-        <activity android:name=".WritePost"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.CatInfo"></activity>
+        <activity android:name=".activity.CatAdd"></activity>
+        <activity android:name=".activity.WritePost"></activity>
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostActivity"></activity>
-        <activity android:name=".CatDetailInfo"></activity>
-        <activity android:name=".Fragment.SickInfo"></activity>
+        <activity android:name=".activity.PostActivity"></activity>
+        <activity android:name=".activity.CatDetailInfo"></activity>
+        <activity android:name=".activity.SickInfo"></activity>
 
 
         <provider

@@ -1,12 +1,12 @@
-package com.example.streetcat
+package com.example.streetcat.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.streetcat.R
 import kotlinx.android.synthetic.main.item_view_pager.view.*
 
 /*class ViewPagerAdapter(var postImage: ArrayList<Int>) : RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
@@ -26,8 +26,8 @@ import kotlinx.android.synthetic.main.item_view_pager.view.*
     }
 }*/
 
-class ViewPagerAdapter(private val context: Context, private val items: ArrayList<Int>) :
-    RecyclerView.Adapter<ViewPagerAdapter.ViewHolder>() {
+class PostViewPagerAdapter(private val context: Context, private val items: ArrayList<Int>) :
+    RecyclerView.Adapter<PostViewPagerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_pager, parent, false))
 

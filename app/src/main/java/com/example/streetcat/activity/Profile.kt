@@ -1,20 +1,22 @@
-package com.example.streetcat
+package com.example.streetcat.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.streetcat.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login_info.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
 
-lateinit var auth: FirebaseAuth //파이어베이스 선언
-var databaseReference: DatabaseReference? = null //실시간 데베 참조
-var database: FirebaseDatabase? = null //자체 데베 참조
 
 class Profile : AppCompatActivity() {
-    //
+
+    lateinit var auth: FirebaseAuth //파이어베이스 선언
+    var databaseReference: DatabaseReference? = null //실시간 데베 참조
+    var database: FirebaseDatabase? = null //자체 데베 참조
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_info)

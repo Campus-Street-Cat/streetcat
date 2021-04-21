@@ -3,6 +3,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -34,6 +35,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
 }
@@ -100,6 +102,14 @@ dependencies {
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    //MVP 모델 설정
+   def lifecycle_version = "2.2.0"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.activity:activity-ktx:1.1.0"
 
 }
 
