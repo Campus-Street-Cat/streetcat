@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.fragment_post.view.*
 
 
@@ -49,6 +50,15 @@ class PostFragment : Fragment() {
             }
         })
 
+        rootView.post_write.setOnClickListener(ButtonListener())
+
         return rootView
+    }
+
+    inner class ButtonListener : View.OnClickListener{
+        override fun onClick(v: View?) {
+            val intent = Intent(context, WritePost::class.java)
+            startActivity(intent)
+        }
     }
 }
