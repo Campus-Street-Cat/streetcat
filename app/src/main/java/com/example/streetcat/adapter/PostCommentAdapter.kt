@@ -1,56 +1,58 @@
-package com.example.streetcat
+package com.example.streetcat.adapter
 
+import kotlinx.android.synthetic.main.item_comments.view.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_recycler_view.view.*
+import com.example.streetcat.data.Comments
+import com.example.streetcat.R
 
-
-class RecyclerViewAdapter(private val catList: ArrayList<ListCats>) :
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class PostCommentAdapter(private val commentList: ArrayList<Comments>) :
+    RecyclerView.Adapter<PostCommentAdapter.ViewHolder>() {
 
     interface ItemClickListener{
         fun onClick(view : View, position: Int)
     }
 
-    private lateinit var itemClickListener :  ItemClickListener
+    private lateinit var itemClickListener : ItemClickListener
 
     fun setItemClickListener(itemClickListener: ItemClickListener){
         this.itemClickListener = itemClickListener
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
         val imageView : ImageView
+        val username: TextView
+        val comment: TextView
 
         init {
-            textView = view.name
-            imageView = view.image
+            imageView = view.comment_user_profile_image
+            username = view.comment_user_name
+            comment = view.comment
         }
-
     }
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_recycler_view, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_comments, viewGroup, false)
 
         return ViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = catList[position].name
-        Picasso.get().load(catList[position].img).into(viewHolder.imageView)
+        viewHolder.imageView.setImageResource(commentList[position].user_img)
+        viewHolder.username.text = commentList[position].user_name
+        viewHolder.comment.text = commentList[position].comment
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
     }
 
-    override fun getItemCount() = catList.size
+    override fun getItemCount() = commentList.size
 }

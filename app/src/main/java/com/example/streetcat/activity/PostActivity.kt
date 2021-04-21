@@ -1,19 +1,25 @@
-package com.example.streetcat
+package com.example.streetcat.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.streetcat.data.Comments
+import com.example.streetcat.R
+import com.example.streetcat.adapter.PostCommentAdapter
+import com.example.streetcat.adapter.PostViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_post.*
 
 
 class PostActivity : AppCompatActivity() {
     private val postImage = arrayListOf<Int> (R.drawable.p1, R.drawable.p2, R.drawable.p3)
-    val com = arrayListOf<Comments>(Comments(R.drawable.p1, "kau_sw", "댓글 1"),
-        Comments(R.drawable.p2, "kau_pilot", "댓글 2"), Comments(R.drawable.p3, "kau_business", "댓글 3"))
+    val com = arrayListOf<Comments>(
+        Comments(R.drawable.p1, "kau_sw", "댓글 1"),
+        Comments(R.drawable.p2, "kau_pilot", "댓글 2"), Comments(R.drawable.p3, "kau_business", "댓글 3")
+    )
 
-    private val postImageAdapter = ViewPagerAdapter(this, postImage)
-    private val commentAdapter = CommentAdapter(com)
+    private val postImageAdapter = PostViewPagerAdapter(this, postImage)
+    private val commentAdapter = PostCommentAdapter(com)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

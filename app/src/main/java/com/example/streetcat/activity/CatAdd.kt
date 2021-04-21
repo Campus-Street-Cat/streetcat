@@ -1,6 +1,7 @@
-package com.example.streetcat
+package com.example.streetcat.activity
 
-import android.Manifest
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,18 +15,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.example.streetcat.R
+import com.example.streetcat.data.CatAddClass
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_cat_add.*
-import kotlinx.android.synthetic.main.activity_cat_add.input_catPicture
-import kotlinx.android.synthetic.main.activity_write_post.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WritePost : AppCompatActivity() {
-    var uriPhoto : Uri? = null
+
+class CatAdd : AppCompatActivity() {
+
+    private var uriPhoto : Uri? = null
 
     // 카메라 권한 요청 및 권한 체크
     val REQUEST_IMAGE_CAPTURE = 1
@@ -58,7 +61,7 @@ class WritePost : AppCompatActivity() {
     }
     // 카메라 권한 요청
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+        ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE, CAMERA),
                 REQUEST_IMAGE_CAPTURE)
     }
 
@@ -124,13 +127,43 @@ class WritePost : AppCompatActivity() {
             currentPhotoPath = absolutePath
         }
     }
+    /*
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    override fun onCreate(savedInstanceState: Bundle?){
+        when (requestCode){
+            1 -> {
+                if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
+
+                    // 카메라로부터 받은 데이터가 있을경우에만
+                    val file = File(currentPhotoPath)
+                    if (Build.VERSION.SDK_INT < 28) {
+                        val bitmap = MediaStore.Images.Media
+                                .getBitmap(contentResolver, Uri.fromFile(file))  //Deprecated
+                        input_catPicture.setImageBitmap(bitmap)
+                    }
+                    else{
+                        val decode = ImageDecoder.createSource(this.contentResolver,
+                                Uri.fromFile(file))
+                        val bitmap = ImageDecoder.decodeBitmap(decode)
+                        input_catPicture.setImageBitmap(bitmap)
+                    }
+                }
+            }
+        }
+    }
+    */
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_write_post)
+        setContentView(R.layout.activity_cat_add)
 
+
+        // database 생성
         val database = FirebaseDatabase.getInstance()
-        val ref = database.getReference("posts").push()  ////////// 새 하위 요소마다 고유 키를 생성하는 push 함수 -> 타임스탬프 시준이므로 시간순으로 자동 정렬된다고 함
+        val ref = database.getReference("cats")
+        var gender = "male"
+        var neutral = false
+
 
         input_catPicture.setOnClickListener{
             if(checkPersmission()){
@@ -140,28 +173,36 @@ class WritePost : AppCompatActivity() {
             }
         }
 
-        writePost_button.setOnClickListener{
-            val contents = postContents.editableText.toString()
-            val username : String = "pompom_love" // 글쓴 유저 이름 로그인 정보에서 가져와야 할듯
 
-            var imgFileName = username.toString() + ".png"
+        // "등록하기" 버튼을 누른 경우
+        addCatBtn.setOnClickListener{
+
+            val name = input_catName.editableText.toString()
+            val birth = input_catBirth.editableText.toString()
+            val school = input_catSchool.editableText.toString()
+            var imgFileName = name + ".png"
 
             var fbStorage = FirebaseStorage.getInstance()
 
-            var storageRef = fbStorage.reference.child(username).child("main").child(imgFileName)
+            var storageRef = fbStorage.reference.child(name).child("main").child(imgFileName)
             storageRef.putFile(uriPhoto!!).addOnSuccessListener {
                 var img_url = it.uploadSessionUri.toString()
 
-                ref.child("picture").setValue(img_url)
+                ref.child(name).child("picture").setValue(img_url)
             }
+            if(input_male.isChecked) {
+                gender = "male"
+            }
+            else{
+                gender = "female"
+            }
+            neutral = input_neutral.isChecked
 
-            val info_post = PostClass(username, 0, 0, contents)
-            ref.setValue(info_post)
-
-            Toast.makeText(applicationContext, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, PostActivity::class.java) // 완성된 post 페이지로 이동하든지, 아니면 post Fragment로 이동하든지. Fragment로 이동하는 방법을 몰라서 일단은 post activity로 이동
-            startActivity(intent)
+            val info_cat = CatAddClass(name, birth, gender, neutral, school)
+            ref.child(name).setValue(info_cat)
+            Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()
         }
     }
 }
+
+

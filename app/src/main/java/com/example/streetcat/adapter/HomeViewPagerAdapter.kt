@@ -1,11 +1,11 @@
-package com.example.streetcat.Adapter
+package com.example.streetcat.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.streetcat.Fragment.*
+import com.example.streetcat.fragment.*
 
-class ViewPagerAdapter(fm : FragmentManager, private val fragmentCount : Int) : FragmentStatePagerAdapter(fm) {
+class HomeViewPagerAdapter(fm : FragmentManager, private val fragmentCount : Int) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         when(position){
             0 -> return HomeFragment()
