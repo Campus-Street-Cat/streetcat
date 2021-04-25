@@ -3,13 +3,16 @@ package com.example.streetcat.activity
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
 import com.example.streetcat.adapter.HomeViewPagerAdapter
+import com.example.streetcat.viewModel.FbViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val fbViewModel: FbViewModel by viewModels()
 
     private fun configureBottomNavigation(){
 
@@ -28,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-
         // if 로그인 안되어있는 상태라면 -> 로그인 화면 activity
         // 에타 처음 화면
 

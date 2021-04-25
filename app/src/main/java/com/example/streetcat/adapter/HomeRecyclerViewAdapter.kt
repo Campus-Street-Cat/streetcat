@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streetcat.data.ListCats
+import com.example.streetcat.data.Cat
 import com.example.streetcat.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 
 
-class HomeRecyclerViewAdapter(private val catList: ArrayList<ListCats>) :
+class HomeRecyclerViewAdapter(private val catList: ArrayList<Cat>) :
     RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
 
     interface ItemClickListener{
@@ -26,13 +26,9 @@ class HomeRecyclerViewAdapter(private val catList: ArrayList<ListCats>) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
-        val imageView : ImageView
+        val textView: TextView = view.name
+        val imageView : ImageView = view.image
 
-        init {
-            textView = view.name
-            imageView = view.image
-        }
 
     }
 
@@ -47,7 +43,7 @@ class HomeRecyclerViewAdapter(private val catList: ArrayList<ListCats>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.textView.text = catList[position].name
-        Picasso.get().load(catList[position].img).into(viewHolder.imageView)
+        Picasso.get().load(catList[position].img).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
