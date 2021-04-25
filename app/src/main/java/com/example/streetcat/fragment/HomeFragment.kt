@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private val fbViewModel: FbViewModel by viewModels()
-
+    lateinit var adapter: HomeRecyclerViewAdapter
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
@@ -55,17 +55,27 @@ class HomeFragment : Fragment() {
                     for(comp in fbViewModel.getCats()){
                         if(comp.name == data.child("name").value.toString()) flag = false
                     }
-                    if(flag) fbViewModel.addCat(fbViewModel.getPhoto(data.child("name").value.toString()), data.child("name").value.toString())
+                    if(flag) fbViewModel.addCat(Uri.parse(data.child("name").value.toString()), data.child("name").value.toString())
                 }
                 univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                univ_cats_view.adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
+                adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
+                univ_cats_view.adapter = adapter
+
+                adapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
+                    override fun onClick(view: View, position: Int) {
+                        if (position == 0) {
+                            val intent = Intent(context, CatInfo::class.java)
+                            startActivity(intent)
+                        } else if (position == 5) {
+                            val intent = Intent(context, CatAdd::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                })
             }
         })
 
-        univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        univ_cats_view.adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
-
-        val adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
+        adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
         adapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
                 if (position == 0) {
