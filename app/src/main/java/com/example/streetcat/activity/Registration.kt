@@ -1,9 +1,13 @@
 package com.example.streetcat.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.example.streetcat.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -13,23 +17,22 @@ import kotlinx.android.synthetic.main.fragment_register.*
 
 class Registration : AppCompatActivity() {
     //
-    lateinit var auth:FirebaseAuth //파이어베이스 선언
+    lateinit var auth: FirebaseAuth //파이어베이스 선언
     var databaseReference: DatabaseReference? = null //실시간 데베 참조
-    var database:FirebaseDatabase? = null //자체 데베 참조
+    var database: FirebaseDatabase? = null //자체 데베 참조
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_info)
+        setContentView(R.layout.fragment_register)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("profile") //테이블 이름 지정
         register() //레지스터 함수 호출
-
     }
 
-    private fun register() {
+     private fun register() {
         btn_registration.setOnClickListener()
         {
             val name = input_name.toString()
@@ -60,7 +63,9 @@ class Registration : AppCompatActivity() {
                         currentUserDb?.child(name)?.setValue(input_name.text.toString())
                         Toast.makeText(this@Registration, "등록 성공하였습니다.", Toast.LENGTH_SHORT).show()
                         finish() //액티비티 끝냄
-                    } else //실패경우
+                    }
+
+                    else //실패경우
                     {
                         Toast.makeText(this@Registration, "등록 실패하였습니다.", Toast.LENGTH_SHORT).show()
                     }
