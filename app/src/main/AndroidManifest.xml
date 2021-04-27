@@ -21,8 +21,10 @@
         android:theme="@style/Theme.Streetcat">
         <activity android:name=".activity.MainActivity">
         </activity>
+
         <activity android:name=".activity.Login"/>
         <activity android:name=".activity.Registration"/>
+        <activity android:name=".activity.Profile"/>
         <activity android:name=".activity.CatInfo" />
         <activity android:name=".activity.CatAdd" />
         <activity android:name=".activity.WritePost" />

@@ -35,38 +35,41 @@ class Registration : AppCompatActivity() {
      private fun register() {
         btn_registration.setOnClickListener()
         {
-            val name = input_name.toString()
-            val email = input_email.toString()
-            val password = input_password.toString()
+            //val name = input_name.toString()
+            //val email = input_email.toString()
+            //val password = input_password.toString()
 
-            if (TextUtils.isEmpty(name)) {
+            if (TextUtils.isEmpty(input_name.toString())) {
                 input_name.setError("이름을 입력해주세요")
                 //비워둔 상태 허용불가
                 return@setOnClickListener
-            } else if (TextUtils.isEmpty(email)) {
+            } else if (TextUtils.isEmpty(input_email.toString().trim())) {
                 input_name.setError("이메일을 입력해주세요")
                 //비워둔 상태 허용불가
                 return@setOnClickListener
-            } else if (TextUtils.isEmpty(password)) {
+            } else if (TextUtils.isEmpty(input_password.toString())) {
                 input_name.setError("비밀번호를 입력해주세요")
                 //비워둔 상태 허용불가
                 return@setOnClickListener
             }
 
             //호출 부분
-            auth.createUserWithEmailAndPassword(email, password)
+
+            auth?.createUserWithEmailAndPassword(input_email.text.toString().trim(), input_password.text.toString())
                 .addOnCompleteListener { //확인
                     if (it.isSuccessful) //성공했을 경우
                     {
                         val currentUser = auth.currentUser
                         val currentUserDb = databaseReference?.child(currentUser?.uid!!) //성공시 저장해줌
-                        currentUserDb?.child(name)?.setValue(input_name.text.toString())
+                        currentUserDb?.child("name")?.setValue(input_name.text.toString())
+
                         Toast.makeText(this@Registration, "등록 성공하였습니다.", Toast.LENGTH_SHORT).show()
                         finish() //액티비티 끝냄
                     }
 
                     else //실패경우
                     {
+                        Log.e("createUserWithEmail", "Failure : ${it.exception}")
                         Toast.makeText(this@Registration, "등록 실패하였습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
