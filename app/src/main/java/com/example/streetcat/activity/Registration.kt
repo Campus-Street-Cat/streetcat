@@ -29,29 +29,22 @@ class Registration : AppCompatActivity() {
 
     }
 
-    private fun register()
-    {
+    private fun register() {
         btn_registration.setOnClickListener()
         {
-
             val name = input_name.toString()
             val email = input_email.toString()
             val password = input_password.toString()
 
-            if(TextUtils.isEmpty(name))
-            {
+            if (TextUtils.isEmpty(name)) {
                 input_name.setError("이름을 입력해주세요")
                 //비워둔 상태 허용불가
                 return@setOnClickListener
-            }
-            else if(TextUtils.isEmpty(email))
-            {
+            } else if (TextUtils.isEmpty(email)) {
                 input_name.setError("이메일을 입력해주세요")
                 //비워둔 상태 허용불가
                 return@setOnClickListener
-            }
-            else if(TextUtils.isEmpty(password))
-            {
+            } else if (TextUtils.isEmpty(password)) {
                 input_name.setError("비밀번호를 입력해주세요")
                 //비워둔 상태 허용불가
                 return@setOnClickListener
@@ -60,21 +53,21 @@ class Registration : AppCompatActivity() {
             //호출 부분
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { //확인
-                    if(it.isSuccessful) //성공했을 경우
+                    if (it.isSuccessful) //성공했을 경우
                     {
                         val currentUser = auth.currentUser
                         val currentUserDb = databaseReference?.child(currentUser?.uid!!) //성공시 저장해줌
                         currentUserDb?.child(name)?.setValue(input_name.text.toString())
-                        Toast.makeText(this@Registration, "등록 성공하였습니다.",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Registration, "등록 성공하였습니다.", Toast.LENGTH_SHORT).show()
                         finish() //액티비티 끝냄
-                    }
-                    else //실패경우
+                    } else //실패경우
                     {
-                        Toast.makeText(this@Registration, "등록 실패하였습니다.",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Registration, "등록 실패하였습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
             //이메일과 패스워드로 사용자 지정, 전달함
-        }    }
+        }
+    }
 }
 
 

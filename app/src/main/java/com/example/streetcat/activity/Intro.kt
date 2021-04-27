@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import com.example.streetcat.R
 
 class Intro : AppCompatActivity() {
@@ -11,12 +12,11 @@ class Intro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-//intent를 사용해서 mainactivity로 3초후 이동시킴
-        var handler = Handler()
-        handler.postDelayed( {
-            var intent = Intent( this, MainActivity::class.java)
-            startActivity(intent)
-        }, 3000)
+//intent를 사용해서 loginactivity로 3초후 이동시킴
+      Handler(Looper.getMainLooper()).postDelayed({
+          startActivity(Intent(this, Login::class.java));
+          finish();
+      }, 1500)
     }
 
     override fun onPause() {
