@@ -8,12 +8,15 @@ import com.example.streetcat.data.Cat
 import com.example.streetcat.data.CatAddClass
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ListResult
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 
 
-class FbViewModel() : ViewModel() {
+class MainViewModel() : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
@@ -27,7 +30,7 @@ class FbViewModel() : ViewModel() {
         return cats
     }
 
-    fun addCat(img: Uri, name: String){
+    fun addCat(img: String, name: String){
         cats.add(Cat(img, name))
         _cats.value = cats
         _catsRef.value = database.getReference("cats").child(name)
@@ -55,15 +58,5 @@ class FbViewModel() : ViewModel() {
         }
     }
 
-    fun getPhoto(name: String) : Uri{
-        lateinit var tmpUri : Uri
-        val ref = storage.reference.child(name).child("main").child("$name.png")
-        ref.downloadUrl.addOnSuccessListener {
-            tmpUri = it
-        }.addOnFailureListener{
-            Log.d("gi", "gi")
-        }
-        return tmpUri
-    }
 
 }

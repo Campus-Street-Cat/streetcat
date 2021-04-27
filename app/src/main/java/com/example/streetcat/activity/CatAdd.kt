@@ -14,12 +14,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.streetcat.R
 import com.example.streetcat.data.CatAddClass
-import com.example.streetcat.viewModel.FbViewModel
+import com.example.streetcat.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_cat_add.*
 
 
 class CatAdd : AppCompatActivity() {
-    private val fbViewModel: FbViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
     private var uriPhoto : Uri? = null
     // 카메라 권한 요청 및 권한 체크
     val REQUEST_GALLERY_TAKE = 2
@@ -92,11 +92,11 @@ class CatAdd : AppCompatActivity() {
             val gender = input_male.isChecked
 
             // Storage 고양이 사진 추가
-            fbViewModel.setPhoto(uriPhoto!!, name)
-            fbViewModel.addCat(uriPhoto!!, name)
+            mainViewModel.setPhoto(uriPhoto!!, name)
+            mainViewModel.addCat(uriPhoto.toString(), name)
             // DB 고양이 정보 추가
             val catClass = CatAddClass(name, birth, gender, neutral, school)
-            fbViewModel.setCatInfo(name, catClass)
+            mainViewModel.setCatInfo(name, catClass)
             Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()
         }
     }
