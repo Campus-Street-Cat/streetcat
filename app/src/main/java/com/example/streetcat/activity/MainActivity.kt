@@ -7,12 +7,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
 import com.example.streetcat.adapter.HomeViewPagerAdapter
-import com.example.streetcat.viewModel.FbViewModel
+import com.example.streetcat.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val fbViewModel: FbViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     private fun configureBottomNavigation(){
 

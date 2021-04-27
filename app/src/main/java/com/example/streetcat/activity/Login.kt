@@ -18,6 +18,11 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_info)
 
+        btn_regist.setOnClickListener({
+            val intent = Intent(this@Login, Registration::class.java)
+            startActivity(intent)
+        })
+
         auth = FirebaseAuth.getInstance() //oncreate에서 초기화할때 필요한 사항
 
         val currentUser = auth.currentUser
@@ -63,6 +68,8 @@ class Login : AppCompatActivity() {
             startActivity(Intent(this@Login,
                 Registration::class.java)) //등록링크에서 등록시작
         }
+
+
     }
 }
 
