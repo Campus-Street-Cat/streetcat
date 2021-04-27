@@ -8,18 +8,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.streetcat.R
 import com.example.streetcat.data.PostClass
+import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_cat_add.input_catPicture
 import kotlinx.android.synthetic.main.activity_write_post.*
 
 class WritePost : AppCompatActivity() {
-    var uriPhoto : Uri? = null
+    private val postViewModel: PostViewModel by viewModels()
+    private var uriPhoto : Uri? = null
 
     // 카메라 권한 요청 및 권한 체크
     val REQUEST_IMAGE_CAPTURE = 1
@@ -30,6 +33,7 @@ class WritePost : AppCompatActivity() {
     private fun openGalleryForImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) // 사진 여러 장 가져오는 코드?
         startActivityForResult(intent, REQUEST_GALLERY_TAKE)
     }
 
@@ -81,9 +85,6 @@ class WritePost : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
 
-        val database = FirebaseDatabase.getInstance()
-        val ref = database.getReference("posts").push()  ////////// 새 하위 요소마다 고유 키를 생성하는 push 함수 -> 타임스탬프 시준이므로 시간순으로 자동 정렬된다고 함
-
         input_catPicture.setOnClickListener{
             if(checkPersmission()){
                 openGalleryForImage()
@@ -96,24 +97,15 @@ class WritePost : AppCompatActivity() {
             val contents = postContents.editableText.toString()
             val username : String = "pompom_love" // 글쓴 유저 이름 로그인 정보에서 가져와야 할듯
 
-            var imgFileName = username.toString() + ".png"
+            postViewModel.setPostRef()
+            val key = postViewModel.getKey()
 
-            var fbStorage = FirebaseStorage.getInstance()
+            postViewModel.setPhoto(uriPhoto!!, key)
+            postViewModel.addPost(uriPhoto!!, key)
 
-            var storageRef = fbStorage.reference.child(username).child("main").child(imgFileName)
-            storageRef.putFile(uriPhoto!!).addOnSuccessListener {
-                var img_url = it.uploadSessionUri.toString()
-
-                ref.child("picture").setValue(img_url)
-            }
-
-            val info_post = PostClass(username, 0, 0, contents)
-            ref.setValue(info_post)
-
+            val post = PostClass(username, 0, 0, contents)
+            postViewModel.setPost(key, post)
             Toast.makeText(applicationContext, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, PostActivity::class.java) // 완성된 post 페이지로 이동하든지, 아니면 post Fragment로 이동하든지. Fragment로 이동하는 방법을 몰라서 일단은 post activity로 이동
-            startActivity(intent)
         }
     }
 }

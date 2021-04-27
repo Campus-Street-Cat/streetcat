@@ -3,6 +3,7 @@ package com.example.streetcat.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
+        /*adapter = HomeRecyclerViewAdapter(fbViewModel.getCats())
         adapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
                 if (position == 0) {
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 }
             }
-        })
+        })*/
 
     }
 
