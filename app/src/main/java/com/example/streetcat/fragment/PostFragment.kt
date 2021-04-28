@@ -26,57 +26,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.fragment_post.view.*
 
-
-/*class PostFragment : Fragment() {
-    /*val images = arrayListOf<GalleryPhoto>(
-        GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
-            GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6),
-            GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
-            GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6),
-            GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
-            GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6),
-            GalleryPhoto(R.drawable.p1), GalleryPhoto(R.drawable.p2), GalleryPhoto(R.drawable.p3),
-            GalleryPhoto(R.drawable.p4), GalleryPhoto(R.drawable.pompom1), GalleryPhoto(R.drawable.p6)
-    )*/
-
-    val images = arrayListOf<GalleryPhoto>(GalleryPhoto("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o?name=-MZCHF14ZLnATB_Vx-wv%2Fmain%2F-MZCHF14ZLnATB_Vx-wv.png&uploadType=resumable&upload_id=ABg5-UxMvWoNvFP31BjPrxOVFx_Rb-YtCJSopzpwpp6v9sMkQeqH4KyGHepvd0xmOomgabm-jGtckQjYiWHnEkRGvQ&upload_protocol=resumable"))
-    private val adapter = CatInfoGalleryAdapter(images)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var rootView =  inflater.inflate(R.layout.fragment_post, container, false)
-
-        rootView.post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)
-        rootView.post_gallery.adapter = adapter
-
-        adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener{
-            override fun onClick(view : View, position : Int){
-                if(position == 0) {
-                    val intent = Intent(context, PostActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-        })
-
-        rootView.post_write.setOnClickListener(ButtonListener())
-
-        return rootView
-    }
-
-    inner class ButtonListener : View.OnClickListener{
-        override fun onClick(v: View?) {
-            val intent = Intent(context, WritePost::class.java)
-            startActivity(intent)
-        }
-    }
-}*/
-
 class PostFragment : Fragment() {
     private val postViewModel: PostViewModel by viewModels()
     lateinit var adapter: CatInfoGalleryAdapter
@@ -103,8 +52,11 @@ class PostFragment : Fragment() {
                         if(comp.photo.toString() == data.child("picture").value.toString())
                             flag = false
                     }
-                    if(flag && data.child("picture").value != null) // 이유는 모르겠는데 자꾸 null이 하나 더 들어가서 추가함..
+                    if(flag && data.child("picture").value != null){ // 이유는 모르겠는데 자꾸 null이 하나 더 들어가서 추가함..
                         postViewModel.addPost(Uri.parse(data.child("picture").value.toString()), data.key.toString())
+                        //postViewModel.addPost(Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/-MZJY30eDxHtErwzu5iS%2F-MZJY30eDxHtErwzu5iS.png?alt=media&token=0dc9953d-26da-4aef-80e9-b4fc35194bce"), data.key.toString())
+                        //Log.d("어떻게나오길래", Uri.parse(data.child("picture").value.toString()).toString())
+                    }
                 }
 
                 post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)

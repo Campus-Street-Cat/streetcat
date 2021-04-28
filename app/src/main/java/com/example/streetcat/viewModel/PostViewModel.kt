@@ -62,20 +62,28 @@ class PostViewModel() : ViewModel() {
     }
 
     fun setPhoto(uri: Uri, key: String){
-        storage.reference.child(key).child(key + ".png").putFile(uri).addOnSuccessListener {
-            val imageUri = it.uploadSessionUri.toString()
-            setImageUri(key, imageUri)
-            //setImageUri(key, uri.toString())
+        val storafeRef = storage.reference.child(key).child(key + ".png")
+        storafeRef?.putFile(uri).addOnSuccessListener {
+            storafeRef.downloadUrl.addOnSuccessListener { uri ->
+                setImageUri(key, uri.toString())
+            }
+
+//            val imageUri = it.uploadSessionUri.toString()
+//            val uri : String = storage.reference.child(key).downloadUrl
+//            setImageUri(key, imageUri)
+//            //setImageUri(key, uri.toString())
         }
     }
 
     fun getPhoto(key: String) : Uri{
-        lateinit var tmpUri : Uri
-        val ref = storage.reference.child(key).child("$key.png")
+        var tmpUri : Uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/cats%2FKakaoTalk_20210310_215259084_15.jpg?alt=media&token=4a4a8012-3d95-4c2f-8aeb-32a826d6599f")
+        Log.d("error", key)
+        val ref = storage.reference.child("caticon.PNG")
         ref.downloadUrl.addOnSuccessListener {
             tmpUri = it
+            Log.d("error", "error1")
         }.addOnFailureListener{
-            Log.d("gi", "gi")
+            Log.d("error", "error2")
         }
         return tmpUri
     }

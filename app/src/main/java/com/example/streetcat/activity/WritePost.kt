@@ -100,6 +100,8 @@ class WritePost : AppCompatActivity() {
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
 
+            Log.d("uriPhoto", uriPhoto.toString())
+
             postViewModel.setPhoto(uriPhoto!!, key)
             postViewModel.addPost(uriPhoto!!, key)
 

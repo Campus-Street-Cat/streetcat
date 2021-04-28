@@ -70,8 +70,6 @@ class HomeFragment : Fragment() {
                 })
             }
         })
-
-
     }
 
     // 고양이 추가 버튼 누를 시
