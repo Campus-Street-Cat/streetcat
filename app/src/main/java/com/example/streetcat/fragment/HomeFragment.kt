@@ -21,7 +21,9 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels()
     lateinit var adapter: HomeRecyclerViewAdapter
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
@@ -49,7 +51,7 @@ class HomeFragment : Fragment() {
                     for(comp in mainViewModel.getCats()){
                         if(comp.name == data.child("name").value.toString()) flag = false
                     }
-                    if(flag) mainViewModel.addCat(data.child("picture").value.toString(), data.child("name").value.toString())
+                    if(flag) mainViewModel.addCat(Uri.parse(data.child("picture").value.toString()), data.child("name").value.toString())
                 }
                 univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = HomeRecyclerViewAdapter(mainViewModel.getCats())

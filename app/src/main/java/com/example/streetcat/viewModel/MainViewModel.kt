@@ -26,12 +26,13 @@ class MainViewModel() : ViewModel() {
     private var _cats = MutableLiveData<ArrayList<Cat>>()
     private var _catsRef = MutableLiveData<DatabaseReference>()
 
+
     fun getCats(): ArrayList<Cat>{
         return cats
     }
 
-    fun addCat(img: String, name: String){
-        cats.add(Cat(img, name))
+    fun addCat(img: Uri, name: String){
+        cats.add(Cat(listcat[0], name))
         _cats.value = cats
         _catsRef.value = database.getReference("cats").child(name)
     }
@@ -59,4 +60,6 @@ class MainViewModel() : ViewModel() {
     }
 
 
-}
+    }
+
+

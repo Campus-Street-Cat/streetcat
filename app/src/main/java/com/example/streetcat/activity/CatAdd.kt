@@ -93,7 +93,7 @@ class CatAdd : AppCompatActivity() {
 
             // Storage 고양이 사진 추가
             mainViewModel.setPhoto(uriPhoto!!, name)
-            mainViewModel.addCat(uriPhoto.toString(), name)
+            mainViewModel.addCat(uriPhoto!!, name)
             // DB 고양이 정보 추가
             val catClass = CatAddClass(name, birth, gender, neutral, school)
             mainViewModel.setCatInfo(name, catClass)
