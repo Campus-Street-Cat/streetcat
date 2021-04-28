@@ -50,7 +50,7 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isSuccessful)
                     {
-                        startActivity(Intent(this@Login, Profile::class.java))
+                        startActivity(Intent(this@Login, MainActivity::class.java))
                         finish()
                     }
                     else
@@ -67,7 +67,5 @@ class Login : AppCompatActivity() {
         }
     }
 }
-
-
 
 

@@ -27,6 +27,7 @@ class PostViewModel() : ViewModel() {
 
     private var postKey : String = ""
 
+
     fun getPosts(): ArrayList<GalleryPhoto>{
         return posts
     }

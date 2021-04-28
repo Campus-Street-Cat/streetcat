@@ -18,9 +18,6 @@ import com.example.streetcat.activity.CatInfo
 import com.example.streetcat.activity.PostActivity
 import com.example.streetcat.activity.WritePost
 import com.example.streetcat.adapter.CatInfoGalleryAdapter
-import com.example.streetcat.adapter.HomeRecyclerViewAdapter
-import com.example.streetcat.data.GalleryPhoto
-import com.example.streetcat.data.Post
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
