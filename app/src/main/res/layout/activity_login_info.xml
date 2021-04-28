@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/btn_login"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -46,6 +47,7 @@
         android:textSize="30sp"
         android:fontFamily="@font/nanumbarungothic"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,6 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/tv_registration"
         app:layout_constraintVertical_bias="0.177" />
 
@@ -77,12 +80,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/input_name" />
 
+
     <Button
-        android:id="@+id/btn_regist"
+        android:id="@+id/btn_findinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="50dp"
         android:layout_marginEnd="100dp"
         android:text="회원가입"
