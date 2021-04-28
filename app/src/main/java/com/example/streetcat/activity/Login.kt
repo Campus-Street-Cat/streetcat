@@ -28,7 +28,7 @@ class Login : AppCompatActivity() {
         if(currentUser != null)
         {
             startActivity(Intent(this@Login, //로그인됨
-                Profile::class.java))
+                MainActivity::class.java))
             finish()
         }
         login()
@@ -50,7 +50,7 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isSuccessful)
                     {
-                        startActivity(Intent(this@Login, Profile::class.java))
+                        startActivity(Intent(this@Login, MainActivity::class.java))
                         finish()
                     }
                     else
