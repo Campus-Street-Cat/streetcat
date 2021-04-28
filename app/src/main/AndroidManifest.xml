@@ -19,8 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
-        <activity android:name=".activity.Intro">
-        </activity>
+        <activity android:name=".activity.MainActivity"/>
 
         <activity android:name=".activity.Login"/>
         <activity android:name=".activity.Registration"/>
@@ -28,7 +27,7 @@
         <activity android:name=".activity.CatInfo" />
         <activity android:name=".activity.CatAdd" />
         <activity android:name=".activity.WritePost" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

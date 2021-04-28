@@ -26,11 +26,12 @@ class MainViewModel() : ViewModel() {
     private var _cats = MutableLiveData<ArrayList<Cat>>()
     private var _catsRef = MutableLiveData<DatabaseReference>()
 
+
     fun getCats(): ArrayList<Cat>{
         return cats
     }
 
-    fun addCat(img: String, name: String){
+    fun addCat(img: Uri, name: String){
         cats.add(Cat(img, name))
         _cats.value = cats
         _catsRef.value = database.getReference("cats").child(name)
@@ -52,11 +53,27 @@ class MainViewModel() : ViewModel() {
     }
 
     fun setPhoto(uri: Uri, name: String){
-        storage.reference.child(name).child("main").child(name + ".png").putFile(uri).addOnSuccessListener {
-            val imageUri = it.uploadSessionUri.toString()
-            setImageUri(name, imageUri)
+        val storageRef = storage.reference.child(name).child("main").child(name + ".png")
+        storageRef?.putFile(uri).addOnSuccessListener {
+            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                setImageUri(name, uri.toString())
+            }
         }
     }
 
+    fun getPhoto(key: String) : Uri{
+        var tmpUri : Uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/cats%2FKakaoTalk_20210310_215259084_15.jpg?alt=media&token=4a4a8012-3d95-4c2f-8aeb-32a826d6599f")
+        Log.d("error", key)
+        val ref = storage.reference.child("caticon.PNG")
+        ref.downloadUrl.addOnSuccessListener {
+            tmpUri = it
+            Log.d("error", "error1")
+        }.addOnFailureListener{
+            Log.d("error", "error2")
+        }
+        return tmpUri
+    }
 
-}
+    }
+
+
