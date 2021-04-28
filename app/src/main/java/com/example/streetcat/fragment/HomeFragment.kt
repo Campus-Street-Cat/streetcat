@@ -50,7 +50,8 @@ class HomeFragment : Fragment() {
                     for(comp in mainViewModel.getCats()){
                         if(comp.name == data.child("name").value.toString()) flag = false
                     }
-                    if(flag) mainViewModel.addCat(data.child("picture").value.toString(), data.child("name").value.toString())
+                    if(flag)
+                        mainViewModel.addCat(data.child("picture").value.toString(), data.child("name").value.toString())
                 }
                 univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = HomeRecyclerViewAdapter(mainViewModel.getCats())
@@ -69,20 +70,6 @@ class HomeFragment : Fragment() {
                 })
             }
         })
-
-        /*adapter = HomeRecyclerViewAdapter(mainViewModel.getCats())
-        adapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
-            override fun onClick(view: View, position: Int) {
-                if (position == 0) {
-                    val intent = Intent(context, CatInfo::class.java)
-                    startActivity(intent)
-                } else if (position == 5) {
-                    val intent = Intent(context, CatAdd::class.java)
-                    startActivity(intent)
-                }
-            }
-        })*/
-
     }
 
 }

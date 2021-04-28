@@ -28,7 +28,7 @@ class Login : AppCompatActivity() {
         if(currentUser != null)
         {
             startActivity(Intent(this@Login, //로그인됨
-                Profile::class.java))
+                MainActivity::class.java))
             finish()
         }
         login()
