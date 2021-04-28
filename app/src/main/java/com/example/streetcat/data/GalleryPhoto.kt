@@ -1,4 +1,6 @@
 package com.example.streetcat.data
 
-data class GalleryPhoto(val photo : Int) {
+import android.net.Uri
+
+data class GalleryPhoto(val photo : Uri, val key : String) {
 }
