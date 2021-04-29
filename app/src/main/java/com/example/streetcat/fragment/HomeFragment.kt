@@ -24,9 +24,7 @@ import kotlinx.android.synthetic.main.fragment_post.*
 class HomeFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels()
     lateinit var adapter: HomeRecyclerViewAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {

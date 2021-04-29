@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by viewModels()
 
     private fun configureBottomNavigation(){
 
@@ -31,10 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        // if 로그인 안되어있는 상태라면 -> 로그인 화면 activity
-        // 에타 처음 화면
 
-        // 자동 로그인 시
         setContentView(R.layout.activity_main)
         configureBottomNavigation()
 

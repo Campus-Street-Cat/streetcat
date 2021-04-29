@@ -40,10 +40,8 @@ class CatInfoGalleryAdapter(private val photos : ArrayList<GalleryPhoto>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        //viewHolder.imageView.setImageURI(photos[position].photo)
         Picasso.get().load(photos[position].photo).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
-        //Log.d("Gallary Adapter", photos[position].photo.toString())
-        //Glide.with(view).load(storageRef).into(viewHolder.imageView)
+
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
