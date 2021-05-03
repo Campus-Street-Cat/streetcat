@@ -35,4 +35,6 @@ class MainActivity : AppCompatActivity() {
         configureBottomNavigation()
 
     }
+
+
 }

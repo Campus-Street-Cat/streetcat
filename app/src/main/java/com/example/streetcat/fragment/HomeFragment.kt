@@ -14,6 +14,7 @@ import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.CatInfo
+import com.example.streetcat.activity.SickSelect
 import com.example.streetcat.activity.WritePost
 import com.example.streetcat.viewModel.MainViewModel
 import com.google.firebase.database.*
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         add_btn.setOnClickListener(ButtonListener())
+
 
         // dbViewModel 의 cats 배열 observing
         mainViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
@@ -76,6 +78,10 @@ class HomeFragment : Fragment() {
             val intent = Intent(context, CatAdd::class.java)
             startActivity(intent)
         }
+
+
     }
+
+
 
 }
