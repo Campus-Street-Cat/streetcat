@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 import android.widget.Toast
 import android.util.Log
 import android.text.TextUtils
+import kotlinx.android.synthetic.main.activity_cat_main.*
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login_info.*
@@ -34,10 +35,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance()
 
-        btn_sick.setOnClickListener {
-            startActivity(Intent(this@LoginActivity,
-                SickSelect::class.java)) //등록링크에서 등록시작
-        }
+
     }
 
     override fun onStart() {
