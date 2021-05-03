@@ -14,7 +14,7 @@ class Intro : AppCompatActivity() {
 
     //intent를 사용해서 loginactivity로 3초후 이동시킴
       Handler(Looper.getMainLooper()).postDelayed({
-          startActivity(Intent(this, Login::class.java));
+          startActivity(Intent(this, LoginActivity::class.java));
           finish();
       }, 1500)
     }
