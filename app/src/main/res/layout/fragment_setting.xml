@@ -11,4 +11,10 @@
         android:layout_height="match_parent"
         android:text="설정 페이지" />
 
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃" />
+
 </FrameLayout>

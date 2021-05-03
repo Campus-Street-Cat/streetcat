@@ -1,5 +1,6 @@
 package com.example.streetcat.activity
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -14,6 +15,7 @@ import android.util.Log
 import android.text.TextUtils
 
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login_info.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -31,6 +33,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         btn_verify_email.setOnClickListener(this)
 
         mAuth = FirebaseAuth.getInstance()
+
+        btn_sick.setOnClickListener {
+            startActivity(Intent(this@LoginActivity,
+                SickSelect::class.java)) //등록링크에서 등록시작
+        }
     }
 
     override fun onStart() {
@@ -90,6 +97,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     // update UI with the signed-in user's information
                     val user = mAuth!!.getCurrentUser()
                     updateUI(user)
+
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    finish()
                 } else {
                     Log.e(TAG, "signIn: Fail!", task.exception)
                     Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
@@ -102,7 +112,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    private fun signOut() {
+    fun signOut() {
         mAuth!!.signOut()
         updateUI(null)
     }
@@ -166,4 +176,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             layout_signed_in_buttons.visibility = View.GONE
         }
     }
+
+
 }
