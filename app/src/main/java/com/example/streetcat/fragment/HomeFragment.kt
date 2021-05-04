@@ -14,6 +14,7 @@ import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.CatInfo
+import com.example.streetcat.activity.SickSelect
 import com.example.streetcat.activity.WritePost
 import com.example.streetcat.viewModel.MainViewModel
 import com.google.firebase.database.*
@@ -24,9 +25,7 @@ import kotlinx.android.synthetic.main.fragment_post.*
 class HomeFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels()
     lateinit var adapter: HomeRecyclerViewAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
@@ -37,6 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         add_btn.setOnClickListener(ButtonListener())
+
 
         // dbViewModel 의 cats 배열 observing
         mainViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
@@ -78,6 +78,10 @@ class HomeFragment : Fragment() {
             val intent = Intent(context, CatAdd::class.java)
             startActivity(intent)
         }
+
+
     }
+
+
 
 }

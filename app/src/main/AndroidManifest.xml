@@ -10,8 +10,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,11 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
-        <activity android:name=".activity.MainActivity"/>
-
-        <activity android:name=".activity.Login"/>
-        <activity android:name=".activity.Registration"/>
-        <activity android:name=".activity.Profile"/>
+        <activity android:name=".activity.TestEnum"></activity>
+        <activity android:name=".activity.Constants" />
+        <activity
+            android:name=".activity.SickSelect"
+            android:label="@string/title_activity_sick_select"
+            android:theme="@style/Theme.Streetcat.NoActionBar" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Streetcat.NoActionBar" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.Login" />
+        <activity android:name=".activity.Registration" />
         <activity android:name=".activity.CatInfo" />
         <activity android:name=".activity.CatAdd" />
         <activity android:name=".activity.WritePost" />

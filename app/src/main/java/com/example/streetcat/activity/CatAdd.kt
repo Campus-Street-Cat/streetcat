@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.streetcat.R
 import com.example.streetcat.data.CatAddClass
+import com.example.streetcat.fragment.HomeFragment
 import com.example.streetcat.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_cat_add.*
 
@@ -98,6 +99,8 @@ class CatAdd : AppCompatActivity() {
             val catClass = CatAddClass(name, birth, gender, neutral, school)
             mainViewModel.setCatInfo(name, catClass)
             Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()
+
+            this.onBackPressed()
         }
     }
 }

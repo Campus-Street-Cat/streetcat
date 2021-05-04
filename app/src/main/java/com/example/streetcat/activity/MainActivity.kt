@@ -1,5 +1,6 @@
 package com.example.streetcat.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
@@ -8,11 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
 import com.example.streetcat.adapter.HomeViewPagerAdapter
 import com.example.streetcat.viewModel.MainViewModel
+import kotlinx.android.synthetic.main.activity_cat_main.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
 class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by viewModels()
+
+
 
     private fun configureBottomNavigation(){
 
@@ -31,12 +35,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        // if 로그인 안되어있는 상태라면 -> 로그인 화면 activity
-        // 에타 처음 화면
 
-        // 자동 로그인 시
         setContentView(R.layout.activity_main)
         configureBottomNavigation()
 
+        cat_health.setOnClickListener {
+            startActivity(
+                Intent(this@MainActivity,
+                SickSelect::class.java)
+            ) //등록링크에서 등록시작
+        }
     }
+
+
 }
