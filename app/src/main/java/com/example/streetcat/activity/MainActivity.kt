@@ -39,12 +39,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         configureBottomNavigation()
 
-        cat_health.setOnClickListener {
+        /*cat_health.setOnClickListener {
             startActivity(
                 Intent(this@MainActivity,
                 SickSelect::class.java)
             ) //등록링크에서 등록시작
-        }
+        }*/
     }
 
 
