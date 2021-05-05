@@ -21,10 +21,6 @@ class PostViewPagerAdapter(private val context: Context, private val items: Arra
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context).load(items[position]).error(R.drawable.common_google_signin_btn_icon_dark).into(holder.imageUrl)
-        //Picasso.get().load(items[position]).error(R.drawable.common_google_signin_btn_icon_dark).into(holder.imageUrl)
-        //viewHolder.imageView.setImageResource(photos[position].photo)
-
-        Log.d("post bind", items[position].toString())
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -32,7 +32,13 @@ class PostViewModel() : ViewModel() {
         return posts
     }
 
-    fun addPost(img: Uri, key: String){
+//    fun addPost(img: Uri, key: String){
+//        posts.add(GalleryPhoto(img, key))
+//        _posts.value = posts
+//        _postsRef.value = database.getReference("posts").child(key)
+//    }
+
+    fun addPost(img: ArrayList<Uri?>, key: String) {
         posts.add(GalleryPhoto(img, key))
         _posts.value = posts
         _postsRef.value = database.getReference("posts").child(key)
@@ -53,25 +59,38 @@ class PostViewModel() : ViewModel() {
     fun getLiveRef(): MutableLiveData<DatabaseReference>{
         return _postsRef
     }
-    private fun setImageUri(key: String, imageUri: String){
-        database.getReference("posts").child(key).child("picture").setValue(imageUri)
+//    private fun setImageUri(key: String, imageUri: String){
+//        database.getReference("posts").child(key).child("picture").setValue(imageUri)
+//    }
+
+    private fun setImageUri(key: String, imageUri: String, index: Int){
+        database.getReference("posts").child(key).child("pictures").child(index.toString()).setValue(imageUri)
     }
 
     fun setPost(key: String, post: PostClass){
         database.getReference("posts").child(key).setValue(post)
     }
 
-    fun setPhoto(uri: Uri, key: String){
-        val storafeRef = storage.reference.child(key).child(key + ".png")
-        storafeRef?.putFile(uri).addOnSuccessListener {
-            storafeRef.downloadUrl.addOnSuccessListener { uri ->
-                setImageUri(key, uri.toString())
-            }
+//    fun setPhoto(uri: Uri, key: String){
+//        val storafeRef = storage.reference.child(key).child(key + ".png")
+//        storafeRef?.putFile(uri).addOnSuccessListener {
+//            storafeRef.downloadUrl.addOnSuccessListener { uri ->
+//                setImageUri(key, uri.toString())
+//            }
+//        }
+//    }
 
-//            val imageUri = it.uploadSessionUri.toString()
-//            val uri : String = storage.reference.child(key).downloadUrl
-//            setImageUri(key, imageUri)
-//            //setImageUri(key, uri.toString())
+    fun setPhoto(uris: ArrayList<Uri?>, key: String){
+        for(i in 0 until uris.size){
+            val uri=uris[i]
+            if (uri != null) {
+                val storafeRef = storage.reference.child(key + "_" + i.toString() + ".png") // 저장되는 파일 이름
+                storafeRef?.putFile(uri).addOnSuccessListener {
+                    storafeRef.downloadUrl.addOnSuccessListener { uri ->
+                        setImageUri(key, uri.toString(), i)
+                    }
+                }
+            }
         }
     }
 

@@ -49,16 +49,26 @@ class PostFragment : Fragment() {
                 for (data in dataSnapshot.children) {
                     var flag = true
                     for(comp in postViewModel.getPosts()){
-                        if(comp.photo.toString() == data.child("picture").value.toString())
+                        if(comp.key == data.key && comp.photo.isNotEmpty())
                             flag = false
                     }
-                    if(flag && data.child("picture").value != null){ // 이유는 모르겠는데 자꾸 null이 하나 더 들어가서 추가함..
-                        postViewModel.addPost(Uri.parse(data.child("picture").value.toString()), data.key.toString())
-                        //postViewModel.addPost(Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/-MZJY30eDxHtErwzu5iS%2F-MZJY30eDxHtErwzu5iS.png?alt=media&token=0dc9953d-26da-4aef-80e9-b4fc35194bce"), data.key.toString())
-                        //Log.d("어떻게나오길래", Uri.parse(data.child("picture").value.toString()).toString())
+                    if(flag){
+                        val uris = ArrayList<Uri?>()
+                        val cnt = data.child("cnt").value.toString().toInt()
+
+                        for(idx in 0 until cnt){
+                            val v = data.child("pictures").child(idx.toString()).value
+                            if(v != null)
+                                uris.add(Uri.parse(v.toString()))
+                        }
+
+                        val key = data.key.toString()
+                        if(uris.isNotEmpty())
+                            postViewModel.addPost(uris, key)
                     }
                 }
 
+                Log.d("getPost", postViewModel.getPosts().toString())
                 post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)
                 adapter = CatInfoGalleryAdapter(postViewModel.getPosts())
                 post_gallery.adapter = adapter

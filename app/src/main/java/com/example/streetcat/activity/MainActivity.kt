@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         configureBottomNavigation()
 
+
         /*cat_health.setOnClickListener {
             startActivity(
                 Intent(this@MainActivity,
