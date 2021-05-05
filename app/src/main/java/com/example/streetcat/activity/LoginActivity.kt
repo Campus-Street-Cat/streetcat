@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    fun signOut() {
+    private fun signOut() {
         mAuth!!.signOut()
         updateUI(null)
     }
