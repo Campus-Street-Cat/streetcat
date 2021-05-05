@@ -33,8 +33,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         btn_sign_out.setOnClickListener(this)
         btn_verify_email.setOnClickListener(this)
 
+
         mAuth = FirebaseAuth.getInstance()
 
+        val currentUser = mAuth!!.currentUser
+        if(currentUser != null)
+        {
+            startActivity(Intent(this@LoginActivity, //로그인됨
+                MainActivity::class.java))
+            finish()
+        }
 
     }
 
@@ -49,7 +57,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val i = view!!.id
 
         if (i == R.id.btn_email_create_account) {
-            createAccount(edtEmail.text.toString(), edtPassword.text.toString())
+            startActivity(Intent(this@LoginActivity, Registration::class.java))
         } else if (i == R.id.btn_email_sign_in) {
             signIn(edtEmail.text.toString(), edtPassword.text.toString())
         } else if (i == R.id.btn_sign_out) {
@@ -59,27 +67,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun createAccount(email: String, password: String) {
-        Log.e(TAG, "createAccount:" + email)
-        if (!validateForm(email, password)) {
-            return
-        }
-
-        mAuth!!.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.e(TAG, "createAccount: Success!")
-
-                    // update UI with the signed-in user's information
-                    val user = mAuth!!.currentUser
-                    updateUI(user)
-                } else {
-                    Log.e(TAG, "createAccount: Fail!", task.exception)
-                    Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
-            }
-    }
 
     private fun signIn(email: String, password: String) {
         Log.e(TAG, "signIn:" + email)
