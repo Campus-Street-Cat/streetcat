@@ -2,6 +2,7 @@ package com.example.streetcat.activity
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -22,12 +23,13 @@ import kotlinx.android.synthetic.main.activity_write_post.*
 
 class WritePost : AppCompatActivity() {
     private val postViewModel: PostViewModel by viewModels()
-    private var uriPhoto : Uri? = null
+    //private var uriPhoto : Uri? = null
+    private var uriPhoto = ArrayList<Uri?>()
 
     // 카메라 권한 요청 및 권한 체크
     val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_GALLERY_TAKE = 2
-    lateinit var currentPhotoPath : String
+    //lateinit var currentPhotoPath : String
 
     //갤러리 열기
     private fun openGalleryForImage() {
@@ -35,6 +37,7 @@ class WritePost : AppCompatActivity() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) // 사진 여러 장 가져오는 코드?
         startActivityForResult(intent, REQUEST_GALLERY_TAKE)
+        //startActivityForResult(intent, MULTI)
     }
 
 
@@ -46,10 +49,19 @@ class WritePost : AppCompatActivity() {
             // 갤러리를 통해 이미지 가져오는 경우
             2 -> {
                 if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_GALLERY_TAKE) {
-                    uriPhoto = data?.data
+                    val clipdata : ClipData? = data?.clipData
+                    if (clipdata != null) {
+                        for(i in 0 until clipdata.itemCount){
+                            uriPhoto.add(clipdata.getItemAt(i).uri)
+                        } // 사진 여러장 저장하기
+                    }
+
+                    //uriPhoto = data?.data
+                    //uriPhoto.add(data?.data)
 
                     // ImageButton 에 가져온 이미지 set
-                    input_catPicture.setImageURI(uriPhoto)
+                    input_catPicture.setImageURI(uriPhoto[0])
+                    //input_catPicture.setImageURI(uriPhoto)
                 }
             }
         }
@@ -94,18 +106,17 @@ class WritePost : AppCompatActivity() {
         }
 
         writePost_button.setOnClickListener{
+            //Log.d("clipdata", uriPhoto.toString())
             val contents = postContents.editableText.toString()
             val username : String = "pompom_love" // 글쓴 유저 이름 로그인 정보에서 가져와야 할듯
 
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
 
-            Log.d("uriPhoto", uriPhoto.toString())
-
             postViewModel.setPhoto(uriPhoto!!, key)
             postViewModel.addPost(uriPhoto!!, key)
 
-            val post = PostClass(username, 0, 0, contents)
+            val post = PostClass(username, 0, 0, contents, uriPhoto.size)
             postViewModel.setPost(key, post)
             Toast.makeText(applicationContext, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
             this.onBackPressed()
