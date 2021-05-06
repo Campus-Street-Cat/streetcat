@@ -50,7 +50,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         super.onStart()
 
         val currentUser = mAuth!!.currentUser
-        updateUI(currentUser)
     }
 
     override fun onClick(view: View?) {
@@ -81,14 +80,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                     // update UI with the signed-in user's information
                     val user = mAuth!!.getCurrentUser()
-                    updateUI(user)
 
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 } else {
                     Log.e(TAG, "signIn: Fail!", task.exception)
                     Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
-                    updateUI(null)
                 }
 
                 if (!task.isSuccessful) {
@@ -99,7 +96,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun signOut() {
         mAuth!!.signOut()
-        updateUI(null)
     }
 
     private fun sendEmailVerification() {
@@ -141,26 +137,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         return true
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-
-        if (user != null) {
-            tvStatus.text = "User Email: " + user.email + "(verified: " + user.isEmailVerified + ")"
-            tvDetail.text = "Firebase User ID: " + user.uid
-
-            email_password_buttons.visibility = View.GONE
-            email_password_fields.visibility = View.GONE
-            layout_signed_in_buttons.visibility = View.VISIBLE
-
-            btn_verify_email.isEnabled = !user.isEmailVerified
-        } else {
-            tvStatus.text = "Signed Out"
-            tvDetail.text = null
-
-            email_password_buttons.visibility = View.VISIBLE
-            email_password_fields.visibility = View.VISIBLE
-            layout_signed_in_buttons.visibility = View.GONE
-        }
-    }
 
 
 }

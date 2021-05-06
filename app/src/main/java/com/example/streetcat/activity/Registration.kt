@@ -6,9 +6,13 @@ import android.os.SystemClock
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import com.example.streetcat.R
+import com.example.streetcat.data.UserInfo
+import com.example.streetcat.viewModel.PostViewModel
+import com.example.streetcat.viewModel.RegisterViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -17,11 +21,9 @@ import kotlinx.android.synthetic.main.activity_registration.*
 
 
 class Registration : AppCompatActivity() {
-    //
+    private val RegisterViewModel: RegisterViewModel by viewModels()
     private val TAG = "FirebaseEmailPassword"
     private var mAuth: FirebaseAuth? = null
-    var databaseReference: DatabaseReference? = null //실시간 데베 참조
-    var database: FirebaseDatabase? = null //자체 데베 참조
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +31,6 @@ class Registration : AppCompatActivity() {
         setContentView(R.layout.activity_registration)
 
         mAuth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile") //테이블 이름 지정
 
         btn_registration.setOnClickListener()
         {
@@ -47,14 +47,17 @@ class Registration : AppCompatActivity() {
             mAuth!!.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        //firebase update
+                        RegisterViewModel.setUserRef()
+                        val key = RegisterViewModel.getKey()
+
+                        val user = UserInfo(email, password, school, nickname)
+                        RegisterViewModel.setInfo(key, user)
                         startActivity(Intent(this@Registration, MainActivity::class.java))
                         finish()
                     } else {
                         Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
                     }
                 }
-            //이메일과 패스워드로 사용자 지정, 전달함
 
 
         }
