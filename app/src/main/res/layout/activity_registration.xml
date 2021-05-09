@@ -49,7 +49,7 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:drawablePadding="12dp"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:hint="비밀번호"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,22 +72,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_input_password" />
 
-    <EditText
-        android:id="@+id/register_input_school"
-        android:layout_width="255dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/ic_school"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="학교"
-        android:inputType="textPersonName"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_input_nickname" />
 
     <Button
         android:id="@+id/btn_registration"
@@ -102,5 +86,25 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_input_nickname" />
+
+    <Spinner
+        android:id="@+id/register_input_school"
+        android:layout_width="255dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_input"
+
+        android:drawableStart="@drawable/ic_school"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="학교"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_input_nickname" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

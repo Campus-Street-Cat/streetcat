@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,12 +27,29 @@ class Registration : AppCompatActivity() {
     private val RegisterViewModel: RegisterViewModel by viewModels()
     private val TAG = "FirebaseEmailPassword"
     private var mAuth: FirebaseAuth? = null
-
+    private val schools = arrayListOf("-학교 선택-", "한국항공대학교", "서울대학교", "KAIST")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+        val schoolAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, schools)
+        schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        register_input_school.adapter = schoolAdapter
 
+        register_input_school.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val a = 1 // 아무것도 안쓰면 에러가 나서 아무거나 썼음..
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
         mAuth = FirebaseAuth.getInstance()
 
         btn_registration.setOnClickListener()
@@ -37,7 +57,7 @@ class Registration : AppCompatActivity() {
             val email = register_input_email.text.toString()
             val password = register_input_password.text.toString()
             val nickname = register_input_nickname.text.toString()
-            val school = register_input_school.text.toString()
+            val school = register_input_school.selectedItem.toString()
             Log.e(TAG, "createAccount:" + email)
             if (!validateForm(email, password, nickname, school)) {
                 return@setOnClickListener
@@ -48,7 +68,7 @@ class Registration : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         RegisterViewModel.setUserRef()
-                        val key = RegisterViewModel.getKey()
+                        val key = mAuth!!.currentUser.uid
 
                         val user = UserInfo(email, password, school, nickname)
                         RegisterViewModel.setInfo(key, user)
