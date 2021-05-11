@@ -73,6 +73,12 @@ class CatAdd : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cat_add)
+
+        //학교 이름 가져오기
+        mainViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
+            mainViewModel.setSchoolName(it.value.toString())
+        }
+
         // 권한 체크
         input_catPicture.setOnClickListener{
             if(checkPersmission()){
@@ -92,12 +98,17 @@ class CatAdd : AppCompatActivity() {
             val neutral = input_neutral.isChecked
             val gender = input_male.isChecked
 
+            mainViewModel.setCatRef()
+            val key = mainViewModel.getKey()
+
             // Storage 고양이 사진 추가
-            mainViewModel.setPhoto(uriPhoto!!, name)
+            mainViewModel.setPhoto(uriPhoto!!, key)
             Log.d("tag", uriPhoto.toString())
             // DB 고양이 정보 추가
             val catClass = CatAddClass(name, birth, gender, neutral, school)
-            mainViewModel.setCatInfo(name, catClass)
+
+
+            mainViewModel.setCatInfo(key, catClass)
             Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()
 
             this.onBackPressed()
