@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Email"
+                android:hint="이메일"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Password"
+                android:hint="비밀번호"
                 android:inputType="textPassword" />
 
         </LinearLayout>
@@ -102,7 +102,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:text="Sign In" />
+                android:text="로그인" />
 
             <Button
                 android:id="@+id/btn_email_create_account"
@@ -111,7 +111,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:text="Create Account" />
+                android:text="회원가입" />
 
         </LinearLayout>
 
