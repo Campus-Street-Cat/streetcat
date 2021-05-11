@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.LoginActivity
+import com.example.streetcat.activity.NoticeActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -40,12 +41,15 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         btn_logout.setOnClickListener{ view ->
             Log.d("btnSetup", "Selected")
-            //activity 캐스팅 문제로 꺼짐, 바로 로그아웃 함수 쓸 수 있게 수정해야
-            val mAuth = FirebaseAuth.getInstance()
-            mAuth.signOut()
+            val Auth = FirebaseAuth.getInstance()
+            Auth.signOut()
             Toast.makeText(context, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
+
+        btn_notice.setOnClickListener {
+            val intent = Intent(context,NoticeActivity::class.java )
+        }
         }
 /*
         super.onViewCreated(view, savedInstanceState)

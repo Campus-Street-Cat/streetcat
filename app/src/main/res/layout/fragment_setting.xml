@@ -12,11 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <Button
             android:id="@+id/btn_logout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="52dp"
+            android:background="#00FFFFFF"
+            android:gravity="center_vertical"
+
+
             android:text="로그아웃"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,55 +30,143 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_myinfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="아이디, 학교정보 띄우는 창"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/btn_school_auth"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="180dp"
+            android:background="#00FFFFFF"
+            android:gravity="center_vertical"
             android:text="학교 인증"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintBottom_toTopOf="@+id/btn_alarm"
+            app:layout_constraintBottom_toTopOf="@id/tv_notice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btn_alarm"
-            android:layout_width="411dp"
-            android:layout_height="53dp"
-            android:layout_marginBottom="164dp"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            android:gravity="center_vertical"
             android:text="알림 설정"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toTopOf="@+id/btn_logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_notice"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/btn_notice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            android:gravity="center_vertical"
             android:text="공지사항"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toTopOf="@+id/btn_logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_alarm"
-            app:layout_constraintVertical_bias="0.21" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_notice"
+            app:layout_constraintVertical_bias="0.514" />
+
+        <TextView
+            android:id="@+id/tv_myaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="92dp"
+            android:layout_marginBottom="52dp"
+            android:text="내 계정"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/btn_school_auth"
+            app:layout_constraintEnd_toStartOf="@+id/tv_setting" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_margin="20dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/line_sample"
+            app:layout_constraintBottom_toTopOf="@+id/btn_school_auth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_myaccount"
+            app:layout_constraintVertical_bias="0.638" />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="설정"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/tv_myaccount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.376" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/line_sample"
+            app:layout_constraintBottom_toTopOf="@+id/btn_notice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notice"
+            app:layout_constraintVertical_bias="0.458" />
+
+        <TextView
+            android:id="@+id/tv_notice"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="356dp"
+            android:text="이용안내"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_nickname"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            android:gravity="center_vertical"
+            android:text="닉네임 변경"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/tv_notice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_school_auth"
+            app:layout_constraintVertical_bias="0.123" />
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="비밀번호 변경"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/tv_notice"
+            app:layout_constraintEnd_toEndOf="@id/btn_notice"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_nickname"
+            app:layout_constraintVertical_bias="0.213" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
