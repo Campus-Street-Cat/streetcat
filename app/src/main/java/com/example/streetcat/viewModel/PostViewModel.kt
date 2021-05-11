@@ -1,9 +1,14 @@
 package com.example.streetcat.viewModel
 
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.streetcat.activity.PostActivity
+import com.example.streetcat.adapter.CatInfoGalleryAdapter
 import com.example.streetcat.data.Cat
 import com.example.streetcat.data.GalleryPhoto
 import com.example.streetcat.data.Post
@@ -13,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.fragment_post.*
 import java.net.URL
 
 

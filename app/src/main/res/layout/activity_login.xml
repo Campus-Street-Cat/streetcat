@@ -84,7 +84,7 @@
         </LinearLayout>
 
 
-        -
+
 
         <LinearLayout
             android:id="@+id/email_password_buttons"

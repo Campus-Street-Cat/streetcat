@@ -1,187 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/user_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_profile_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/p3" />
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textSize="17sp"
-                android:text="PomPom_Love"/>
-        </LinearLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/ViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            app:layout_constraintTop_toBottomOf="@+id/user_info" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/reply"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/functions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/ViewPager">
+            android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/image_heart"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginVertical="10dp"
+            <LinearLayout
+                android:id="@+id/user_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="0dp">
 
-                app:layout_constraintTop_toTopOf="@+id/functions"
-                app:layout_constraintBottom_toBottomOf="@+id/functions"
-                app:layout_constraintStart_toStartOf="@+id/functions"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_profile_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/p3" />
 
-                android:src="@drawable/heart"
-                android:scaleType="centerInside"
-                android:background="@color/white"/>
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="PomPom_Love"
+                    android:textSize="17sp" />
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/image_comments"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginVertical="10dp"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/ViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:layout_constraintTop_toBottomOf="@+id/user_info" />
 
-                app:layout_constraintTop_toTopOf="@+id/functions"
-                app:layout_constraintBottom_toBottomOf="@+id/functions"
-                app:layout_constraintStart_toEndOf="@+id/image_heart"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/functions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ViewPager">
 
-                android:src="@drawable/comments"
-                android:scaleType="centerInside"
-                android:background="@color/white"/>
+                <ImageButton
+                    android:id="@+id/image_heart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="10dp"
 
-            <ImageButton
-                android:id="@+id/image_scrap"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginVertical="10dp"
+                    android:background="@color/white"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/heart"
 
-                app:layout_constraintTop_toTopOf="@+id/functions"
-                app:layout_constraintBottom_toBottomOf="@+id/functions"
-                app:layout_constraintStart_toEndOf="@+id/image_comments"
+                    app:layout_constraintBottom_toBottomOf="@+id/functions"
+                    app:layout_constraintStart_toStartOf="@+id/functions"
+                    app:layout_constraintTop_toTopOf="@+id/functions" />
 
-                android:src="@drawable/save"
-                android:scaleType="centerInside"
-                android:background="@color/white"/>
+                <ImageButton
+                    android:id="@+id/image_comments"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="10dp"
+
+                    android:background="@color/white"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/comments"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/functions"
+                    app:layout_constraintStart_toEndOf="@+id/image_heart"
+                    app:layout_constraintTop_toTopOf="@+id/functions" />
+
+                <ImageButton
+                    android:id="@+id/image_scrap"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="10dp"
+
+                    android:background="@color/white"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/save"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/functions"
+                    app:layout_constraintStart_toEndOf="@+id/image_comments"
+                    app:layout_constraintTop_toTopOf="@+id/functions" />
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/functions"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_slash"
+                    app:layout_constraintTop_toTopOf="@+id/functions" />
+
+                <TextView
+                    android:id="@+id/tv_slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" / "
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/functions"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_total"
+                    app:layout_constraintTop_toTopOf="@+id/functions" />
+
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="10"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/functions"
+                    app:layout_constraintEnd_toEndOf="@+id/functions"
+                    app:layout_constraintTop_toTopOf="@+id/functions" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_num"
+                android:id="@+id/post_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/gray"
-                android:textSize="15sp"
-                app:layout_constraintTop_toTopOf="@+id/functions"
-                app:layout_constraintBottom_toBottomOf="@+id/functions"
-                app:layout_constraintEnd_toStartOf="@+id/tv_slash"
-                />
+                android:layout_marginStart="10dp"
+                android:text="좋아요"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/functions" />
 
             <TextView
-                android:id="@+id/tv_slash"
+                android:id="@+id/post_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" / "
-                android:textColor="@color/gray"
-                android:textSize="15sp"
-                app:layout_constraintTop_toTopOf="@+id/functions"
-                app:layout_constraintBottom_toBottomOf="@+id/functions"
-                app:layout_constraintEnd_toStartOf="@+id/tv_total"
-                />
+                android:layout_marginStart="5dp"
+                android:text="414"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/post_like"
+                app:layout_constraintTop_toBottomOf="@+id/functions" />
 
             <TextView
-                android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"
-                android:textColor="@color/gray"
-                android:textSize="15sp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintTop_toTopOf="@+id/functions"
-                app:layout_constraintBottom_toBottomOf="@+id/functions"
-                app:layout_constraintEnd_toEndOf="@+id/functions"
-                />
+                android:text="개"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/post_like_count"
+                app:layout_constraintTop_toBottomOf="@+id/functions" />
+
+            <kr.co.prnd.readmore.ReadMoreTextView
+                android:id="@+id/context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="여기가 본문 내용입니다\n더보기 누르면 펴지고\n다시 누르면 닫힙니다\n더보기는 그냥 빼도 괜찮을까요 넣을까요"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_like"
+                app:readMoreColor="@color/blue"
+                app:readMoreMaxLine="2"
+                app:readMoreText="...더보기" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/context"
+                tools:listitem="@layout/item_comments">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <TextView
-            android:id="@+id/post_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="좋아요"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/functions" />
+    <EditText
+        android:id="@+id/reply"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
 
-        <TextView
-            android:id="@+id/post_like_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="414"
-            android:layout_marginStart="5dp"
-            app:layout_constraintStart_toEndOf="@+id/post_like"
-            app:layout_constraintTop_toBottomOf="@+id/functions"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        android:paddingStart="10dp"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="개"
-            app:layout_constraintStart_toEndOf="@+id/post_like_count"
-            app:layout_constraintTop_toBottomOf="@+id/functions"/>
+        android:hint="댓글을 입력하세요."
+        android:textColorHint="@color/white"
+        android:background="@drawable/style_comment"
+        android:inputType="textMultiLine|textNoSuggestions" />
 
-        <kr.co.prnd.readmore.ReadMoreTextView
-            android:id="@+id/context"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="여기가 본문 내용입니다\n더보기 누르면 펴지고\n다시 누르면 닫힙니다\n더보기는 그냥 빼도 괜찮을까요 넣을까요"
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toTopOf="@id/reply"
+        app:layout_constraintEnd_toEndOf="@id/reply"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_like"
-            app:readMoreMaxLine="2"
-            app:readMoreColor="@color/blue"
-            app:readMoreText="...더보기"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/submit"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/context"
-            android:layout_marginTop="10dp"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/item_comments">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

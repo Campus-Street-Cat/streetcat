@@ -48,27 +48,27 @@ class PostFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (data in dataSnapshot.children) {
                     var flag = true
-                    for(comp in postViewModel.getPosts()){
-                        if(comp.key == data.key && comp.photo.isNotEmpty())
+                    for (comp in postViewModel.getPosts()) {
+                        if (comp.key == data.key && comp.photo.isNotEmpty())
                             flag = false
                     }
-                    if(flag){
+                    if (flag) {
                         val uris = ArrayList<Uri?>()
                         val cnt = data.child("cnt").value.toString().toInt()
 
-                        for(idx in 0 until cnt){
+                        for (idx in 0 until cnt) {
                             val v = data.child("pictures").child(idx.toString()).value
-                            if(v != null)
+                            if (v != null)
                                 uris.add(Uri.parse(v.toString()))
                         }
 
                         val key = data.key.toString()
-                        if(uris.isNotEmpty())
+                        if (uris.isNotEmpty())
                             postViewModel.addPost(uris, key)
                     }
                 }
 
-                Log.d("getPost", postViewModel.getPosts().toString())
+                //Log.d("getPost", postViewModel.getPosts().toString())
                 post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)
                 adapter = CatInfoGalleryAdapter(postViewModel.getPosts())
                 post_gallery.adapter = adapter
@@ -76,7 +76,10 @@ class PostFragment : Fragment() {
                 adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int) {
                         val intent = Intent(context, PostActivity::class.java)
-                        intent.putExtra("postKey", Uri.parse(postViewModel.getPosts()[position].key).toString()) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
+                        intent.putExtra(
+                            "postKey",
+                            Uri.parse(postViewModel.getPosts()[position].key).toString()
+                        ) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
                         startActivity(intent)
                     }
                 })
@@ -85,7 +88,7 @@ class PostFragment : Fragment() {
     }
 
     // 글쓰기 버튼 리스너
-    inner class ButtonListener : View.OnClickListener{
+    inner class ButtonListener : View.OnClickListener {
         override fun onClick(v: View?) {
             val intent = Intent(context, WritePost::class.java)
             startActivity(intent)
