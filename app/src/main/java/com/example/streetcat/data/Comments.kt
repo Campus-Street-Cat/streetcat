@@ -1,4 +1,6 @@
 package com.example.streetcat.data
 
-data class Comments(val user_img : Int, val user_name : String, val comment : String) {
+import android.net.Uri
+
+data class Comments(val userImg : Uri, val username : String, val comment : String, val likeCnt : String) {
 }

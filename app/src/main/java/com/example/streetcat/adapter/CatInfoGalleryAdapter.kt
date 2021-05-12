@@ -44,7 +44,7 @@ class CatInfoGalleryAdapter(private val photos : ArrayList<GalleryPhoto>) :
             Picasso.get().load(photos[position].photo[0]).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
         else
             Picasso.get().load(R.drawable.common_google_signin_btn_icon_dark).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
-        Log.d("index 0", photos[position].photo.toString())
+        //Log.d("index 0", photos[position].photo.toString())
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
