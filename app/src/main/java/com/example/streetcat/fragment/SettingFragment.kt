@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.LoginActivity
+import com.example.streetcat.activity.NoticeActivity
+import com.example.streetcat.activity.SchoolAuth
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -19,18 +21,13 @@ import kotlinx.android.synthetic.main.fragment_setting.view.*
 class SettingFragment : Fragment() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         val view: View = inflater!!.inflate(R.layout.fragment_setting, container, false)
         view.btn_school_auth.setOnClickListener { view ->
             Log.d("btn_school", "Selected")
-            val intent = Intent(context, LoginActivity::class.java)
+            val intent = Intent(context, SchoolAuth::class.java)
             startActivity(intent)
         }
         return view
@@ -38,15 +35,23 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btn_notice.setOnClickListener { view ->
+            val intent = Intent(context, NoticeActivity::class.java)
+            startActivity(intent)
+        }
+
         btn_logout.setOnClickListener{ view ->
             Log.d("btnSetup", "Selected")
-            //activity 캐스팅 문제로 꺼짐, 바로 로그아웃 함수 쓸 수 있게 수정해야
-            val mAuth = FirebaseAuth.getInstance()
-            mAuth.signOut()
+            val Auth = FirebaseAuth.getInstance()
+            Auth.signOut()
             Toast.makeText(context, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
+
         }
+
+
 /*
         super.onViewCreated(view, savedInstanceState)
         btn_school_auth.setOnClickListener{view ->
@@ -63,4 +68,6 @@ class SettingFragment : Fragment() {
     }
 
 
+
 }
+

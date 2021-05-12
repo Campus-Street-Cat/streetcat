@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private val TAG = "FirebaseEmailPassword"
 
-    private var mAuth: FirebaseAuth? = null
+    private var Auth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +34,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         btn_verify_email.setOnClickListener(this)
 
 
-        mAuth = FirebaseAuth.getInstance()
+        Auth = FirebaseAuth.getInstance()
 
-        val currentUser = mAuth!!.currentUser
+        val currentUser = Auth!!.currentUser
         if(currentUser != null)
         {
             startActivity(Intent(this@LoginActivity, //로그인됨
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
 
-        val currentUser = mAuth!!.currentUser
+        val currentUser = Auth!!.currentUser
     }
 
     override fun onClick(view: View?) {
@@ -73,13 +73,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
-        mAuth!!.signInWithEmailAndPassword(email, password)
+        Auth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.e(TAG, "signIn: Success!")
 
                     // update UI with the signed-in user's information
-                    val user = mAuth!!.getCurrentUser()
+                    val user = Auth!!.getCurrentUser()
 
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
@@ -95,14 +95,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun signOut() {
-        mAuth!!.signOut()
+        Auth!!.signOut()
     }
 
     private fun sendEmailVerification() {
         // Disable Verify Email button
         findViewById<View>(R.id.btn_verify_email).isEnabled = false
 
-        val user = mAuth!!.currentUser
+        val user = Auth!!.currentUser
         user!!.sendEmailVerification()
             .addOnCompleteListener(this) { task ->
                 // Re-enable Verify Email button
