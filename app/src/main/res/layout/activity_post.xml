@@ -51,7 +51,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/functions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/ViewPager">
 
@@ -62,7 +62,7 @@
                     android:layout_marginVertical="10dp"
                     android:layout_marginStart="10dp"
 
-                    android:background="@color/white"
+                    android:background="@color/fui_transparent"
                     android:scaleType="centerInside"
                     android:src="@drawable/heart"
 
@@ -70,35 +70,73 @@
                     app:layout_constraintStart_toStartOf="@+id/functions"
                     app:layout_constraintTop_toTopOf="@+id/functions" />
 
-                <ImageButton
-                    android:id="@+id/image_comments"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginVertical="10dp"
+                <TextView
+                    android:id="@+id/post_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:text="좋아요"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image_heart"
+                    />
 
-                    android:background="@color/white"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/comments"
+                <TextView
+                    android:id="@+id/post_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="414"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/post_like"
+                    />
 
-                    app:layout_constraintBottom_toBottomOf="@+id/functions"
-                    app:layout_constraintStart_toEndOf="@+id/image_heart"
-                    app:layout_constraintTop_toTopOf="@+id/functions" />
+                <TextView
+                    android:id="@+id/gae"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="개"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/post_like_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <ImageButton
-                    android:id="@+id/image_scrap"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginStart="10dp"
+                <TextView
+                    android:id="@+id/com"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                    android:background="@color/white"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/save"
+                    android:text="  ·  댓글"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/gae"
+                    />
 
-                    app:layout_constraintBottom_toBottomOf="@+id/functions"
-                    app:layout_constraintStart_toEndOf="@+id/image_comments"
-                    app:layout_constraintTop_toTopOf="@+id/functions" />
+                <TextView
+                    android:id="@+id/com_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="414"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/com"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="개"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/com_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
 
                 <TextView
                     android:id="@+id/tv_num"
@@ -136,34 +174,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/post_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="좋아요"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/functions" />
-
-            <TextView
-                android:id="@+id/post_like_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="414"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/post_like"
-                app:layout_constraintTop_toBottomOf="@+id/functions" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="개"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/post_like_count"
-                app:layout_constraintTop_toBottomOf="@+id/functions" />
-
             <kr.co.prnd.readmore.ReadMoreTextView
                 android:id="@+id/context"
                 android:layout_width="match_parent"
@@ -172,7 +182,7 @@
                 android:text="여기가 본문 내용입니다\n더보기 누르면 펴지고\n다시 누르면 닫힙니다\n더보기는 그냥 빼도 괜찮을까요 넣을까요"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_like"
+                app:layout_constraintTop_toBottomOf="@+id/functions"
                 app:readMoreColor="@color/blue"
                 app:readMoreMaxLine="2"
                 app:readMoreText="...더보기" />

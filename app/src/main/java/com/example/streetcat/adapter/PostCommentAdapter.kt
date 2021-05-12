@@ -53,7 +53,7 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments>) :
         Picasso.get().load(commentList[position].userImg).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
         viewHolder.username.text = commentList[position].username
         viewHolder.comment.text = commentList[position].comment
-        viewHolder.cnt.text = commentList[position].cnt.toString()
+        viewHolder.cnt.text = commentList[position].likeCnt.toString()
 
 //        viewHolder.itemView.setOnClickListener {
 //            itemClickListener.onClick(it, position)

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.streetcat.activity.PostActivity
 import com.example.streetcat.adapter.CatInfoGalleryAdapter
 import com.example.streetcat.data.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -23,14 +24,14 @@ class PostViewModel() : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
+    private val mAuth = FirebaseAuth.getInstance()
 
     private var posts = ArrayList<GalleryPhoto>()
-    private var _posts = MutableLiveData<ArrayList<GalleryPhoto>>()
-    private var _postsRef = MutableLiveData<DatabaseReference>()
-
-    private var comments = ArrayList<Comments>()
 
     private var postKey : String = ""
+    private var commentKey : String = ""
+    private var userKey : String = ""
+    private var nickname : String = ""
 
 
     fun getPosts(): ArrayList<GalleryPhoto>{
@@ -39,8 +40,6 @@ class PostViewModel() : ViewModel() {
 
     fun addPost(img: ArrayList<Uri?>, key: String) {
         posts.add(GalleryPhoto(img, key))
-        _posts.value = posts
-        _postsRef.value = database.getReference("posts").child(key)
     }
 
     fun setPostRef(){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
@@ -77,14 +76,35 @@ class PostViewModel() : ViewModel() {
         }
     }
 
-    fun setComment(key : String, cnt : Int, com : Comments){
-        // val userImg : Uri, val username : String, val comment : String, val cnt : Int
-        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("userImg").setValue(com.userImg.toString())
-        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("username").setValue(com.username)
-        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("comment").setValue(com.comment)
-        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("cnt").setValue(com.cnt)
-        database.getReference("posts").child(key).child("comments_cnt").setValue(cnt+1) // 댓글 수 하나 증가시켜줌
+    fun setCommentRef(key : String){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
+        commentKey = database.getReference("posts").child(key).child("comments").push().key.toString()
+    }
 
-        Log.d("setComment", "끝")
+    fun getCommentKey() : String{
+        return commentKey
+    }
+
+    fun setComment(key : String, cKey : String, com : Comments){
+        // val userImg : Uri, val username : String, val comment : String, val cnt : String
+        database.getReference("posts").child(key).child("comments").child(cKey).child("userImg").setValue(com.userImg.toString())
+        database.getReference("posts").child(key).child("comments").child(cKey).child("username").setValue(com.username)
+        database.getReference("posts").child(key).child("comments").child(cKey).child("comment").setValue(com.comment)
+        database.getReference("posts").child(key).child("comments").child(cKey).child("likeCnt").setValue(com.likeCnt)
+    }
+
+    fun getUserRef(): DatabaseReference{
+        userKey = mAuth!!.currentUser.uid
+        return database.getReference("users").child(userKey)
+    }
+
+    fun setNickname(nn : String){
+        nickname = nn
+    }
+    fun getNickname() : String{
+        return nickname
+    }
+
+    fun setCommentCnt(key : String, cnt : Int){
+        database.getReference("posts").child(key).child("comments_cnt").setValue(cnt)
     }
 }
