@@ -1,6 +1,7 @@
 package com.example.streetcat.activity
 import android.os.Bundle
 import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Switch
 import android.widget.Toast
@@ -46,5 +47,20 @@ class AlarmActivity : AppCompatActivity(){
                     menuInflater.inflate(R.menu.menu1,menu)
             }
         }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        //메뉴의 id값으로 분기
+
+        when(item.itemId)
+        {
+            R.id.text_item1 ->{
+                //메뉴1로 가는 코드
+            }
+            R.id.text_item2 ->{
+                //메뉴2로 가는 코드
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 }

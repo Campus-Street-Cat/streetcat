@@ -12,6 +12,7 @@ import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.LoginActivity
 import com.example.streetcat.activity.NoticeActivity
+import com.example.streetcat.activity.SchoolAuth
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -26,7 +27,7 @@ class SettingFragment : Fragment() {
         val view: View = inflater!!.inflate(R.layout.fragment_setting, container, false)
         view.btn_school_auth.setOnClickListener { view ->
             Log.d("btn_school", "Selected")
-            val intent = Intent(context, LoginActivity::class.java)
+            val intent = Intent(context, SchoolAuth::class.java)
             startActivity(intent)
         }
         return view
@@ -34,6 +35,12 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btn_notice.setOnClickListener { view ->
+            val intent = Intent(context, NoticeActivity::class.java)
+            startActivity(intent)
+        }
+
         btn_logout.setOnClickListener{ view ->
             Log.d("btnSetup", "Selected")
             val Auth = FirebaseAuth.getInstance()
@@ -42,10 +49,6 @@ class SettingFragment : Fragment() {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
 
-            btn_notice.setOnClickListener { view ->
-                val intent = Intent(context, NoticeActivity::class.java)
-                startActivity(intent)
-            }
         }
 
 

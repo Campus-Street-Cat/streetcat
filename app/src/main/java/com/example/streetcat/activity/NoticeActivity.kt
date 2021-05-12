@@ -11,9 +11,7 @@ class NoticeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_intro)
+        setContentView(R.layout.activity_notice)
     }
-
-    val bundle:Bundle = Bundle()
 
 }
