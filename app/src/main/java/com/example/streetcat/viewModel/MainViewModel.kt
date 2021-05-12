@@ -9,6 +9,7 @@ import com.example.streetcat.data.CatAddClass
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ListResult
@@ -20,36 +21,61 @@ class MainViewModel() : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
+    private val mAuth = FirebaseAuth.getInstance()
+    private var userKey : String = ""
 
-
+    private var userSchool : String = ""
     private var cats = ArrayList<Cat>()
-    private var _cats = MutableLiveData<ArrayList<Cat>>()
-    private var _catsRef = MutableLiveData<DatabaseReference>()
+    private var schoolCats = ArrayList<String>()
+    private var catKey : String = ""
 
 
     fun getCats(): ArrayList<Cat>{
         return cats
     }
 
+    fun setSchoolName(schoolName: String){
+        userSchool = schoolName
+        Log.d("학교 이름", userSchool)
+    }
+    fun getUserRef(): DatabaseReference{
+        userKey = mAuth!!.currentUser.uid
+        Log.d("유저유저", userKey)
+        return database.getReference("users").child(userKey)
+    }
     fun addCat(img: Uri, name: String){
         cats.add(Cat(img, name))
-        _cats.value = cats
-        _catsRef.value = database.getReference("cats").child(name)
     }
 
+    fun getSchoolCatsRef(): DatabaseReference{
+        return database.getReference("cats").child(userSchool).child("cats")
+    }
+    fun addSchoolCats(catStr: String){
+        schoolCats.add(catStr)
+    }
+    //자기 학교의 고양이 리스트 참조
     fun getCatRef(): DatabaseReference{
-        return database.reference.child("cats")
+        Log.d("DEBUG", userSchool)
+        Log.d("DEBUG", userKey)
+        return database.getReference("cats")
     }
 
-    fun getLiveRef(): MutableLiveData<DatabaseReference>{
-        return _catsRef
+    fun setCatRef(){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
+        catKey = database.getReference("cats").push().key.toString()
     }
+
+    fun getKey() : String{
+        return catKey
+    }
+
     private fun setImageUri(name: String, imageUri: String){
         database.getReference("cats").child(name).child("picture").setValue(imageUri)
     }
 
     fun setCatInfo(name: String, catClass: CatAddClass){
         database.getReference("cats").child(name).setValue(catClass)
+        val tmpKey = database.getReference("schools").child(userSchool).child("cats").push().key.toString()
+        database.getReference("schools").child(userSchool).child("cats").child(tmpKey).setValue(catKey)
     }
 
     fun setPhoto(uri: Uri, name: String){
@@ -61,19 +87,6 @@ class MainViewModel() : ViewModel() {
         }
     }
 
-    fun getPhoto(key: String) : Uri{
-        var tmpUri : Uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/cats%2FKakaoTalk_20210310_215259084_15.jpg?alt=media&token=4a4a8012-3d95-4c2f-8aeb-32a826d6599f")
-        Log.d("error", key)
-        val ref = storage.reference.child("caticon.PNG")
-        ref.downloadUrl.addOnSuccessListener {
-            tmpUri = it
-            Log.d("error", "error1")
-        }.addOnFailureListener{
-            Log.d("error", "error2")
-        }
-        return tmpUri
-    }
-
-    }
+}
 
 

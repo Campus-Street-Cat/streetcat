@@ -29,6 +29,9 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
+        mainViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
+            mainViewModel.setSchoolName(it.value.toString())
+        }
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -37,7 +40,18 @@ class HomeFragment : Fragment() {
 
         add_btn.setOnClickListener(ButtonListener())
 
+        // 학교 고양이 목록 가져오기
+        mainViewModel.getSchoolCatsRef().addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
+            override fun onDataChange(p0: DataSnapshot) {
+                for(data in p0.children){
+                    mainViewModel.addSchoolCats(data.value.toString())
+                }
+            }
+        })
         // dbViewModel 의 cats 배열 observing
         mainViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
