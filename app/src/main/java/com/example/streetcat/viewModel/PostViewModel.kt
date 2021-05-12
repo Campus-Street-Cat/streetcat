@@ -9,10 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.streetcat.activity.PostActivity
 import com.example.streetcat.adapter.CatInfoGalleryAdapter
-import com.example.streetcat.data.Cat
-import com.example.streetcat.data.GalleryPhoto
-import com.example.streetcat.data.Post
-import com.example.streetcat.data.PostClass
+import com.example.streetcat.data.*
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -31,18 +28,14 @@ class PostViewModel() : ViewModel() {
     private var _posts = MutableLiveData<ArrayList<GalleryPhoto>>()
     private var _postsRef = MutableLiveData<DatabaseReference>()
 
+    private var comments = ArrayList<Comments>()
+
     private var postKey : String = ""
 
 
     fun getPosts(): ArrayList<GalleryPhoto>{
         return posts
     }
-
-//    fun addPost(img: Uri, key: String){
-//        posts.add(GalleryPhoto(img, key))
-//        _posts.value = posts
-//        _postsRef.value = database.getReference("posts").child(key)
-//    }
 
     fun addPost(img: ArrayList<Uri?>, key: String) {
         posts.add(GalleryPhoto(img, key))
@@ -62,13 +55,6 @@ class PostViewModel() : ViewModel() {
         return database.reference.child("posts")
     }
 
-    fun getLiveRef(): MutableLiveData<DatabaseReference>{
-        return _postsRef
-    }
-//    private fun setImageUri(key: String, imageUri: String){
-//        database.getReference("posts").child(key).child("picture").setValue(imageUri)
-//    }
-
     private fun setImageUri(key: String, imageUri: String, index: Int){
         database.getReference("posts").child(key).child("pictures").child(index.toString()).setValue(imageUri)
     }
@@ -76,15 +62,6 @@ class PostViewModel() : ViewModel() {
     fun setPost(key: String, post: PostClass){
         database.getReference("posts").child(key).setValue(post)
     }
-
-//    fun setPhoto(uri: Uri, key: String){
-//        val storafeRef = storage.reference.child(key).child(key + ".png")
-//        storafeRef?.putFile(uri).addOnSuccessListener {
-//            storafeRef.downloadUrl.addOnSuccessListener { uri ->
-//                setImageUri(key, uri.toString())
-//            }
-//        }
-//    }
 
     fun setPhoto(uris: ArrayList<Uri?>, key: String){
         for(i in 0 until uris.size){
@@ -100,16 +77,14 @@ class PostViewModel() : ViewModel() {
         }
     }
 
-    fun getPhoto(key: String) : Uri{
-        var tmpUri : Uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/cats%2FKakaoTalk_20210310_215259084_15.jpg?alt=media&token=4a4a8012-3d95-4c2f-8aeb-32a826d6599f")
-        Log.d("error", key)
-        val ref = storage.reference.child("caticon.PNG")
-        ref.downloadUrl.addOnSuccessListener {
-            tmpUri = it
-            Log.d("error", "error1")
-        }.addOnFailureListener{
-            Log.d("error", "error2")
-        }
-        return tmpUri
+    fun setComment(key : String, cnt : Int, com : Comments){
+        // val userImg : Uri, val username : String, val comment : String, val cnt : Int
+        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("userImg").setValue(com.userImg.toString())
+        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("username").setValue(com.username)
+        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("comment").setValue(com.comment)
+        database.getReference("posts").child(key).child("comments").child(cnt.toString()).child("cnt").setValue(com.cnt)
+        database.getReference("posts").child(key).child("comments_cnt").setValue(cnt+1) // 댓글 수 하나 증가시켜줌
+
+        Log.d("setComment", "끝")
     }
 }

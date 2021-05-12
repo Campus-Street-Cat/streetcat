@@ -26,46 +26,31 @@
         app:layout_constraintStart_toEndOf="@+id/comment_user_profile_image"
         app:layout_constraintTop_toTopOf="@+id/comment_user_profile_image" />
 
-    <LinearLayout
-        android:id="@+id/comment_functions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+
+    <ImageButton
+        android:id="@+id/comment_image_heart"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="15dp"
+
+        android:background="@color/white"
+        android:scaleType="centerInside"
+
+        android:src="@drawable/heart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/comment_image_heart"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-
-            android:background="@color/white"
-            android:scaleType="centerInside"
-            android:src="@drawable/heart" />
-
-        <ImageButton
-            android:id="@+id/comment_image_comments"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="10dp"
-
-            android:background="@color/white"
-            android:scaleType="centerInside"
-            android:src="@drawable/comments" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
 
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="15dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="50dp"
+        android:textColor="@color/black"
+
         app:layout_constraintTop_toBottomOf="@+id/comment_user_profile_image" />
 
     <TextView
@@ -80,14 +65,24 @@
         app:layout_constraintTop_toBottomOf="@+id/comment" />
 
     <TextView
-        android:id="@+id/comment_like_count"
+        android:id="@+id/comment_like_cnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3개"
+        android:text="0"
 
         android:layout_marginStart="5dp"
         android:layout_marginVertical="10dp"
-        app:layout_constraintStart_toEndOf="@+id/comment_like"
+        app:layout_constraintStart_toEndOf="@id/comment_like"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="개"
+
+
+        android:layout_marginVertical="10dp"
+        app:layout_constraintStart_toEndOf="@+id/comment_like_cnt"
         app:layout_constraintTop_toBottomOf="@+id/comment"/>
 
 

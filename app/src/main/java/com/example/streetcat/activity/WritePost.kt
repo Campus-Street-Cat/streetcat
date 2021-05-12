@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.streetcat.R
+import com.example.streetcat.data.Comments
 import com.example.streetcat.data.PostClass
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.FirebaseDatabase

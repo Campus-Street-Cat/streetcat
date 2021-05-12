@@ -31,4 +31,5 @@ class RegisterViewModel() : ViewModel() {
     fun setInfo(key: String, post: UserInfo){
         database.getReference("users").child(key).setValue(post)
     }
+
 }

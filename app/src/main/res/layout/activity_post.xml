@@ -198,7 +198,7 @@
         android:layout_height="40dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="10dp"
+        android:layout_margin="7dp"
         android:paddingStart="10dp"
 
         android:hint="댓글을 입력하세요."
@@ -207,12 +207,15 @@
         android:inputType="textMultiLine|textNoSuggestions" />
 
     <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/submit_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintTop_toTopOf="@id/reply"
         app:layout_constraintEnd_toEndOf="@id/reply"
+        android:layout_marginEnd="7dp"
 
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
+        android:background="@color/gray"
         android:src="@drawable/submit"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
