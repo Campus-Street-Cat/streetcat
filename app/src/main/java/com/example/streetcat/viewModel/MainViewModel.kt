@@ -75,7 +75,7 @@ class MainViewModel() : ViewModel() {
     fun setCatInfo(name: String, catClass: CatAddClass){
         database.getReference("cats").child(name).setValue(catClass)
         val tmpKey = database.getReference("schools").child(userSchool).child("cats").push().key.toString()
-        database.getReference("schools").child(userSchool).child("cats").child(tmpKey).setValue(catKey)
+        database.getReference("schools").child(userSchool).child("cats").child(catClass.name).setValue(tmpKey)
     }
 
     fun setPhoto(uri: Uri, name: String){

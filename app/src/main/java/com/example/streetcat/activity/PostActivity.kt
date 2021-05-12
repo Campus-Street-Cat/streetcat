@@ -72,6 +72,7 @@ class PostActivity : AppCompatActivity() {
                         context.text = data.child("contents").value.toString() // 글 본문 내용 뿌리기
                         post_like_count.text = data.child("churu").value.toString() // 좋아요 개수 뿌리기
                         com_count.text = data.child("comments_cnt").value.toString()
+                        post_school.text = "#" + data.child("school").value.toString()
 
                         for(i in 0 until cnt.toInt()){
                             uri.add(Uri.parse(data.child("pictures").child(i.toString()).value.toString())) // 사진 uri
