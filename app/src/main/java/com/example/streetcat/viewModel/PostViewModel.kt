@@ -54,6 +54,14 @@ class PostViewModel() : ViewModel() {
         return database.reference.child("posts")
     }
 
+    fun getSchoolRef(): DatabaseReference{
+        return database.reference.child("schools")
+    }
+
+    fun setSchool(key : String, school : String){
+        database.getReference("posts").child(key).child("school").setValue(school)
+    }
+
     private fun setImageUri(key: String, imageUri: String, index: Int){
         database.getReference("posts").child(key).child("pictures").child(index.toString()).setValue(imageUri)
     }

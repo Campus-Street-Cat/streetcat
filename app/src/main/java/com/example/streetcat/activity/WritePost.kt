@@ -8,29 +8,43 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
-import com.example.streetcat.data.Comments
+import com.example.streetcat.adapter.CheckboxAdapter
+import com.example.streetcat.adapter.PostCommentAdapter
+import com.example.streetcat.adapter.PostViewPagerAdapter
 import com.example.streetcat.data.PostClass
 import com.example.streetcat.viewModel.PostViewModel
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_cat_add.input_catPicture
+import kotlinx.android.synthetic.main.activity_post.*
+import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.activity_write_post.*
 
 class WritePost : AppCompatActivity() {
     private val postViewModel: PostViewModel by viewModels()
-    //private var uriPhoto : Uri? = null
     private var uriPhoto = ArrayList<Uri?>()
+    //private val schools = arrayListOf("- 학교 선택 -", "한국항공대학교", "서울대학교", "KAIST")
+    private val schools = ArrayList<String>()
+    private val schoolCats = ArrayList<String>() // 고양이 키 값 저장
+
+    private var selectedSchool : String = ""
+    lateinit var checkboxAdapter: CheckboxAdapter
 
     // 카메라 권한 요청 및 권한 체크
     val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_GALLERY_TAKE = 2
-    //lateinit var currentPhotoPath : String
 
     //갤러리 열기
     private fun openGalleryForImage() {
@@ -38,9 +52,7 @@ class WritePost : AppCompatActivity() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) // 사진 여러 장 가져오는 코드?
         startActivityForResult(intent, REQUEST_GALLERY_TAKE)
-        //startActivityForResult(intent, MULTI)
     }
-
 
     // onActivityResult 로 이미지 설정
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,13 +68,8 @@ class WritePost : AppCompatActivity() {
                             uriPhoto.add(clipdata.getItemAt(i).uri)
                         } // 사진 여러장 저장하기
                     }
-
-                    //uriPhoto = data?.data
-                    //uriPhoto.add(data?.data)
-
                     // ImageButton 에 가져온 이미지 set
                     input_catPicture.setImageURI(uriPhoto[0])
-                    //input_catPicture.setImageURI(uriPhoto)
                 }
             }
         }
@@ -97,6 +104,71 @@ class WritePost : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
+        schools.add(" -학교 선택 -")
+
+        // 유저 닉네임 set
+        postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
+            postViewModel.setNickname(it.value.toString())
+        }
+
+        postViewModel.getSchoolRef().addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(data in dataSnapshot.children){
+                    if(data.key != "cats"){
+                        schools.add(data.key.toString())
+                    }
+                }
+            }
+        })
+
+        // 학교 spinner
+        val schoolAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, schools)
+        schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        school.adapter = schoolAdapter
+
+        val cont = this
+
+        school.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedSchool = school.selectedItem.toString()
+                postViewModel.getSchoolRef().addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if(schoolCats.isNotEmpty())
+                            schoolCats.clear()
+                        for(data in dataSnapshot.children){
+                            if(data.key == selectedSchool){
+                                val cats = data.child("cats").children
+                                for(cat in cats){
+                                    schoolCats.add(cat.key.toString())
+                                }
+
+                                school_cat.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
+                                checkboxAdapter = CheckboxAdapter(schoolCats)
+                                school_cat.adapter = checkboxAdapter
+
+                            }
+                        }
+                    }
+                })
+            } // onItemSelected
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
 
         input_catPicture.setOnClickListener{
             if(checkPersmission()){
@@ -107,9 +179,8 @@ class WritePost : AppCompatActivity() {
         }
 
         writePost_button.setOnClickListener{
-            //Log.d("clipdata", uriPhoto.toString())
             val contents = postContents.editableText.toString()
-            val username : String = "pompom_love" // 글쓴 유저 이름 로그인 정보에서 가져와야 할듯
+            val username = postViewModel.getNickname()
 
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
@@ -119,6 +190,8 @@ class WritePost : AppCompatActivity() {
 
             val post = PostClass(username, 0, 0, contents, uriPhoto.size)
             postViewModel.setPost(key, post)
+            postViewModel.setSchool(key, selectedSchool)
+
             Toast.makeText(applicationContext, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
             this.onBackPressed()
         }
