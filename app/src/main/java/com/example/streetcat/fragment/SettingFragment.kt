@@ -20,11 +20,6 @@ import kotlinx.android.synthetic.main.fragment_setting.view.*
 class SettingFragment : Fragment() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -47,10 +42,13 @@ class SettingFragment : Fragment() {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
 
-        btn_notice.setOnClickListener {
-            val intent = Intent(context,NoticeActivity::class.java )
+            btn_notice.setOnClickListener { view ->
+                val intent = Intent(context, NoticeActivity::class.java)
+                startActivity(intent)
+            }
         }
-        }
+
+
 /*
         super.onViewCreated(view, savedInstanceState)
         btn_school_auth.setOnClickListener{view ->
@@ -67,4 +65,6 @@ class SettingFragment : Fragment() {
     }
 
 
+
 }
+
