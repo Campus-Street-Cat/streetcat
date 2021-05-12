@@ -90,22 +90,25 @@ class PostActivity : AppCompatActivity() {
 
                     // 댓글 작성해서 DB에 등록
                     submit_btn.setOnClickListener {
-                        postViewModel.setCommentRef(key)
-                        val commentKey = postViewModel.getCommentKey()
-
-                        // 사용자 프로필 사진도 DB에 등록해서 가져오기
-                        val profile = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/-MZvXYgCftH-88ExGp6g_1.png?alt=media&token=856d791e-2eab-41b3-8d00-00fe005a779b")
-                        val name = postViewModel.getNickname()
                         val rep = reply.editableText.toString()
-                        val like = "0"
-                        val newComment = Comments(profile, name, rep, like)
+                        if(rep != ""){
+                            postViewModel.setCommentRef(key)
+                            val commentKey = postViewModel.getCommentKey()
 
-                        postViewModel.setComment(key, commentKey, newComment)
-                        postViewModel.setCommentCnt(key, cmts.size + 1)
+                            // 사용자 프로필 사진도 DB에 등록해서 가져오기
+                            val profile = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/-MZvXYgCftH-88ExGp6g_1.png?alt=media&token=856d791e-2eab-41b3-8d00-00fe005a779b")
+                            val name = postViewModel.getNickname()
 
-                        Toast.makeText(applicationContext, "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show()
-                        reply.setText(null)
-                        CloseKeyboard()
+                            val like = "0"
+                            val newComment = Comments(profile, name, rep, like)
+
+                            postViewModel.setComment(key, commentKey, newComment)
+                            postViewModel.setCommentCnt(key, cmts.size + 1)
+
+                            Toast.makeText(applicationContext, "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show()
+                            reply.setText(null)
+                            CloseKeyboard()
+                        }
                     }
                 }
 
