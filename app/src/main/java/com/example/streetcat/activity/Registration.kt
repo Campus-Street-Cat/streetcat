@@ -70,7 +70,7 @@ class Registration : AppCompatActivity() {
                         RegisterViewModel.setUserRef()
                         val key = mAuth!!.currentUser.uid
 
-                        val user = UserInfo(email, password, school, nickname)
+                        val user = UserInfo(email, school, nickname)
                         RegisterViewModel.setInfo(key, user)
                         startActivity(Intent(this@Registration, MainActivity::class.java))
                         finish()

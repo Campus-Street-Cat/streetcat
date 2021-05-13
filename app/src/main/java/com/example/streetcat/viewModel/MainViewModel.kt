@@ -55,9 +55,10 @@ class MainViewModel() : ViewModel() {
     }
     //자기 학교의 고양이 리스트 참조
     fun getCatRef(): DatabaseReference{
-        Log.d("DEBUG", userSchool)
-        Log.d("DEBUG", userKey)
-        return database.getReference("cats")
+        Log.d("학교이름", userSchool)
+        Log.d("유저키", userKey)
+//        return database.getReference("cats")
+        return database.getReference("schools").child(userSchool).child("cats")
     }
 
     fun setCatRef(){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
@@ -75,7 +76,7 @@ class MainViewModel() : ViewModel() {
     fun setCatInfo(name: String, catClass: CatAddClass){
         database.getReference("cats").child(name).setValue(catClass)
         val tmpKey = database.getReference("schools").child(userSchool).child("cats").push().key.toString()
-        database.getReference("schools").child(userSchool).child("cats").child(catClass.name).setValue(tmpKey)
+        database.getReference("schools").child(userSchool).child("cats").child(catClass.name).setValue(name)
     }
 
     fun setPhoto(uri: Uri, name: String){
@@ -86,7 +87,9 @@ class MainViewModel() : ViewModel() {
             }
         }
     }
-
+    fun tmp(key: String) : DatabaseReference{
+        return database.getReference("cats").child(key)
+    }
 }
 
 

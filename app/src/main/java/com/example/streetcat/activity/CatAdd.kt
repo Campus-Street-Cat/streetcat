@@ -94,7 +94,6 @@ class CatAdd : AppCompatActivity() {
 
             val name = input_catName.editableText.toString()
             val birth = input_catBirth.editableText.toString()
-            val school = input_catSchool.editableText.toString()
             val neutral = input_neutral.isChecked
             val gender = input_male.isChecked
 
@@ -105,7 +104,7 @@ class CatAdd : AppCompatActivity() {
             mainViewModel.setPhoto(uriPhoto!!, key)
             Log.d("tag", uriPhoto.toString())
             // DB 고양이 정보 추가
-            val catClass = CatAddClass(name, birth, gender, neutral, school)
+            val catClass = CatAddClass(name, birth, gender, neutral)
 
 
             mainViewModel.setCatInfo(key, catClass)
