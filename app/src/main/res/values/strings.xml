@@ -15,4 +15,8 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_sick_select">SickSelect</string>
     <string name="title_activity_notice">NoticeActivity</string>
+    <string name="fcm_message" />
+    <string name="default_notification_channel_id" />
+    <string name="msg_token_fmt" />
+    <string name="my_notification_channel_id" />
 </resources>
