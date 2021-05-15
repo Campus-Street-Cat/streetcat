@@ -6,31 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.setContentView
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.SickSelect
 import kotlinx.android.synthetic.main.fragment_home.*
-
+import kotlinx.android.synthetic.main.fragment_notice.view.*
 
 class NoticeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return null
-        // Inflate the layout for this fragment
+        savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_notice, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
     }
 

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.streetcat">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 저장 권한 설정 (이미지나 동영상을 기기의 외부 장치에 저장할경우) -->
@@ -17,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
+
         <activity
             android:name=".activity.NoticeActivity"
             android:label="@string/title_activity_notice"
-            android:theme="@style/Theme.Streetcat.NoActionBar"></activity>
+            android:theme="@style/Theme.Streetcat.NoActionBar" />
         <activity android:name=".activity.TestEnum" />
         <activity android:name=".activity.Constants" />
         <activity
@@ -47,6 +49,22 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.CatDetailInfo" />
         <activity android:name=".activity.SickInfo" />
+
+        <service android:name=".services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher_foreground" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/white" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
