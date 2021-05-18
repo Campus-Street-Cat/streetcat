@@ -14,24 +14,20 @@ import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
 import com.example.streetcat.activity.CatInfo
-import com.example.streetcat.activity.SickSelect
-import com.example.streetcat.activity.WritePost
-import com.example.streetcat.data.Cat
-import com.example.streetcat.viewModel.MainViewModel
+import com.example.streetcat.viewModel.HomeViewModel
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_post.*
 
 
 class HomeFragment : Fragment() {
-    private val mainViewModel: MainViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     lateinit var adapter: HomeRecyclerViewAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        mainViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
-            mainViewModel.setSchoolName(it.value.toString())
+        homeViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
+            homeViewModel.setSchoolName(it.value.toString())
         }
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -41,11 +37,11 @@ class HomeFragment : Fragment() {
 
         add_btn.setOnClickListener(ButtonListener())
 
-        mainViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
-            mainViewModel.setSchoolName(it.value.toString())
+        homeViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
+            homeViewModel.setSchoolName(it.value.toString())
 
         // dbViewModel 의 cats 배열 observing
-        mainViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
+        homeViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -54,35 +50,33 @@ class HomeFragment : Fragment() {
                 for (data in p0.children) {
                     Log.d("자식도 있음", data.value.toString())
                     val cat = data.value.toString()
-                    mainViewModel.tmp(cat).get().addOnSuccessListener {
+                    homeViewModel.getCatRef(cat).get().addOnSuccessListener {
                         var flag = true
                         Log.d("인식도 함", it.child("name").value.toString())
-                        for(comp in mainViewModel.getCats()){
+                        for(comp in homeViewModel.getCats()){
                             if(comp.name == it.child("name").value.toString()) flag = false
                         }
                         if(flag) {
                             Log.d("추가도 됨", it.child("picture").value.toString())
-                            mainViewModel.addCat(
+                            homeViewModel.addCat(
                                 Uri.parse(it.child("picture").value.toString()),
-                                it.child("name").value.toString()
+                                it.child("name").value.toString(),
+                                cat
                             )
 
                             favorite_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                            adapter = HomeRecyclerViewAdapter(mainViewModel.getCats())
+                            adapter = HomeRecyclerViewAdapter(homeViewModel.getCats())
                             favorite_cats_view.adapter = adapter
                             univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                            adapter = HomeRecyclerViewAdapter(mainViewModel.getCats())
+                            adapter = HomeRecyclerViewAdapter(homeViewModel.getCats())
                             univ_cats_view.adapter = adapter
 
                             adapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
                                 override fun onClick(view: View, position: Int) {
-                                    if (position == 0) {
-                                        val intent = Intent(context, CatInfo::class.java)
-                                        startActivity(intent)
-                                    } else if (position == 5) {
-                                        val intent = Intent(context, CatAdd::class.java)
-                                        startActivity(intent)
-                                    }
+                                    //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
+                                    val intent = Intent(context, CatInfo::class.java)
+                                    intent.putExtra("catId", homeViewModel.getCats()[position].catid)
+                                    startActivity(intent)
                                 }
                             })
                         }

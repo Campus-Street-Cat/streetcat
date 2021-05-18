@@ -1,21 +1,12 @@
 package com.example.streetcat.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
 import com.example.streetcat.adapter.HomeViewPagerAdapter
-import com.example.streetcat.viewModel.MainViewModel
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.RemoteMessage
-import kotlinx.android.synthetic.main.activity_cat_main.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
