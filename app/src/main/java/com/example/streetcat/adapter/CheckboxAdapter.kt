@@ -9,37 +9,13 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetcat.R
+import com.example.streetcat.viewModel.PostViewModel
 import kotlinx.android.synthetic.main.item_checkbox.view.*
 
-class CheckboxAdapter(private val cats: ArrayList<String>) :
+class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewModel: PostViewModel) :
     RecyclerView.Adapter<CheckboxAdapter.ViewHolder>() {
 
-//    private var ck = 0
-//    private var checkboxList = ArrayList<checkboxData>()
-//
-//
-//    inner class Holder(view: View?) : RecyclerView.ViewHolder(view!!) {
-//        //var thumbnail: ImageView = itemView!!.findViewById<ImageView>(R.id.thumbnail_img)
-//        var checkbox: CheckBox = view!!.check
-//
-//        fun bind(data: String, num: Int) {
-//
-////            if (ck == 1) {
-////                checkbox.visibility = View.VISIBLE
-////            } else
-////                checkbox.visibility = View.GONE
-//
-//
-//            checkbox.isChecked = checkboxList[num].checked
-//            checkboxList[num].catname = data
-//
-//            checkbox.setOnClickListener {
-//                checkboxList[num].checked = checkbox.isChecked
-//            }
-//        }
-//
-//    }
-
+    val selected = ArrayList<String>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val catname : TextView = view.cat
@@ -48,49 +24,39 @@ class CheckboxAdapter(private val cats: ArrayList<String>) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_checkbox, viewGroup, false)
+
+        postViewModel.setPostRef()
+
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.catname.text = cats[position]
-        //viewHolder.bind(cats[position], position)
+
+
+
+        val key = postViewModel.getKey()
+
+
+        viewHolder.checkBox.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                if(isChecked){
+                    if(!selected.contains(cats[position])){
+                        selected.add(cats[position])
+                    }
+                }
+                else{
+                    if(selected.contains(cats[position])){
+                        selected.remove(cats[position])
+                    }
+                }
+                notifyDataSetChanged()
+            }
+        })
+        print("adapter key : ")
+        println(key)
+        //postViewModel.addCats(key, selected)
     }
 
     override fun getItemCount() = cats.size
-
-//    class checkboxData(
-//        var catname : String,
-//        var checked : Boolean
-//    )
-
-//    companion object { // 체크박스 처리하는 부분
-//        class ItemHolder(var binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root),
-//            CompoundButton.OnCheckedChangeListener {
-//            var item: ItemModel.ItemEntity? = null
-//
-//            init {
-//                binding.checkBox.setOnCheckedChangeListener(this)
-//            }
-//
-//            fun bind(item: ItemModel.ItemEntity?) {
-//                item?.let {
-//                    this.item = item
-//                    binding.checkBox.isChecked = it.isChecked
-//                    binding.textTitle.text = it.title
-//                    binding.textContents.text = it.contents
-//                }
-//            }
-//
-//
-//            override fun onCheckedChanged(
-//                buttonView: CompoundButton?,
-//                isChecked: Boolean
-//            ) { //체크 리스너 등록
-//                item?.let {
-//                    it.isChecked = it.isChecked.not()
-//                    Log.d("checkState", "${it.isChecked}")
-//                }
-//            }
-//        }
-//    }
 }

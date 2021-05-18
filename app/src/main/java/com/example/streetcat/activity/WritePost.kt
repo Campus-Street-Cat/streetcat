@@ -38,6 +38,7 @@ class WritePost : AppCompatActivity() {
     private val schoolCats = ArrayList<String>() // 고양이 키 값 저장
 
     private var selectedSchool : String = ""
+    //lateinit var selectedCats : ArrayList<String>
     lateinit var checkboxAdapter: CheckboxAdapter
 
     // 카메라 권한 요청 및 권한 체크
@@ -154,9 +155,8 @@ class WritePost : AppCompatActivity() {
                                 }
 
                                 school_cat.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
-                                checkboxAdapter = CheckboxAdapter(schoolCats)
+                                checkboxAdapter = CheckboxAdapter(schoolCats, postViewModel)
                                 school_cat.adapter = checkboxAdapter
-
                             }
                         }
                     }
@@ -183,10 +183,13 @@ class WritePost : AppCompatActivity() {
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
 
+            print("button key : ")
+            println(key)
+
             postViewModel.setPhoto(uriPhoto!!, key)
             postViewModel.addPost(uriPhoto!!, key)
 
-            val post = PostClass(username, 0, 0, contents, uriPhoto.size)
+            val post = PostClass(username, 0, contents, uriPhoto.size)
             postViewModel.setPost(key, post)
             postViewModel.setSchool(key, selectedSchool)
 

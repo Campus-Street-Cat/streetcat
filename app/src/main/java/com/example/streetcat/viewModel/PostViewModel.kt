@@ -123,4 +123,12 @@ class PostViewModel() : ViewModel() {
     fun deleteComment(postKey : String, commentKey : String){
         database.getReference("posts").child(postKey).child("comments").child(commentKey).setValue(null)
     }
+
+//    fun addCats(key : String, cats : ArrayList<String>){
+////        if(database.getReference(key) != null)
+////            database.getReference(key).setValue(null)
+//        for(cat in cats) {
+//            database.getReference(key).child("cats").child(cat).setValue(cat)
+//        }
+//    }
 }
