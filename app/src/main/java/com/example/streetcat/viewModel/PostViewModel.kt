@@ -92,6 +92,10 @@ class PostViewModel() : ViewModel() {
         return commentKey
     }
 
+    fun getCommentRef(key : String): DatabaseReference{
+        return database.reference.child("posts").child(key).child("comments")
+    }
+
     fun setComment(key : String, cKey : String, com : Comments){
         // val userImg : Uri, val username : String, val comment : String, val cnt : String
         database.getReference("posts").child(key).child("comments").child(cKey).child("userImg").setValue(com.userImg.toString())
@@ -112,7 +116,11 @@ class PostViewModel() : ViewModel() {
         return nickname
     }
 
-    fun setCommentCnt(key : String, cnt : Int){
-        database.getReference("posts").child(key).child("comments_cnt").setValue(cnt)
+    fun deletePost(key : String){
+        database.getReference("posts").child(key).setValue(null)
+    }
+
+    fun deleteComment(postKey : String, commentKey : String){
+        database.getReference("posts").child(postKey).child("comments").child(commentKey).setValue(null)
     }
 }

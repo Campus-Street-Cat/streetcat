@@ -20,8 +20,6 @@ import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
 import com.example.streetcat.adapter.CheckboxAdapter
-import com.example.streetcat.adapter.PostCommentAdapter
-import com.example.streetcat.adapter.PostViewPagerAdapter
 import com.example.streetcat.data.PostClass
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot

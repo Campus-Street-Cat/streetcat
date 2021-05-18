@@ -3,36 +3,30 @@ package com.example.streetcat.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.streetcat.data.Comments
 import com.example.streetcat.R
-import com.example.streetcat.adapter.CatInfoGalleryAdapter
 import com.example.streetcat.adapter.PostCommentAdapter
 import com.example.streetcat.adapter.PostViewPagerAdapter
-import com.example.streetcat.viewModel.MainViewModel
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_post.*
-import kotlinx.android.synthetic.main.activity_write_post.*
-import kotlinx.android.synthetic.main.fragment_post.*
-
 
 class PostActivity : AppCompatActivity() {
     lateinit var adapter: PostViewPagerAdapter
     lateinit var commentAdapter : PostCommentAdapter
 
     private val postViewModel: PostViewModel by viewModels()
+    lateinit var postAuthor : String
     lateinit var key : String
 
     var imm : InputMethodManager? = null
@@ -65,14 +59,15 @@ class PostActivity : AppCompatActivity() {
                 for (data in dataSnapshot.children) {
                     if(data.key == postKey){ // 키 값이 같은 데이터를 찾으면
                         val cnt = data.child("cnt").value.toString() // 사진 개수
-
                         tv_total.text = cnt
+
+                        postAuthor = data.child("author").value.toString()
 
                         user_name.text = data.child("author").value.toString() // 작성자 이름 뿌리기
                         context.text = data.child("contents").value.toString() // 글 본문 내용 뿌리기
                         post_like_count.text = data.child("churu").value.toString() // 좋아요 개수 뿌리기
-                        com_count.text = data.child("comments_cnt").value.toString()
                         post_school.text = "#" + data.child("school").value.toString()
+
 
                         for(i in 0 until cnt.toInt()){
                             uri.add(Uri.parse(data.child("pictures").child(i.toString()).value.toString())) // 사진 uri
@@ -80,13 +75,18 @@ class PostActivity : AppCompatActivity() {
 
                         // 해당 게시물의 댓글 가져오기
                         val temp = data.child("comments").children
+                        var i = 0
+
                         for(cmt in temp){ // 댓글 내용
                             val profile = Uri.parse(cmt.child("userImg").value.toString())
                             val name = cmt.child("username").value.toString()
                             val c = cmt.child("comment").value.toString()
                             val likeCnt = cmt.child("likeCnt").value.toString() // cnt가 int형이면 이상하게 안됨
-                            cmts.add(Comments(profile, name, c, likeCnt))
+                            val commentKey = cmt.key.toString()
+                            cmts.add(Comments(profile, name, c, likeCnt, commentKey))
+                            i++
                         }
+                        com_count.text = i.toString() // 댓글 개수
                     }
 
                     // 댓글 작성해서 DB에 등록
@@ -101,14 +101,13 @@ class PostActivity : AppCompatActivity() {
                             val name = postViewModel.getNickname()
 
                             val like = "0"
-                            val newComment = Comments(profile, name, rep, like)
+                            val newComment = Comments(profile, name, rep, like, commentKey)
 
                             postViewModel.setComment(key, commentKey, newComment)
-                            postViewModel.setCommentCnt(key, cmts.size + 1)
 
                             Toast.makeText(applicationContext, "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show()
                             reply.setText(null)
-                            CloseKeyboard()
+                            closeKeyboard()
                         }
                     }
                 }
@@ -120,10 +119,40 @@ class PostActivity : AppCompatActivity() {
 
                 // 댓글 리사이클러 뷰 어댑터
                 comments.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
-                commentAdapter = PostCommentAdapter(cmts)// 현재 게시글의 comment 가져오기
+                commentAdapter = PostCommentAdapter(cmts, postViewModel, key, cont, menuInflater)// 현재 게시글의 comment 가져오기
                 comments.adapter = commentAdapter
             }
-        })
+        }) // onDataChange
+
+        //registerForContextMenu(more_btn)
+
+        more_btn.setOnClickListener { // 게시글 삭제하기 버튼 기능
+            val name = postViewModel.getNickname()
+            val popup = PopupMenu(this, it)
+            menuInflater.inflate(R.menu.post_delete_menu, popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+                when(item.itemId){
+                    //R.id.deletePost -> Log.d("deletePost", "delete popup")
+                    R.id.deletePost -> {
+                        println("this")
+                        val deleteCheck = AlertDialog.Builder(this)
+
+                        deleteCheck.setTitle("게시글을 삭제하시겠습니까?")
+                        deleteCheck.setPositiveButton("삭제"){ dialog, which ->
+                            // DB에서 포스트 데이터 삭제
+                            postViewModel.deletePost(key)
+                            val intent = Intent(cont, MainActivity::class.java)
+                            startActivity(intent) // 삭제하면 postFragment로 가게 하고싶은데 activity -> fragment가 되나? 일단은 mainActivity로 이동
+                        }
+                        deleteCheck.setNegativeButton("취소", null)
+                        deleteCheck.show()
+                    }
+                }
+                false
+            }
+            if(name == postAuthor) // 본인이 쓴 게시글만 삭제할 수 있도록 함
+                popup.show()
+        }
 
         // 게시글에서 사진 개수랑 현재 페이지가 몇 번째인지 띄워주는 코드      ->   1 / 3
         ViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -143,7 +172,7 @@ class PostActivity : AppCompatActivity() {
         })
     }
 
-    fun CloseKeyboard() { // 댓글 작성하면 키보드 내려주는 코드
+    fun closeKeyboard() { // 댓글 작성하면 키보드 내려주는 코드
         val view = this.currentFocus
         if (view != null) {
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
