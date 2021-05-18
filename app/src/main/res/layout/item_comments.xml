@@ -31,14 +31,28 @@
         android:id="@+id/comment_image_heart"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="5dp"
 
         android:background="@color/fui_transparent"
         android:scaleType="centerCrop"
 
         android:src="@drawable/heart"
+        app:layout_constraintEnd_toStartOf="@id/comment_more_btn"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/comment_more_btn"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="8dp"
+
+        android:background="@color/fui_transparent"
+        android:scaleType="centerCrop"
+
+        android:src="@drawable/more"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -48,7 +62,7 @@
 
         android:layout_marginVertical="10dp"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="55dp"
         android:textColor="@color/black"
 
         app:layout_constraintTop_toBottomOf="@+id/comment_user_profile_image" />
