@@ -42,8 +42,7 @@
             android:id="@+id/cat_profile_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/pompom1" />
+            android:layout_margin="20dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/info"

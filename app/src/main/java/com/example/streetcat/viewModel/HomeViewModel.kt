@@ -17,7 +17,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 
 
-class MainViewModel() : ViewModel() {
+class HomeViewModel() : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
@@ -43,8 +43,8 @@ class MainViewModel() : ViewModel() {
         Log.d("유저유저", userKey)
         return database.getReference("users").child(userKey)
     }
-    fun addCat(img: Uri, name: String){
-        cats.add(Cat(img, name))
+    fun addCat(img: Uri, name: String, catid: String){
+        cats.add(Cat(img, name, catid))
     }
 
     fun getSchoolCatsRef(): DatabaseReference{
@@ -87,7 +87,7 @@ class MainViewModel() : ViewModel() {
             }
         }
     }
-    fun tmp(key: String) : DatabaseReference{
+    fun getCatRef(key: String) : DatabaseReference{
         return database.getReference("cats").child(key)
     }
 }
