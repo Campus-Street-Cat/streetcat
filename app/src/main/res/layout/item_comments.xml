@@ -29,14 +29,15 @@
 
     <ImageButton
         android:id="@+id/comment_image_heart"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginEnd="5dp"
 
         android:background="@color/fui_transparent"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
+        android:tint="@color/gray"
 
-        android:src="@drawable/heart"
+        android:src="@drawable/ic_heart"
         app:layout_constraintEnd_toStartOf="@id/comment_more_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

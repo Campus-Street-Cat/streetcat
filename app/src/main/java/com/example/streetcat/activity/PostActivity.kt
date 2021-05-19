@@ -1,8 +1,10 @@
 package com.example.streetcat.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.streetcat.data.Comments
 import com.example.streetcat.R
+import com.example.streetcat.adapter.PostCatNameAdapter
 import com.example.streetcat.adapter.PostCommentAdapter
 import com.example.streetcat.adapter.PostViewPagerAdapter
 import com.example.streetcat.viewModel.PostViewModel
@@ -24,10 +27,13 @@ import kotlinx.android.synthetic.main.activity_post.*
 class PostActivity : AppCompatActivity() {
     lateinit var adapter: PostViewPagerAdapter
     lateinit var commentAdapter : PostCommentAdapter
+    lateinit var postCatNameAdapter : PostCatNameAdapter
 
     private val postViewModel: PostViewModel by viewModels()
     lateinit var postAuthor : String
     lateinit var key : String
+    lateinit var username : String
+
 
     var imm : InputMethodManager? = null
 
@@ -38,14 +44,12 @@ class PostActivity : AppCompatActivity() {
         imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
 
         val postKey : String? = intent.getStringExtra("postKey")
+        val userName : String? = intent.getStringExtra("username")
         val cont = this
         if(postKey != null)
             key = postKey
-
-        // 유저 이름 가져오기
-        postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
-            postViewModel.setNickname(it.value.toString())
-        }
+        if(userName != null)
+            username = userName
 
         postViewModel.getPostRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -55,6 +59,8 @@ class PostActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val uri = ArrayList<Uri>()
                 val cmts = ArrayList<Comments>()
+                val catList = ArrayList<String>()
+                val users = ArrayList<String>()
 
                 for (data in dataSnapshot.children) {
                     if(data.key == postKey){ // 키 값이 같은 데이터를 찾으면
@@ -65,7 +71,7 @@ class PostActivity : AppCompatActivity() {
 
                         user_name.text = data.child("author").value.toString() // 작성자 이름 뿌리기
                         context.text = data.child("contents").value.toString() // 글 본문 내용 뿌리기
-                        post_like_count.text = data.child("churu").value.toString() // 좋아요 개수 뿌리기
+
                         post_school.text = "#" + data.child("school").value.toString()
 
 
@@ -74,19 +80,33 @@ class PostActivity : AppCompatActivity() {
                         }
 
                         // 해당 게시물의 댓글 가져오기
-                        val temp = data.child("comments").children
+                        var temp = data.child("comments").children
                         var i = 0
 
                         for(cmt in temp){ // 댓글 내용
                             val profile = Uri.parse(cmt.child("userImg").value.toString())
                             val name = cmt.child("username").value.toString()
                             val c = cmt.child("comment").value.toString()
-                            val likeCnt = cmt.child("likeCnt").value.toString() // cnt가 int형이면 이상하게 안됨
                             val commentKey = cmt.key.toString()
-                            cmts.add(Comments(profile, name, c, likeCnt, commentKey))
+                            cmts.add(Comments(profile, name, c, commentKey))
                             i++
                         }
                         com_count.text = i.toString() // 댓글 개수
+
+                        temp = data.child("cats").children // 게시글에 등록된 고양이 리스트 완성
+                        for(cat in temp){
+                            catList.add(cat.key.toString())
+                        }
+
+                        temp = data.child("users").children // 좋아요 누른 유저 리스트
+                        for(user in temp){
+                            if(user != null){
+                                users.add(user.key.toString())
+                            }
+                        }
+                        post_like_count.text = users.size.toString() // 좋아요 개수 뿌리기
+                        if(users.contains(username))
+                            image_heart.setColorFilter(Color.parseColor("#FF0000"))
                     }
 
                     // 댓글 작성해서 DB에 등록
@@ -98,16 +118,26 @@ class PostActivity : AppCompatActivity() {
 
                             // 사용자 프로필 사진도 DB에 등록해서 가져오기
                             val profile = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/-MZvXYgCftH-88ExGp6g_1.png?alt=media&token=856d791e-2eab-41b3-8d00-00fe005a779b")
-                            val name = postViewModel.getNickname()
-
-                            val like = "0"
-                            val newComment = Comments(profile, name, rep, like, commentKey)
+                            val newComment = Comments(profile, username, rep, commentKey)
 
                             postViewModel.setComment(key, commentKey, newComment)
 
                             Toast.makeText(applicationContext, "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show()
                             reply.setText(null)
                             closeKeyboard()
+                        }
+                    }
+
+                    // 좋아요 버튼 기능
+                    image_heart.setOnClickListener {
+                        if(users.contains(username)){ // 이미 누른 상태에서 다시 누르는 거 -> 회색으로 바꾸고 DB에서 삭제
+                            image_heart.setColorFilter(Color.parseColor("#D0CFCF"))
+                            users.remove(username)
+                            postViewModel.deleteHeart(key, username)
+                        }
+                        else{
+                            image_heart.setColorFilter(Color.parseColor("#FF0000"))
+                            postViewModel.addHeart(key, username)
                         }
                     }
                 }
@@ -119,20 +149,22 @@ class PostActivity : AppCompatActivity() {
 
                 // 댓글 리사이클러 뷰 어댑터
                 comments.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
-                commentAdapter = PostCommentAdapter(cmts, postViewModel, key, cont, menuInflater)// 현재 게시글의 comment 가져오기
+                commentAdapter = PostCommentAdapter(cmts, postViewModel, username, key, cont, menuInflater)// 현재 게시글의 comment 가져오기
                 comments.adapter = commentAdapter
+
+                // 게시글에 등록된 고양이 리사이클러 뷰 어댑터
+                catRecyclerView.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.HORIZONTAL, false)
+                postCatNameAdapter = PostCatNameAdapter(catList)
+                catRecyclerView.adapter = postCatNameAdapter
             }
         }) // onDataChange
 
-        //registerForContextMenu(more_btn)
 
         more_btn.setOnClickListener { // 게시글 삭제하기 버튼 기능
-            val name = postViewModel.getNickname()
             val popup = PopupMenu(this, it)
             menuInflater.inflate(R.menu.post_delete_menu, popup.menu)
             popup.setOnMenuItemClickListener { item ->
                 when(item.itemId){
-                    //R.id.deletePost -> Log.d("deletePost", "delete popup")
                     R.id.deletePost -> {
                         println("this")
                         val deleteCheck = AlertDialog.Builder(this)
@@ -150,7 +182,7 @@ class PostActivity : AppCompatActivity() {
                 }
                 false
             }
-            if(name == postAuthor) // 본인이 쓴 게시글만 삭제할 수 있도록 함
+            if(username == postAuthor) // 본인이 쓴 게시글만 삭제할 수 있도록 함
                 popup.show()
         }
 
