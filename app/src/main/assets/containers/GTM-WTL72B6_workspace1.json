@@ -1,0 +1,50 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2021-05-15 02:18:10",
+    "containerVersion": {
+        "path": "accounts/6003926669/containers/45329738/versions/0",
+        "accountId": "6003926669",
+        "containerId": "45329738",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/6003926669/containers/45329738",
+            "accountId": "6003926669",
+            "containerId": "45329738",
+            "name": "컨테이너1",
+            "publicId": "GTM-WTL72B6",
+            "usageContext": [
+                "IOS_SDK_5"
+            ],
+            "fingerprint": "1621044954530",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6003926669/containers/45329738/workspaces?apiLink=container"
+        },
+        "builtInVariable": [
+            {
+                "accountId": "6003926669",
+                "containerId": "45329738",
+                "type": "APP_ID",
+                "name": "App ID"
+            },
+            {
+                "accountId": "6003926669",
+                "containerId": "45329738",
+                "type": "APP_NAME",
+                "name": "App Name"
+            },
+            {
+                "accountId": "6003926669",
+                "containerId": "45329738",
+                "type": "APP_VERSION_CODE",
+                "name": "App Version Code"
+            },
+            {
+                "accountId": "6003926669",
+                "containerId": "45329738",
+                "type": "EVENT_NAME",
+                "name": "Event Name"
+            }
+        ],
+        "fingerprint": "1621045089943",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6003926669/containers/45329738/versions/0?apiLink=version"
+    }
+}

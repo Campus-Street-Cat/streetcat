@@ -49,6 +49,7 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.CatDetailInfo" />
         <activity android:name=".activity.SickInfo" />
+        <activity android:name=".activity.NotificationBasic"/>
 
         <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>

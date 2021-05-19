@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import android.nfc.Tag
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -16,7 +17,7 @@ import com.google.firebase.messaging.RemoteMessage
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    private val TAG = "FirebaseService"
+    private val TAG = "tag test"
 
     // 파이어베이스 서비스의 토큰을 가져온다
     override fun onNewToken(token: String) {
