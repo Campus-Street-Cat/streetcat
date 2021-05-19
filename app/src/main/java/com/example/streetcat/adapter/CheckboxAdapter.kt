@@ -12,7 +12,7 @@ import com.example.streetcat.R
 import com.example.streetcat.viewModel.PostViewModel
 import kotlinx.android.synthetic.main.item_checkbox.view.*
 
-class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewModel: PostViewModel) :
+class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewModel: PostViewModel, private val key : String) :
     RecyclerView.Adapter<CheckboxAdapter.ViewHolder>() {
 
     val selected = ArrayList<String>()
@@ -24,18 +24,11 @@ class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewM
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_checkbox, viewGroup, false)
-
-        postViewModel.setPostRef()
-
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.catname.text = cats[position]
-
-
-
-        val key = postViewModel.getKey()
 
 
         viewHolder.checkBox.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
@@ -53,9 +46,7 @@ class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewM
                 notifyDataSetChanged()
             }
         })
-        print("adapter key : ")
-        println(key)
-        //postViewModel.addCats(key, selected)
+        postViewModel.addCats(key, selected)
     }
 
     override fun getItemCount() = cats.size

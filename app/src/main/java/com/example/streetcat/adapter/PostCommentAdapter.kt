@@ -1,7 +1,7 @@
 package com.example.streetcat.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.graphics.Color
 import kotlinx.android.synthetic.main.item_comments.view.*
 import android.view.LayoutInflater
 import android.view.MenuInflater
@@ -12,16 +12,18 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetcat.data.Comments
 import com.example.streetcat.R
-import com.example.streetcat.activity.MainActivity
-import com.example.streetcat.activity.PostActivity
 import com.example.streetcat.viewModel.PostViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import android.util.Log
 
-class PostCommentAdapter(private val commentList: ArrayList<Comments> , private val postViewModel: PostViewModel, private val key : String, private val cont : Context, private val menuInflater : MenuInflater) :
+class PostCommentAdapter(private val commentList: ArrayList<Comments> , private val postViewModel: PostViewModel, private val username : String,
+                         private val key : String, private val cont : Context, private val menuInflater : MenuInflater) :
     RecyclerView.Adapter<PostCommentAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -52,14 +54,47 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
         Picasso.get().load(commentList[position].userImg).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
         viewHolder.username.text = commentList[position].username
         viewHolder.comment.text = commentList[position].comment
-        viewHolder.cnt.text = commentList[position].likeCnt
 
-        postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
-            postViewModel.setNickname(it.value.toString())
-        }
+        postViewModel.getPostRef().addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val users = ArrayList<String>()
+                for (data in dataSnapshot.children){
+                    if(data.key == key){
+                        val temp = data.child("comments").child(commentList[position].key).child("users").children // 좋아요 누른 유저 리스트
+                        for(user in temp){
+                            if(user != null){
+                                users.add(user.key.toString())
+                            }
+                        }
+                        viewHolder.cnt.text = users.size.toString()
+                    }
+                }
+
+                if(users.contains(username)){
+                    viewHolder.heart_btn.setColorFilter(Color.parseColor("#FF0000"))
+                }
+
+                viewHolder.heart_btn.setOnClickListener {
+                    if(users.contains(username)){ // 이미 누른 상태에서 다시 누르는 거 -> 회색으로 바꾸고 DB에서 삭제
+                        viewHolder.heart_btn.setColorFilter(Color.parseColor("#D0CFCF"))
+                        users.remove(username)
+                        postViewModel.deleteCommentHeart(key, commentList[position].key, username)
+                        Log.d("delete", "ok")
+                    }
+                    else{
+                        viewHolder.heart_btn.setColorFilter(Color.parseColor("#FF0000"))
+                        postViewModel.addCommentHeart(key, commentList[position].key, username)
+                        Log.d("add", "ok")
+                    }
+                }
+            }
+        })
+
 
         viewHolder.more_btn.setOnClickListener {
-            val name = postViewModel.getNickname()
             val popup = PopupMenu(cont, it)
             menuInflater.inflate(R.menu.post_delete_menu, popup.menu)
             popup.setOnMenuItemClickListener { item ->
@@ -78,21 +113,11 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
                 }
                 false
             }
-            if(name == commentList[position].username) // 본인이 쓴 게시글만 삭제할 수 있도록 함
+            if(username == commentList[position].username) // 본인이 쓴 게시글만 삭제할 수 있도록 함
                 popup.show()
+        } // more_btn
 
 
-
-//            postViewModel.getCommentRef(key).addValueEventListener(object : ValueEventListener {
-//                override fun onCancelled(error: DatabaseError) {
-//
-//                }
-//
-//                override fun onDataChange(dataSnapshot: DataSnapshot){
-//
-//                }
-//            })
-        }
     }
 
     override fun getItemCount() = commentList.size

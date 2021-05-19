@@ -40,6 +40,10 @@ class PostFragment : Fragment() {
 
         post_write.setOnClickListener(ButtonListener())
 
+        postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
+            postViewModel.setNickname(it.value.toString())
+        }
+
         postViewModel.getPostRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -68,7 +72,6 @@ class PostFragment : Fragment() {
                     }
                 }
 
-                //Log.d("getPost", postViewModel.getPosts().toString())
                 post_gallery.layoutManager = GridLayoutManager(requireContext(), 3)
                 adapter = CatInfoGalleryAdapter(postViewModel.getPosts())
                 post_gallery.adapter = adapter
@@ -80,6 +83,7 @@ class PostFragment : Fragment() {
                             "postKey",
                             Uri.parse(postViewModel.getPosts()[position].key).toString()
                         ) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
+                        intent.putExtra("username", postViewModel.getNickname())
                         startActivity(intent)
                     }
                 })

@@ -33,6 +33,8 @@ class PostViewModel() : ViewModel() {
     private var userKey : String = ""
     private var nickname : String = ""
 
+    private var tempKey : String = ""
+
 
     fun getPosts(): ArrayList<GalleryPhoto>{
         return posts
@@ -92,16 +94,10 @@ class PostViewModel() : ViewModel() {
         return commentKey
     }
 
-    fun getCommentRef(key : String): DatabaseReference{
-        return database.reference.child("posts").child(key).child("comments")
-    }
-
     fun setComment(key : String, cKey : String, com : Comments){
-        // val userImg : Uri, val username : String, val comment : String, val cnt : String
         database.getReference("posts").child(key).child("comments").child(cKey).child("userImg").setValue(com.userImg.toString())
         database.getReference("posts").child(key).child("comments").child(cKey).child("username").setValue(com.username)
         database.getReference("posts").child(key).child("comments").child(cKey).child("comment").setValue(com.comment)
-        database.getReference("posts").child(key).child("comments").child(cKey).child("likeCnt").setValue(com.likeCnt)
     }
 
     fun getUserRef(): DatabaseReference{
@@ -124,11 +120,48 @@ class PostViewModel() : ViewModel() {
         database.getReference("posts").child(postKey).child("comments").child(commentKey).setValue(null)
     }
 
-//    fun addCats(key : String, cats : ArrayList<String>){
-////        if(database.getReference(key) != null)
-////            database.getReference(key).setValue(null)
-//        for(cat in cats) {
-//            database.getReference(key).child("cats").child(cat).setValue(cat)
-//        }
-//    }
+    fun setCatRef(){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
+        tempKey = database.getReference("temp").push().key.toString()
+    }
+
+    fun getCatRef(): DatabaseReference{
+        return database.reference.child("temp")
+    }
+
+    fun getCatKey() : String {
+        return tempKey
+    }
+
+    fun addCats(key : String, cats : ArrayList<String>){
+        database.getReference("temp").child(key).setValue(null)
+        for(cat in cats) {
+            database.getReference("temp").child(key).child("cats").child(cat).setValue(cat)
+        }
+    }
+
+    fun deleteCats(key : String){
+        database.getReference("temp").child(key).setValue(null)
+    }
+
+    fun addPostCats(postKey : String, cats : ArrayList<String>){
+        for(cat in cats) {
+            database.getReference("posts").child(postKey).child("cats").child(cat).setValue(cat)
+        }
+    }
+
+    fun addHeart(key : String, username : String){
+        database.getReference("posts").child(key).child("users").child(username).setValue(username)
+    }
+
+    fun deleteHeart(key : String, username : String){
+        database.getReference("posts").child(key).child("users").child(username).setValue(null)
+    }
+
+    fun addCommentHeart(postKey : String, commentKey : String, username : String){
+        database.getReference("posts").child(postKey).child("comments").child(commentKey).child("users").child(username).setValue(username)
+    }
+
+    fun deleteCommentHeart(postKey : String, commentKey : String, username : String){
+        database.getReference("posts").child(postKey).child("comments").child(commentKey).child("users").child(username).setValue(null)
+    }
 }

@@ -78,14 +78,15 @@
 
                 <ImageButton
                     android:id="@+id/image_heart"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginVertical="10dp"
                     android:layout_marginStart="10dp"
 
                     android:background="@color/fui_transparent"
                     android:scaleType="centerInside"
-                    android:src="@drawable/heart"
+                    android:src="@drawable/ic_heart"
+                    android:tint="@color/gray"
 
                     app:layout_constraintBottom_toBottomOf="@+id/functions"
                     app:layout_constraintStart_toStartOf="@+id/functions"
@@ -95,7 +96,7 @@
                     android:id="@+id/post_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:text="좋아요"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
@@ -210,15 +211,14 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:id="@+id/post_cat"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/catRecyclerView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#폼폼이"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/post_school"/>
 
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/post_school"
+                    tools:listitem="@layout/item_post_catname"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <kr.co.prnd.readmore.ReadMoreTextView

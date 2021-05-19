@@ -38,7 +38,6 @@ class WritePost : AppCompatActivity() {
     private val schoolCats = ArrayList<String>() // 고양이 키 값 저장
 
     private var selectedSchool : String = ""
-    //lateinit var selectedCats : ArrayList<String>
     lateinit var checkboxAdapter: CheckboxAdapter
 
     // 카메라 권한 요청 및 권한 체크
@@ -105,6 +104,9 @@ class WritePost : AppCompatActivity() {
         setContentView(R.layout.activity_write_post)
         schools.add(" -학교 선택 -")
 
+        postViewModel.setCatRef()
+        val Ckey = postViewModel.getCatKey()
+
         // 유저 닉네임 set
         postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
             postViewModel.setNickname(it.value.toString())
@@ -117,9 +119,7 @@ class WritePost : AppCompatActivity() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(data in dataSnapshot.children){
-                    if(data.key != "cats"){
-                        schools.add(data.key.toString())
-                    }
+                    schools.add(data.key.toString())
                 }
             }
         })
@@ -155,7 +155,7 @@ class WritePost : AppCompatActivity() {
                                 }
 
                                 school_cat.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
-                                checkboxAdapter = CheckboxAdapter(schoolCats, postViewModel)
+                                checkboxAdapter = CheckboxAdapter(schoolCats, postViewModel, Ckey)
                                 school_cat.adapter = checkboxAdapter
                             }
                         }
@@ -183,15 +183,36 @@ class WritePost : AppCompatActivity() {
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
 
-            print("button key : ")
-            println(key)
-
             postViewModel.setPhoto(uriPhoto!!, key)
             postViewModel.addPost(uriPhoto!!, key)
 
-            val post = PostClass(username, 0, contents, uriPhoto.size)
+            val post = PostClass(username, contents, uriPhoto.size)
             postViewModel.setPost(key, post)
             postViewModel.setSchool(key, selectedSchool)
+
+
+            val selectedCats = ArrayList<String>()
+            postViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for(data in dataSnapshot.children){
+                        if(data.key == Ckey){
+                            val temp = data.child("cats").children
+
+                            for(cat in temp){
+                                selectedCats.add(cat.key.toString())
+                            }
+                            postViewModel.addPostCats(key, selectedCats)
+                            postViewModel.deleteCats(Ckey)
+                        }
+                    }
+                }
+            })
+
+
 
             Toast.makeText(applicationContext, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
             this.onBackPressed()
