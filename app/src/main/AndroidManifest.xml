@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 저장 권한 설정 (이미지나 동영상을 기기의 외부 장치에 저장할경우) -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 카메라기능이 무조건적으로 필요하지 않을 경우 -->
@@ -18,6 +19,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
+        <service
+            android:name=".services.MyFirebasemessaingService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity
             android:name=".activity.NoticeActivity"
@@ -49,11 +54,11 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.CatDetailInfo" />
         <activity android:name=".activity.SickInfo" />
-        <activity android:name=".activity.NotificationBasic"/>
+        <activity android:name=".activity.NotificationBasic" />
 
-        <service android:name=".services.MyFirebaseMessagingService">
+        <service android:name=".services.MyFcmService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
