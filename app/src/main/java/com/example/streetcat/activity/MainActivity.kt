@@ -6,12 +6,26 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
 import com.example.streetcat.adapter.HomeViewPagerAdapter
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
 
+
     private fun configureBottomNavigation(){
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    print("get token failed ${task.exception}")
+                    return@OnCompleteListener
+                }
+
+                val token = task.result!!.token
+                print("get token : $token")
+            })
 
 
         vp_ac_main_frag_pager.adapter = HomeViewPagerAdapter(supportFragmentManager, 4)
@@ -25,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         tl_ac_main_bottom_menu.getTabAt(2)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_add_tab) as RelativeLayout
         tl_ac_main_bottom_menu.getTabAt(3)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_like_tab) as RelativeLayout
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
