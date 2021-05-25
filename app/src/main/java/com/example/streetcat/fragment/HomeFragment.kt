@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
-    lateinit var adapter: HomeRecyclerViewAdapter
+    lateinit var schoolAdapter : HomeRecyclerViewAdapter
+    lateinit var favoriteAdapter : HomeRecyclerViewAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -64,14 +65,19 @@ class HomeFragment : Fragment() {
                                 cat
                             )
 
+                            // 즐겨찾는 고양이 리사이클러뷰
                             favorite_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                            adapter = HomeRecyclerViewAdapter(homeViewModel.getCats())
-                            favorite_cats_view.adapter = adapter
-                            univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                            adapter = HomeRecyclerViewAdapter(homeViewModel.getCats())
-                            univ_cats_view.adapter = adapter
+                            favoriteAdapter = HomeRecyclerViewAdapter(homeViewModel.getCats())
+                            favorite_cats_view.adapter = favoriteAdapter
 
-                            adapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
+                            
+
+                            // 학교 고양이 리사이클러뷰
+                            univ_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                            schoolAdapter = HomeRecyclerViewAdapter(homeViewModel.getCats())
+                            univ_cats_view.adapter = schoolAdapter
+
+                            schoolAdapter.setItemClickListener(object : HomeRecyclerViewAdapter.ItemClickListener {
                                 override fun onClick(view: View, position: Int) {
                                     //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
                                     val intent = Intent(context, CatInfo::class.java)
