@@ -20,6 +20,7 @@ import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
 import com.example.streetcat.adapter.CheckboxAdapter
+import com.example.streetcat.data.Cat
 import com.example.streetcat.data.PostClass
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
@@ -33,9 +34,8 @@ import kotlinx.android.synthetic.main.activity_write_post.*
 class WritePost : AppCompatActivity() {
     private val postViewModel: PostViewModel by viewModels()
     private var uriPhoto = ArrayList<Uri?>()
-    //private val schools = arrayListOf("- 학교 선택 -", "한국항공대학교", "서울대학교", "KAIST")
     private val schools = ArrayList<String>()
-    private val schoolCats = ArrayList<String>() // 고양이 키 값 저장
+    private val schoolCats = ArrayList<Cat>() // 고양이 정보 저장
 
     private var selectedSchool : String = ""
     lateinit var checkboxAdapter: CheckboxAdapter
@@ -151,7 +151,7 @@ class WritePost : AppCompatActivity() {
                             if(data.key == selectedSchool){
                                 val cats = data.child("cats").children
                                 for(cat in cats){
-                                    schoolCats.add(cat.key.toString())
+                                    schoolCats.add(Cat(Uri.parse(""), cat.key.toString(), cat.value.toString()))
                                 }
 
                                 school_cat.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
@@ -190,8 +190,7 @@ class WritePost : AppCompatActivity() {
             postViewModel.setPost(key, post)
             postViewModel.setSchool(key, selectedSchool)
 
-
-            val selectedCats = ArrayList<String>()
+            val selectedCats = ArrayList<Cat>()
             postViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
@@ -203,7 +202,7 @@ class WritePost : AppCompatActivity() {
                             val temp = data.child("cats").children
 
                             for(cat in temp){
-                                selectedCats.add(cat.key.toString())
+                                selectedCats.add(Cat(Uri.parse(""),cat.key.toString(), cat.value.toString()))
                             }
                             postViewModel.addPostCats(key, selectedCats)
                             postViewModel.deleteCats(Ckey)

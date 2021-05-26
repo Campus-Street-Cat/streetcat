@@ -132,10 +132,10 @@ class PostViewModel() : ViewModel() {
         return tempKey
     }
 
-    fun addCats(key : String, cats : ArrayList<String>){
+    fun addCats(key : String, cats : ArrayList<Cat>){
         database.getReference("temp").child(key).setValue(null)
         for(cat in cats) {
-            database.getReference("temp").child(key).child("cats").child(cat).setValue(cat)
+            database.getReference("temp").child(key).child("cats").child(cat.name).setValue(cat.catid)
         }
     }
 
@@ -143,9 +143,9 @@ class PostViewModel() : ViewModel() {
         database.getReference("temp").child(key).setValue(null)
     }
 
-    fun addPostCats(postKey : String, cats : ArrayList<String>){
+    fun addPostCats(postKey : String, cats : ArrayList<Cat>){
         for(cat in cats) {
-            database.getReference("posts").child(postKey).child("cats").child(cat).setValue(cat)
+            database.getReference("posts").child(postKey).child("cats").child(cat.name).setValue(cat.catid)
         }
     }
 

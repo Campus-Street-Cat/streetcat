@@ -130,13 +130,6 @@ class PostFragment : Fragment() {
                 adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int) {
                         moveToPost(position, postViewModel.getPosts())
-//                        val intent = Intent(context, PostActivity::class.java)
-//                        intent.putExtra(
-//                            "postKey",
-//                            Uri.parse(postViewModel.getPosts()[position].key).toString()
-//                        ) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
-//                        intent.putExtra("username", postViewModel.getNickname())
-//                        startActivity(intent)
                     }
                 })
             }
@@ -145,10 +138,7 @@ class PostFragment : Fragment() {
 
     fun moveToPost(position : Int, array : ArrayList<GalleryPhoto>){
         val intent = Intent(context, PostActivity::class.java)
-        intent.putExtra(
-            "postKey",
-            Uri.parse(array[position].key).toString()
-        ) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
+        intent.putExtra("postKey", Uri.parse(array[position].key).toString()) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
         intent.putExtra("username", postViewModel.getNickname())
         startActivity(intent)
     }
