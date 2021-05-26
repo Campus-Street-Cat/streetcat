@@ -7,13 +7,19 @@ import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
+import com.example.streetcat.viewModel.CatInfoViewModel
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_cat_add.*
 import kotlinx.android.synthetic.main.activity_food_info.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FoodInfo : AppCompatActivity() {
+
+private val catViewModel: CatInfoViewModel by viewModels()
 
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -23,7 +29,27 @@ override fun onCreate(savedInstanceState: Bundle?) {
     btn_upload.setOnClickListener(object : View.OnClickListener { //밥 등록시 처리
         override fun onClick(v: View?) {
             //TODO
+
+            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val myRef: DatabaseReference = database.getReference("feeding")
+            myRef.setValue("식사")
+
+        //에러
+        /*
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot?) {
+                    val value = dataSnapshot?.value
+                    textView.text = "$value"
+                }
+
+                override fun onCancelled(p0: DatabaseError?) {
+                    println("Failed to read value.")
+
+                }
+            })*/
         }
+
+
     })
 }
     private fun setButtonClickEvent(){
