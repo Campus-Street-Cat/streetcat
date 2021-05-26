@@ -1,37 +1,59 @@
 package com.example.streetcat.activity
 
+import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.CompoundButton
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
 import com.example.streetcat.adapter.SickListAdapter
 import com.example.streetcat.data.SickList
+import com.example.streetcat.viewModel.HomeViewModel
+import kotlinx.android.synthetic.main.activity_cat_main.*
+import kotlinx.android.synthetic.main.activity_food_info.*
 import kotlinx.android.synthetic.main.activity_sick_info.*
+import kotlinx.android.synthetic.main.delete_check.*
+import java.util.*
 
 
 class SickInfo : AppCompatActivity() {
-    lateinit var sickAdapter : SickListAdapter
+    private val homeViewModel: HomeViewModel by viewModels()
     lateinit var sickName : String
-    private val sickLists : ArrayList<SickList> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sick_info)
 
-        sickLists.add(SickList("구토를 한다", "몇차례 심하게 토했다"))
-        sickLists.add(SickList("설사를 한다", "심한 설사를 한다"))
-        sickLists.add(SickList("혈변을 한다", "변에 피가 묻어 나온다"))
-        sickLists.add(SickList("자꾸 귀를 문지른다", "귀 뒤쪽에 빨갛고 검은 귀지가 보인다"))
-        sickLists.add(SickList("자꾸 몸을 긁는다", "몸에 빨갛게 올라온 염증이 보인다"))
+        val catId = intent.getStringExtra("catId")!!
+        val catName = intent.getStringExtra("catName")!!
 
+        btn_sickinfo.setOnClickListener{
+            if(sickCheckBox1.isChecked || sickCheckBox2.isChecked || sickCheckBox3.isChecked || sickCheckBox4.isChecked || sickCheckBox0.isChecked){
+                if(sickCheckBox0.isChecked) sickName = "정상"
+                else if(sickCheckBox1.isChecked) sickName = sickname1.text.toString()
+                else if(sickCheckBox2.isChecked) sickName = sickname2.text.toString()
+                else if(sickCheckBox3.isChecked) sickName = sickname3.text.toString()
+                else sickName = sickname4.text.toString()
 
-        sick_recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        sickAdapter = SickListAdapter(sickLists)
-        sick_recyclerView.adapter = sickAdapter
-        Log.d("DS","되긴하나..")
+                homeViewModel.setCatSick(catId, sickName)
+                Toast.makeText(applicationContext, "이상증상이 등록되었습니다", Toast.LENGTH_SHORT).show()
+                this.onBackPressed()
+                val intent = Intent(this, CatInfo::class.java)
+                intent.putExtra("catId", catId)
+                intent.putExtra("catName", catName)
+                startActivity(intent)
 
+            }
+            else{
+                Toast.makeText(this, "이상 증상을 체크해주세요", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
 
 }

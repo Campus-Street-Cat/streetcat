@@ -92,7 +92,6 @@
                 android:layout_height="25dp"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="35dp"
-                android:src="@drawable/siren"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/school_icon" />
 
@@ -102,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="37dp"
-                android:text="다리에서 피가 나요"
                 android:textColor="#FF0000"
                 app:layout_constraintStart_toEndOf="@+id/siren"
                 app:layout_constraintTop_toTopOf="@id/school_name" />

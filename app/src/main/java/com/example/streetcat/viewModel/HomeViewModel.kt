@@ -34,6 +34,10 @@ class HomeViewModel() : ViewModel() {
         return cats
     }
 
+    fun setCatSick(catId: String, sickName: String){
+        database.getReference("cats").child(catId).child("sick").setValue(sickName)
+    }
+
     fun setSchoolName(schoolName: String){
         userSchool = schoolName
         Log.d("학교 이름", userSchool)
@@ -75,7 +79,7 @@ class HomeViewModel() : ViewModel() {
 
     fun setCatInfo(name: String, catClass: CatAddClass){
         database.getReference("cats").child(name).setValue(catClass)
-        val tmpKey = database.getReference("schools").child(userSchool).child("cats").push().key.toString()
+        database.getReference("cats").child(name).child("school").setValue(userSchool)
         database.getReference("schools").child(userSchool).child("cats").child(catClass.name).setValue(name)
     }
 

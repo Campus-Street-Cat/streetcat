@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +48,24 @@ class CatInfo : AppCompatActivity() {
             catViewModel.getCatRef(catId).get().addOnSuccessListener {
                 school_name.text = it.child("school").value.toString()
                 cat_name.text = it.child("name").value.toString()
+                sick_name.text = it.child("sick").value.toString()
+                if(sick_name.text == "null") sick_name.text = "정상"
+                if(sick_name.text == "정상") {
+                    siren.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext, // Context
+                            R.drawable.ic_cat_smile // Drawable
+                        ))
+                    sick_name.setTextColor(Color.BLACK)
+                }
+                else{
+                    siren.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext, // Context
+                            R.drawable.siren // Drawable
+                        ))
+                    sick_name.setTextColor(Color.RED)
+                }
                 Picasso.get().load(Uri.parse(it.child("picture").value.toString())).into(cat_profile_image)
             }
         }
@@ -139,6 +158,7 @@ class CatInfo : AppCompatActivity() {
         cat_health.setOnClickListener{
             val intent = Intent(this, SickInfo::class.java)
             intent.putExtra("catId", catId)
+            intent.putExtra("catName", catName)
             startActivity(intent)
         }
 
