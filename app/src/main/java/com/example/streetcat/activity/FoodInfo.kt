@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
@@ -20,9 +21,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
     setButtonClickEvent()
 }
     private fun setButtonClickEvent(){
-        btn_morning.setOnClickListener {onClick(btn_morning)}
-        btn_evening.setOnClickListener {onClick(btn_evening)}
-        btn_afternoon.setOnClickListener {onClick(btn_afternoon)}
+        btn_morning.setOnClickListener {onCheckedChanged(btn_morning, btn_morning.isChecked)}
+        btn_evening.setOnClickListener {onCheckedChanged(btn_evening, btn_evening.isChecked)}
+        btn_afternoon.setOnClickListener {onCheckedChanged(btn_afternoon, btn_afternoon.isChecked)}
     }
 
     fun getTime(button: Button, context: Context){ //time pick 스피너
@@ -39,19 +40,21 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
     }
 
-    private fun onClick(view: View) = View.OnClickListener {
+    private fun onCheckedChanged(view: CompoundButton, isChecked: Boolean) {
         when(view){
             btn_morning-> {
-                var calendar = Calendar.getInstance()
-                var hour = calendar.get(Calendar.HOUR)
-                var minute = calendar.get(Calendar.MINUTE)
+                if (isChecked) {
+                    var calendar = Calendar.getInstance()
+                    var hour = calendar.get(Calendar.HOUR)
+                    var minute = calendar.get(Calendar.MINUTE)
 
-                var listener = TimePickerDialog.OnTimeSetListener{_, i, i2->
-                    tv_morning.text = "${i}시 ${i2}분"
+                    var listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
+                        tv_morning.text = "${i}시 ${i2}분"
+                    }
+                    var picker = TimePickerDialog(this, listener, hour, minute, false)
+                    picker.show()
+                    Toast.makeText(this, "아침밥을 기록합니다.", Toast.LENGTH_SHORT).show()
                 }
-                var picker = TimePickerDialog(this, listener, hour, minute, false)
-                picker.show()
-                Toast.makeText(this, "아침밥을 기록합니다.", Toast.LENGTH_SHORT).show()
             }
 
             btn_evening -> {
