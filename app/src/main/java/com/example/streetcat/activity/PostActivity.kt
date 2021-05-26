@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -15,9 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.streetcat.data.Comments
 import com.example.streetcat.R
+import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.adapter.PostCatNameAdapter
 import com.example.streetcat.adapter.PostCommentAdapter
 import com.example.streetcat.adapter.PostViewPagerAdapter
+import com.example.streetcat.data.Cat
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -62,7 +65,7 @@ class PostActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val uri = ArrayList<Uri>()
                 val cmts = ArrayList<Comments>()
-                val catList = ArrayList<String>()
+                val catList = ArrayList<Cat>()
                 val users = ArrayList<String>()
 
                 for (data in dataSnapshot.children) {
@@ -98,7 +101,7 @@ class PostActivity : AppCompatActivity() {
 
                         temp = data.child("cats").children // 게시글에 등록된 고양이 리스트 완성
                         for(cat in temp){
-                            catList.add(cat.key.toString())
+                            catList.add(Cat(Uri.parse(""),cat.key.toString(), cat.value.toString()))
                         }
 
                         temp = data.child("users").children // 좋아요 누른 유저 리스트
@@ -159,6 +162,19 @@ class PostActivity : AppCompatActivity() {
                 catRecyclerView.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.HORIZONTAL, false)
                 postCatNameAdapter = PostCatNameAdapter(catList)
                 catRecyclerView.adapter = postCatNameAdapter
+
+                postCatNameAdapter.setItemClickListener(object :
+                    PostCatNameAdapter.ItemClickListener {
+                    override fun onClick(view: View, position: Int) {
+                        //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
+                        Log.d("name", catList[position].name)
+                        Log.d("id", catList[position].catid)
+                        val intent = Intent(this@PostActivity, CatInfo::class.java)
+                        intent.putExtra("catId", catList[position].catid)
+                        intent.putExtra("catName", catList[position].name)
+                        startActivity(intent)
+                    }
+                })
             }
         }) // onDataChange
 

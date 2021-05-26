@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
 
         val userCat = ArrayList<Cat>()
 
-
         homeViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
             homeViewModel.setSchoolName(it.value.toString())
 
@@ -119,11 +118,72 @@ class HomeFragment : Fragment() {
                                     })
                                 }
                             })
+
+
                         }
                     }
                 }
             })
         }
+
+
+//        homeViewModel.getUserRef().addValueEventListener(object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                Log.d("favorite", "ok")
+//                for(data in dataSnapshot.children){
+//                    val userCatKey = ArrayList<String>()
+//                    val temp = data.child("cats").children    // 유저의 즐겨찾는 고양이
+//
+//                    for(cat in temp){
+//                        Log.d("cat", cat.toString())
+//                        if(!userCatKey.contains(cat.key.toString()))
+//                            userCatKey.add(cat.key.toString())
+//                    }
+//                    Log.d("userCatKey", userCatKey.toString())
+//
+//                    homeViewModel.getAllCatRef().addValueEventListener(object : ValueEventListener{
+//                        override fun onCancelled(error: DatabaseError) {
+//                            TODO("Not yet implemented")
+//                        }
+//                        override fun onDataChange(snapshot: DataSnapshot) {
+//                            for(cat in snapshot.children){
+//                                val tempCat = Cat(Uri.parse(cat.child("picture").value.toString()), cat.child("name").value.toString(), cat.key.toString())
+//                                if(userCatKey.contains(data.key.toString()) && !userCat.contains(tempCat)){
+//                                    userCat.add(tempCat)
+//                                }
+//                                else if(!userCatKey.contains(data.key.toString()) && userCat.contains(tempCat)){
+//                                    userCat.remove(tempCat)
+//                                }
+//                            }
+//
+//                            // 즐겨찾는 고양이 리사이클러뷰
+//                            favorite_cats_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+//                            favoriteAdapter = HomeRecyclerViewAdapter(userCat)
+//                            favorite_cats_view.adapter = favoriteAdapter
+//
+//                            favoriteAdapter.setItemClickListener(object :
+//                                HomeRecyclerViewAdapter.ItemClickListener {
+//                                override fun onClick(view: View, position: Int) {
+//                                    //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
+//                                    val intent = Intent(context, CatInfo::class.java)
+//                                    intent.putExtra("catId", userCat[position].catid)
+//                                    intent.putExtra("catName", userCat[position].name)
+//                                    startActivity(intent)
+//                                }
+//                            })
+//                        }
+//                    })
+//                }
+//
+//            }
+//        })
+
+
+
     }
 
     // 고양이 추가 버튼 누를 시

@@ -10,6 +10,8 @@
         tools:layout_editor_absoluteX="47dp"
         tools:layout_editor_absoluteY="214dp" />
 
+
+
     ]]>
 
     <CheckBox
@@ -17,20 +19,20 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/eat"
-        android:text="아침"
+        android:button="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/btn_evening"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748" />
+        app:layout_constraintVertical_bias="0.758" />
 
     <CheckBox
         android:id="@+id/btn_evening"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/eat"
-        android:text="점심"
+        android:button="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/eat"
-        android:text="저녁"
+        android:button="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -54,21 +56,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오늘의 식사"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/btn_morning"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579" />
+        app:layout_constraintVertical_bias="0.347" />
 
     <TextView
         android:id="@+id/tv_morning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="아침식사는?"
         app:layout_constraintBottom_toTopOf="@+id/btn_evening"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_morning" />
+
+    <TextView
+        android:id="@+id/tv_evening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="점심식사는?"
+        app:layout_constraintBottom_toTopOf="@+id/btn_afternoon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_evening"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_afternoon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="저녁식사는?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_afternoon"
+        app:layout_constraintVertical_bias="0.123" />
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_btn"
+        android:backgroundTint="@color/orange"
+        android:padding="10dp"
+        android:text="기록하기"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_afternoon"
+        app:layout_constraintVertical_bias="0.509" />
     />
 </androidx.constraintlayout.widget.ConstraintLayout>

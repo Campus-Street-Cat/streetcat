@@ -61,8 +61,11 @@ class HomeViewModel() : ViewModel() {
     fun getCatRef(): DatabaseReference{
         Log.d("학교이름", userSchool)
         Log.d("유저키", userKey)
-//        return database.getReference("cats")
         return database.getReference("schools").child(userSchool).child("cats")
+    }
+
+    fun getAllCatRef(): DatabaseReference{
+        return database.getReference("cats")
     }
 
     fun setCatRef(){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
