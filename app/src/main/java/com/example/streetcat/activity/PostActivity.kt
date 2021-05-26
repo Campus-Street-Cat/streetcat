@@ -51,6 +51,9 @@ class PostActivity : AppCompatActivity() {
         if(userName != null)
             username = userName
 
+        Log.d("key", key)
+        Log.d("username", username)
+
         postViewModel.getPostRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
