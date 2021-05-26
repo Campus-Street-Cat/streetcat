@@ -12,7 +12,6 @@ import com.example.streetcat.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 
-
 class HomeRecyclerViewAdapter(private val catList: ArrayList<Cat>) :
     RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
 
@@ -29,14 +28,10 @@ class HomeRecyclerViewAdapter(private val catList: ArrayList<Cat>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.name
         val imageView : ImageView = view.image
-
     }
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_recycler_view, viewGroup, false)
-
         return ViewHolder(view)
     }
 
