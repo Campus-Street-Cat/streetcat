@@ -39,6 +39,7 @@
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.FoodInfo" />
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.Registration" />
         <activity android:name=".activity.CatInfo" />

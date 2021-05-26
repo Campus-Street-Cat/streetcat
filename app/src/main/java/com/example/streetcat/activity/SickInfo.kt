@@ -1,63 +1,37 @@
 package com.example.streetcat.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
+import com.example.streetcat.adapter.SickListAdapter
+import com.example.streetcat.data.SickList
 import kotlinx.android.synthetic.main.activity_sick_info.*
 
 
 class SickInfo : AppCompatActivity() {
-    //
-    var data1 = arrayOf("열이 나요", "토를 했어요", "피부병이 있어요", "설사를 했어요", "눈물을 흘려요")
-    var data2 = arrayOf("열이 나요", "토를 했어요", "피부병이 있어요", "설사를 했어요", "눈물을 흘려요")
+    lateinit var sickAdapter : SickListAdapter
+    lateinit var sickName : String
+    private val sickLists : ArrayList<SickList> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sick_info)
 
-        var adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, data1)
-        var adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item,data2)
+        sickLists.add(SickList("구토를 한다", "몇차례 심하게 토했다"))
+        sickLists.add(SickList("설사를 한다", "심한 설사를 한다"))
+        sickLists.add(SickList("혈변을 한다", "변에 피가 묻어 나온다"))
+        sickLists.add(SickList("자꾸 귀를 문지른다", "귀 뒤쪽에 빨갛고 검은 귀지가 보인다"))
+        sickLists.add(SickList("자꾸 몸을 긁는다", "몸에 빨갛게 올라온 염증이 보인다"))
 
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter1
-        spinner.adapter = adapter2
 
-        val listener = SpinnerListener();
-        spinner.onItemSelectedListener = listener //리스너를 넣어줌
+        sick_recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        sickAdapter = SickListAdapter(sickLists)
+        sick_recyclerView.adapter = sickAdapter
+        Log.d("DS","되긴하나..")
 
-        //익명클래스로
-        spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
-            ) {
-                tv_health1.text = data1[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-
-        //버튼 누르면 값 출력
-        button.setOnClickListener{view ->
-            tv_health2.text = data1[spinner.selectedItemPosition] + "\n"
-            tv_health2.append(data2[spinner2.selectedItemPosition])
-        }
     }
-    inner class SpinnerListener : AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-        }
-
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            tv_health2.text = data1[position]
-        }
-
-        override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            TODO("Not yet implemented")
-        }
-    }
 }
