@@ -9,13 +9,14 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetcat.R
+import com.example.streetcat.data.Cat
 import com.example.streetcat.viewModel.PostViewModel
 import kotlinx.android.synthetic.main.item_checkbox.view.*
 
-class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewModel: PostViewModel, private val key : String) :
+class CheckboxAdapter(private val cats: ArrayList<Cat>, private val postViewModel: PostViewModel, private val key : String) :
     RecyclerView.Adapter<CheckboxAdapter.ViewHolder>() {
 
-    val selected = ArrayList<String>()
+    val selected = ArrayList<Cat>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val catname : TextView = view.cat
@@ -28,11 +29,23 @@ class CheckboxAdapter(private val cats: ArrayList<String>, private val postViewM
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.catname.text = cats[position]
+        viewHolder.catname.text = cats[position].name
 
 
         viewHolder.checkBox.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+//                if(isChecked){
+//                    if(!selected.contains(cats[position].name)){
+//                        selected.add(cats[position].name)
+//                    }
+//                }
+//                else{
+//                    if(selected.contains(cats[position].name)){
+//                        selected.remove(cats[position].name)
+//                    }
+//                }
+//                notifyDataSetChanged()
+
                 if(isChecked){
                     if(!selected.contains(cats[position])){
                         selected.add(cats[position])
