@@ -60,5 +60,10 @@ class CatInfo : AppCompatActivity() {
             intent.putExtra("catId", catId)
             startActivity(intent)
         }
+
+        btn_feed.setOnClickListener{
+            val intent = Intent(this, FoodInfo::class.java)
+            startActivity(intent)
+        }
     }
 }
