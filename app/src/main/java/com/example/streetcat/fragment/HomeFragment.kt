@@ -18,6 +18,8 @@ import com.example.streetcat.data.Cat
 import com.example.streetcat.viewModel.HomeViewModel
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -37,7 +39,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        add_btn.setOnClickListener(ButtonListener())
+        add_btn.setOnClickListener(AddBtnListener())
+        rand_btn.setOnClickListener(RandBtnListener())
 
         val userCat = ArrayList<Cat>()
 
@@ -187,10 +190,44 @@ class HomeFragment : Fragment() {
     }
 
     // 고양이 추가 버튼 누를 시
-    inner class ButtonListener : View.OnClickListener {
+    inner class AddBtnListener : View.OnClickListener {
         override fun onClick(v: View?) {
             val intent = Intent(context, CatAdd::class.java)
             startActivity(intent)
         }
     }
-}
+    // 랜덤 고양이 버튼 누를 시
+    inner class RandBtnListener : View.OnClickListener {
+        override fun onClick(v: View?) {
+
+            homeViewModel.getAllCatRef().addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    val num = p0.childrenCount.toInt()
+                    val random = Random()
+                    val randNum = random.nextInt(num)
+
+                    var cnt = 0
+
+                    for (data in p0.children) {
+                        if(cnt == randNum) {
+                            val cat = data.key.toString()
+                            homeViewModel.getCatRef(cat).get().addOnSuccessListener {
+                                val intent = Intent(context, CatInfo::class.java)
+                                intent.putExtra("catId", it.key.toString())
+                                intent.putExtra("catName", it.child("name").value.toString())
+                                startActivity(intent)
+                            }
+                        }
+
+                        cnt++
+                    }
+                }
+            })
+        }
+
+        }
+    }
