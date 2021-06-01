@@ -21,11 +21,16 @@ import com.example.streetcat.activity.*
 import com.example.streetcat.viewModel.RegisterViewModel
 import com.example.streetcat.viewModel.SettingViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_cat_add.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_setting.view.*
+import kotlinx.android.synthetic.main.item_recycler_view.view.*
 
 class SettingFragment : Fragment() {
     private val SettingViewModel: SettingViewModel by viewModels()
@@ -56,23 +61,19 @@ class SettingFragment : Fragment() {
             startActivity(intent)
         }
 
+        SettingViewModel.getUserRef().addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
-/*
-        super.onViewCreated(view, savedInstanceState)
-        btn_school_auth.setOnClickListener{view ->
-            val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-        }*/
+            override fun onDataChange(data: DataSnapshot) {
+                input_userNickname.text = data.child("nickName").value.toString()
+                input_userSchool.text = data.child("schoolName").value.toString()
+                Picasso.get().load(Uri.parse(data.child("picture").value.toString())).error(R.drawable.common_google_signin_btn_icon_dark).into(input_userPicture)
+            }
+        })
+
     }
-
-    //로그아웃 리스너
-    inner class ButtonListener : View.OnClickListener {
-        override fun onClick(v: View?) {
-
-        }
-    }
-
-
 
 }
 

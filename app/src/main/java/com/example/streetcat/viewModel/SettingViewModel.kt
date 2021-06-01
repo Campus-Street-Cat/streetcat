@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.streetcat.data.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -17,7 +18,7 @@ class SettingViewModel() : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
-
+    private val mAuth = FirebaseAuth.getInstance()
     private var userKey : String = ""
 
 
@@ -27,6 +28,11 @@ class SettingViewModel() : ViewModel() {
 
     fun getKey() : String{
         return userKey
+    }
+
+    fun getUserRef(): DatabaseReference{
+        userKey = mAuth!!.currentUser.uid
+        return database.getReference("users").child(userKey)
     }
 
     fun setInfo(key: String, post: UserInfo){
