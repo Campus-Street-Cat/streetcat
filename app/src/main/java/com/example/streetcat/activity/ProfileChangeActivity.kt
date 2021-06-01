@@ -103,7 +103,7 @@ class ProfileChangeActivity : AppCompatActivity() {
             if(uriPhoto != null){
                 SettingViewModel.setPhoto(uriPhoto!!, key)
             }
-
+            onBackPressed()
         }
 
     }
