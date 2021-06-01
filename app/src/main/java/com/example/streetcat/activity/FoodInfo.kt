@@ -79,14 +79,14 @@ override fun onCreate(savedInstanceState: Bundle?) {
         when(view){
             btn_morning-> {
                 if (isChecked) {
-                    var calendar = Calendar.getInstance()
-                    var hour = calendar.get(Calendar.HOUR)
-                    var minute = calendar.get(Calendar.MINUTE)
+                    val calendar = Calendar.getInstance()
+                    val hour = calendar.get(Calendar.HOUR)
+                    val minute = calendar.get(Calendar.MINUTE)
 
-                    var listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
+                    val listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
                         tv_morning.text = "${i}시 ${i2}분"
                     }
-                    var picker = TimePickerDialog(this, listener, hour, minute, false)
+                    val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
                     Toast.makeText(this, "아침밥을 기록합니다.", Toast.LENGTH_SHORT).show()
                 }
@@ -95,14 +95,14 @@ override fun onCreate(savedInstanceState: Bundle?) {
             btn_evening -> {
 
                 if (isChecked) {
-                    var calendar = Calendar.getInstance()
-                    var hour = calendar.get(Calendar.HOUR)
-                    var minute = calendar.get(Calendar.MINUTE)
+                    val calendar = Calendar.getInstance()
+                    val hour = calendar.get(Calendar.HOUR)
+                    val minute = calendar.get(Calendar.MINUTE)
 
-                    var listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
-                        tv_evening.text = "${i}시 ${i2}분"
+                    val listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
+                        tv_morning.text = "${i}시 ${i2}분"
                     }
-                    var picker = TimePickerDialog(this, listener, hour, minute, false)
+                    val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
                     Toast.makeText(this, "점심밥을 기록합니다.", Toast.LENGTH_SHORT).show()
                 }
@@ -112,14 +112,14 @@ override fun onCreate(savedInstanceState: Bundle?) {
             btn_afternoon -> {
                 //TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()\
                 if (isChecked) {
-                    var calendar = Calendar.getInstance()
-                    var hour = calendar.get(Calendar.HOUR)
-                    var minute = calendar.get(Calendar.MINUTE)
+                    val calendar = Calendar.getInstance()
+                    val hour = calendar.get(Calendar.HOUR)
+                    val minute = calendar.get(Calendar.MINUTE)
 
-                    var listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
-                        tv_afternoon.text = "${i}시 ${i2}분"
+                    val listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
+                        tv_morning.text = "${i}시 ${i2}분"
                     }
-                    var picker = TimePickerDialog(this, listener, hour, minute, false)
+                    val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
                     Toast.makeText(this, "저녁밥을 기록합니다.", Toast.LENGTH_SHORT).show()
                 }

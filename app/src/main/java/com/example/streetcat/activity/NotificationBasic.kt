@@ -26,8 +26,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
         builder.setLargeIcon(bitmap)
         builder.setNumber(100)
         builder.setAutoCancel(true)
-        builder.setContentTitle("Content Title")
-        builder.setContentText("Content Text")
+        builder.setContentTitle("Street Cat")
+        builder.setContentText("고양이 밥 줄 시간이에요 !")
 
         var notication = builder.build()
         //매니저 -> 알림객체 관리

@@ -74,14 +74,32 @@
 
 
     <Button
-        android:id="@+id/btn_registration"
+        android:id="@+id/btn_profilePictureChange"
         android:layout_width="272dp"
         android:layout_height="62dp"
-        android:layout_marginTop="156dp"
-        android:background="@drawable/custom_btn"
+        android:layout_marginBottom="50dp"
 
+        android:background="@drawable/custom_btn"
         android:text="회원가입"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_addPicture"
+        android:layout_width="255dp"
+        android:layout_height="61dp"
+
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_camera"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="프로필 사진 추가하기"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +110,8 @@
         android:layout_width="255dp"
         android:layout_height="61dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/custom_input"
 
+        android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_school"
         android:drawablePadding="12dp"
         android:ems="10"
@@ -104,7 +122,7 @@
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_input_nickname" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_addPicture" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

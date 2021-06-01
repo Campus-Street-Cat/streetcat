@@ -1,6 +1,10 @@
 package com.example.streetcat.fragment
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,38 +12,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import com.example.streetcat.R
-import com.example.streetcat.activity.CatAdd
-import com.example.streetcat.activity.LoginActivity
-import com.example.streetcat.activity.NoticeActivity
-import com.example.streetcat.activity.SchoolAuth
+import com.example.streetcat.activity.*
+import com.example.streetcat.viewModel.RegisterViewModel
+import com.example.streetcat.viewModel.SettingViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_cat_add.*
+import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_setting.view.*
 
 class SettingFragment : Fragment() {
+    private val SettingViewModel: SettingViewModel by viewModels()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         val view: View = inflater!!.inflate(R.layout.fragment_setting, container, false)
-        view.btn_school_auth.setOnClickListener { view ->
-            Log.d("btn_school", "Selected")
-            val intent = Intent(context, SchoolAuth::class.java)
-            startActivity(intent)
-        }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_notice.setOnClickListener { view ->
-            val intent = Intent(context, NoticeActivity::class.java)
-            startActivity(intent)
-        }
 
         btn_logout.setOnClickListener{ view ->
             Log.d("btnSetup", "Selected")
@@ -48,7 +49,11 @@ class SettingFragment : Fragment() {
             Toast.makeText(context, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
+        }
 
+        btn_changeProfile.setOnClickListener {
+            val intent = Intent(context, ProfileChangeActivity::class.java)
+            startActivity(intent)
         }
 
 

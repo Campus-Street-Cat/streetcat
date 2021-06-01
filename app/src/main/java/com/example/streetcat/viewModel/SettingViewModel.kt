@@ -13,14 +13,14 @@ import com.google.firebase.storage.ktx.storage
 import java.net.URL
 
 
-class RegisterViewModel() : ViewModel() {
+class SettingViewModel() : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
 
     private var userKey : String = ""
 
-    
+
     fun setUserRef(){ // 한 포스트에 대해서 push 함수로 키 만들어두고 그 키 값을 저장해둠
         userKey = database.getReference("users").push().key.toString()
     }

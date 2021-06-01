@@ -39,6 +39,7 @@
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
         <activity android:name=".activity.MainActivity" />
+
         <activity android:name=".activity.FoodInfo" />
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.Registration" />
@@ -53,10 +54,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PostActivity" />
+        <activity android:name=".activity.ProfileChangeActivity" />
         <activity android:name=".activity.CatDetailInfo" />
         <activity android:name=".activity.SickInfo" />
         <activity android:name=".activity.NotificationBasic" />
-        <activity android:name = ".activity.FoodInfo"/>
         <service android:name=".services.MyFcmService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -2,21 +2,17 @@ package com.example.streetcat.activity
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.streetcat.R
 
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import android.widget.Toast
 import android.util.Log
 import android.text.TextUtils
 import kotlinx.android.synthetic.main.activity_cat_main.*
 
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login_info.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -30,8 +26,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         btn_email_sign_in.setOnClickListener(this)
         btn_email_create_account.setOnClickListener(this)
-        btn_sign_out.setOnClickListener(this)
-        btn_verify_email.setOnClickListener(this)
 
 
         Auth = FirebaseAuth.getInstance()
@@ -59,10 +53,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(this@LoginActivity, Registration::class.java))
         } else if (i == R.id.btn_email_sign_in) {
             signIn(edtEmail.text.toString(), edtPassword.text.toString())
-        } else if (i == R.id.btn_sign_out) {
-            signOut()
-        } else if (i == R.id.btn_verify_email) {
-            sendEmailVerification()
         }
     }
 
@@ -88,9 +78,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
                 }
 
-                if (!task.isSuccessful) {
-                    tvStatus.text = "Authentication failed!"
-                }
             }
     }
 
@@ -98,24 +85,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         Auth!!.signOut()
     }
 
-    private fun sendEmailVerification() {
-        // Disable Verify Email button
-        findViewById<View>(R.id.btn_verify_email).isEnabled = false
 
-        val user = Auth!!.currentUser
-        user!!.sendEmailVerification()
-            .addOnCompleteListener(this) { task ->
-                // Re-enable Verify Email button
-                findViewById<View>(R.id.btn_verify_email).isEnabled = true
-
-                if (task.isSuccessful) {
-                    Toast.makeText(applicationContext, "Verification email sent to " + user.email!!, Toast.LENGTH_SHORT).show()
-                } else {
-                    Log.e(TAG, "sendEmailVerification failed!", task.exception)
-                    Toast.makeText(applicationContext, "Failed to send verification email.", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
 
     private fun validateForm(email: String, password: String): Boolean {
 
