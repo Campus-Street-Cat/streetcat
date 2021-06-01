@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         btn_email_sign_in.setOnClickListener(this)
         btn_email_create_account.setOnClickListener(this)
 
-
         Auth = FirebaseAuth.getInstance()
 
         val currentUser = Auth!!.currentUser
@@ -85,28 +84,23 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         Auth!!.signOut()
     }
 
-
-
     private fun validateForm(email: String, password: String): Boolean {
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(applicationContext, "Enter email address!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(applicationContext, "Enter password!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (password.length < 6) {
-            Toast.makeText(applicationContext, "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "비밀번호는 6글자 이상이어야 합니다", Toast.LENGTH_SHORT).show()
             return false
         }
 
         return true
     }
-
-
-
 }

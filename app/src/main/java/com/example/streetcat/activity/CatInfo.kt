@@ -97,7 +97,6 @@ class CatInfo : AppCompatActivity() {
                         catViewModel.addCat(catId, catName)
                     }
                 }
-
             }
         })
 
@@ -147,7 +146,6 @@ class CatInfo : AppCompatActivity() {
                 })
             }
         })
-
 
         detail_info.setOnClickListener{
             val intent = Intent(this, CatDetailInfo::class.java)

@@ -20,9 +20,6 @@ import kotlinx.android.synthetic.main.fragment_notice.*
 
 class NoticeActivity : AppCompatActivity() {
 
-    //val TAG : String = "안녕"
-
-    //@SuppressLint("StringFormatInvalid")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notice)

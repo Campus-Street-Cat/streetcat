@@ -37,7 +37,6 @@ class PostActivity : AppCompatActivity() {
     lateinit var key : String
     lateinit var username : String
 
-
     var imm : InputMethodManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
