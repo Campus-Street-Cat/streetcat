@@ -28,7 +28,6 @@ class NoticeFragment : Fragment() {
         savedInstanceState: Bundle?): View {
         val view: View = inflater!!.inflate(R.layout.fragment_notice, container, false)
         view.btn_toalarm.setOnClickListener { view ->
-            Log.d("", "")
             val intent = Intent(context, NotificationBasic::class.java)
             startActivity(intent)
         }

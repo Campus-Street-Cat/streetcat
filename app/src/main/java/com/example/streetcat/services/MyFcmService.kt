@@ -15,11 +15,8 @@ class MyFcmService : FirebaseMessagingService()
 // TOKEN 값 서버에 저장
 }
 
-
     override fun onMessageReceived(remoteMessage: RemoteMessage)
     {
-
-
         //전달받은 리모트 메시지를 처리
           Log.d("MyFcmService", "Notification Title :: ${remoteMessage.notification?.title}")
           Log.d("MyFcmService", "Notification Body :: ${remoteMessage.notification?.body}")

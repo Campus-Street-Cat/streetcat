@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_sick_info.*
 import kotlinx.android.synthetic.main.delete_check.*
 import java.util.*
 
-
 class SickInfo : AppCompatActivity() {
     private val homeViewModel: HomeViewModel by viewModels()
     lateinit var sickName : String
@@ -41,7 +40,7 @@ class SickInfo : AppCompatActivity() {
                 else sickName = sickname4.text.toString()
 
                 homeViewModel.setCatSick(catId, sickName)
-                Toast.makeText(applicationContext, "이상증상이 등록되었습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "이상 증상이 등록되었습니다", Toast.LENGTH_SHORT).show()
                 this.onBackPressed()
                 val intent = Intent(this, CatInfo::class.java)
                 intent.putExtra("catId", catId)
@@ -54,6 +53,4 @@ class SickInfo : AppCompatActivity() {
             }
         }
     }
-
-
 }
