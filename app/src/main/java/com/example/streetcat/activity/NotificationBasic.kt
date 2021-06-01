@@ -73,8 +73,6 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
     }
 
-
-
     //관련있는 것들끼리 묶어줌
     fun getNotificationBuilder1(id: String, name:String) : NotificationCompat.Builder{
         var builder:NotificationCompat.Builder? = null

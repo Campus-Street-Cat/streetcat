@@ -138,7 +138,7 @@ class Registration : AppCompatActivity() {
                         startActivity(Intent(this@Registration, MainActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "잘못된 인증 시도입니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -150,36 +150,29 @@ class Registration : AppCompatActivity() {
     private fun validateForm(email: String, password: String, nickName: String, schoolName: String): Boolean {
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(applicationContext, "Enter email address!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "이메일 주소를 입력하세요.", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(applicationContext, "Enter password!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(nickName)) {
-            Toast.makeText(applicationContext, "Enter nickName!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "닉네임을 입력하세요", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(schoolName)) {
-            Toast.makeText(applicationContext, "Enter schoolName!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "학교 이름을 입력하세요", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (password.length < 6) {
-            Toast.makeText(applicationContext, "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "비밀번호는 6자리 이상이어야합니다", Toast.LENGTH_SHORT).show()
             return false
         }
-
         return true
     }
-
 }
-
-
-
-
-

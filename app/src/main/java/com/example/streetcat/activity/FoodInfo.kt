@@ -88,7 +88,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     }
                     val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
-                    Toast.makeText(this, "아침밥을 기록합니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "아침밥을 기록합니다", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -104,7 +104,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     }
                     val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
-                    Toast.makeText(this, "점심밥을 기록합니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "점심밥을 기록합니다", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -121,7 +121,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     }
                     val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
-                    Toast.makeText(this, "저녁밥을 기록합니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "저녁밥을 기록합니다", Toast.LENGTH_SHORT).show()
                 }
             }
         }

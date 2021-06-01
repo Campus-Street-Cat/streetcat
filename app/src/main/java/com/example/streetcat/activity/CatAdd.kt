@@ -17,7 +17,6 @@ import com.example.streetcat.data.CatAddClass
 import com.example.streetcat.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_cat_add.*
 
-
 class CatAdd : AppCompatActivity() {
     private val homeViewModel: HomeViewModel by viewModels()
     private var uriPhoto : Uri? = null
@@ -104,7 +103,6 @@ class CatAdd : AppCompatActivity() {
             Log.d("tag", uriPhoto.toString())
             // DB 고양이 정보 추가
             val catClass = CatAddClass(name, birth, gender, neutral)
-
 
             homeViewModel.setCatInfo(key, catClass)
             Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()

@@ -37,7 +37,6 @@ class AlarmActivity : AppCompatActivity(){
         v: View?,
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
-
             super.onCreateContextMenu(menu, v, menuInfo)
             //길게 누른 view의 id로 분기
             when(v?.id)
