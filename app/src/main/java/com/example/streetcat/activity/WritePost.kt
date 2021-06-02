@@ -180,7 +180,6 @@ class WritePost : AppCompatActivity() {
             val contents = postContents.editableText.toString()
             val username = postViewModel.getNickname()
             val userImg = postViewModel.getUserImg()
-            //Log.d("userImg", userImg)
 
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
