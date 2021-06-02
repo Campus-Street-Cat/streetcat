@@ -19,19 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Streetcat">
-        <service
-            android:name=".services.MyFirebasemessaingService"
-            android:enabled="true"
-            android:exported="true"></service>
 
         <activity
             android:name=".activity.NoticeActivity"
             android:label="@string/title_activity_notice"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
-        <activity android:name=".activity.TestEnum" />
-        <activity android:name=".activity.Constants" />
         <activity
-            android:name=".activity.SickSelect"
             android:label="@string/title_activity_sick_select"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
         <activity
@@ -41,7 +34,6 @@
         <activity android:name=".activity.MainActivity" />
 
         <activity android:name=".activity.FoodInfo" />
-        <activity android:name=".activity.Login" />
         <activity android:name=".activity.Registration" />
         <activity android:name=".activity.CatInfo" />
         <activity android:name=".activity.CatAdd" />
@@ -55,7 +47,6 @@
         </activity>
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.ProfileChangeActivity" />
-        <activity android:name=".activity.CatDetailInfo" />
         <activity android:name=".activity.SickInfo" />
         <activity android:name=".activity.NotificationBasic" />
         <service android:name=".services.MyFcmService">
