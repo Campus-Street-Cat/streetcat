@@ -34,6 +34,12 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
             homeViewModel.setSchoolName(it.value.toString())
+            univ_text.text = it.value.toString()
+            when(it.value.toString()){
+                "한국항공대학교" -> Picasso.get().load(R.drawable.kau).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
+                "서울대학교" -> Picasso.get().load(R.drawable.seoul).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
+                "KAIST" -> Picasso.get().load(R.drawable.kaist).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
+            }
         }
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -43,12 +49,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         add_btn.setOnClickListener(AddBtnListener())
         rand_btn.setOnClickListener(RandBtnListener())
-        univ_text.text = homeViewModel.getSchool()
-        when(homeViewModel.getSchool()){
-            "한국항공대학교" -> Picasso.get().load(R.drawable.kau).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
-            "서울대학교" -> Picasso.get().load(R.drawable.seoul).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
-            "KAIST" -> Picasso.get().load(R.drawable.kaist).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
-        }
+
 
         homeViewModel.getUserRef().addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
