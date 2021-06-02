@@ -51,18 +51,15 @@ class HomeFragment : Fragment() {
         rand_btn.setOnClickListener(RandBtnListener())
 
 
-        homeViewModel.getUserRef().addValueEventListener(object : ValueEventListener{
+        homeViewModel.getUserRef().child("cats").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
 
             override fun onDataChange(data: DataSnapshot) {
                 val userCat = ArrayList<Cat>()
-                val temp = data.child("cats").children
-                for(cat in temp){
+                for(cat in data.children)
                     userCat.add(Cat(Uri.parse(""), cat.value.toString(), cat.key.toString()))
-                }
-
 
                 // 고양이 참조 시작
                 homeViewModel.getAllCatRef().addValueEventListener(object : ValueEventListener{

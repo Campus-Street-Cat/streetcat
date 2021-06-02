@@ -57,7 +57,6 @@ class PostFragment : Fragment() {
                             flag = false
                     }
                     if (flag) {
-                        Log.d("key", data.key.toString())
                         val cnt = data.child("cnt").value.toString().toInt()
 
                         for (idx in 0 until cnt) {
