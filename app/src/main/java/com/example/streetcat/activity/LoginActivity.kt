@@ -57,7 +57,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun signIn(email: String, password: String) {
-        Log.e(TAG, "signIn:" + email)
         if (!validateForm(email, password)) {
             return
         }
@@ -65,15 +64,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         Auth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.e(TAG, "signIn: Success!")
-
                     // update UI with the signed-in user's information
                     val user = Auth!!.getCurrentUser()
 
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 } else {
-                    Log.e(TAG, "signIn: Fail!", task.exception)
                     Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
                 }
 

@@ -187,7 +187,6 @@ class PostActivity : AppCompatActivity() {
                     R.id.deletePost -> {
                         println("this")
                         val deleteCheck = AlertDialog.Builder(this)
-
                         deleteCheck.setTitle("게시글을 삭제하시겠습니까?")
                         deleteCheck.setPositiveButton("삭제"){ dialog, which ->
                             // DB에서 포스트 데이터 삭제
