@@ -5,29 +5,20 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
 import com.example.streetcat.adapter.CatInfoGalleryAdapter
-import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.data.GalleryPhoto
 import com.example.streetcat.viewModel.CatInfoViewModel
-import com.example.streetcat.viewModel.HomeViewModel
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_cat_main.*
-import kotlinx.android.synthetic.main.activity_post.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_post.*
 
 class CatInfo : AppCompatActivity() {
     private val catViewModel: CatInfoViewModel by viewModels()
@@ -45,8 +36,22 @@ class CatInfo : AppCompatActivity() {
             catName = intent.getStringExtra("catName")!!
             //고양이 정보 등록
             catViewModel.getCatRef(catId).get().addOnSuccessListener {
+                var genderNeutral = ""
                 school_name.text = it.child("school").value.toString()
                 cat_name.text = it.child("name").value.toString()
+                birthdate.text = it.child("birth").value.toString()
+
+
+                if(it.child("birth").value.toString() == "true")
+                    genderNeutral = "수컷"
+                else
+                    genderNeutral = "암컷"
+
+                if(it.child("neutral").value.toString() == "true")
+                    genderNeutral += " (중성화)"
+                gender.text = genderNeutral
+
+
                 sick_name.text = it.child("sick").value.toString()
                 if(sick_name.text == "null") sick_name.text = "정상"
                 if(sick_name.text == "정상") {
@@ -145,12 +150,6 @@ class CatInfo : AppCompatActivity() {
                 })
             }
         })
-
-        detail_info.setOnClickListener{
-            val intent = Intent(this, CatDetailInfo::class.java)
-            intent.putExtra("catId", catId)
-            startActivity(intent)
-        }
 
         cat_health.setOnClickListener{
             val intent = Intent(this, SickInfo::class.java)
