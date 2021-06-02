@@ -109,6 +109,9 @@ class WritePost : AppCompatActivity() {
         postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
             postViewModel.setNickname(it.value.toString())
         }
+        postViewModel.getUserRef().child("picture").get().addOnSuccessListener {
+            postViewModel.setUserImg(it.value.toString())
+        }
 
         postViewModel.getSchoolRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -176,6 +179,8 @@ class WritePost : AppCompatActivity() {
         writePost_button.setOnClickListener{
             val contents = postContents.editableText.toString()
             val username = postViewModel.getNickname()
+            val userImg = postViewModel.getUserImg()
+            //Log.d("userImg", userImg)
 
             postViewModel.setPostRef()
             val key = postViewModel.getKey()
@@ -183,9 +188,12 @@ class WritePost : AppCompatActivity() {
             postViewModel.setPhoto(uriPhoto!!, key)
             postViewModel.addPost(uriPhoto!!, key)
 
+
+
             val post = PostClass(username, contents, uriPhoto.size)
             postViewModel.setPost(key, post)
             postViewModel.setSchool(key, selectedSchool)
+            postViewModel.addUserImg(key, userImg)
 
             val selectedCats = ArrayList<Cat>()
             postViewModel.getCatRef().addValueEventListener(object : ValueEventListener {
