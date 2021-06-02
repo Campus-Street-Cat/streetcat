@@ -74,9 +74,7 @@ class Registration : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d("TAG", "Permission: " + permissions[0] + "was " + grantResults[0])
         }else{
-            Log.d("TAG", "Not Permission")
         }
     }
 
@@ -119,7 +117,6 @@ class Registration : AppCompatActivity() {
             val password = register_input_password.text.toString()
             val nickname = register_input_nickname.text.toString()
             val school = register_input_school.selectedItem.toString()
-            Log.e(TAG, "createAccount:" + email)
             if (!validateForm(email, password, nickname, school)) {
                 return@setOnClickListener
             }

@@ -48,7 +48,6 @@ class SettingFragment : Fragment() {
 
 
         btn_logout.setOnClickListener{ view ->
-            Log.d("btnSetup", "Selected")
             val Auth = FirebaseAuth.getInstance()
             Auth.signOut()
             Toast.makeText(context, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
