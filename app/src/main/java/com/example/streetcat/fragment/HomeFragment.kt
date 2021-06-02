@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
 
             override fun onDataChange(data: DataSnapshot) {
                 val userCat = ArrayList<Cat>()
-                val schoolCat = ArrayList<Cat>()
 
                 val school = data.child("schoolName").value.toString()!!
                 univ_text.text = school
@@ -75,6 +74,7 @@ class HomeFragment : Fragment() {
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val data = dataSnapshot.children
+                        val schoolCat = ArrayList<Cat>()
                         for(cat in data){
                             val catSchool = cat.child("school").value.toString()
                             if(catSchool == school){
