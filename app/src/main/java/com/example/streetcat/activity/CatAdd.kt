@@ -62,9 +62,7 @@ class CatAdd : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d("TAG", "Permission: " + permissions[0] + "was " + grantResults[0])
         }else{
-            Log.d("TAG", "Not Permission")
         }
     }
 
@@ -100,13 +98,11 @@ class CatAdd : AppCompatActivity() {
 
             // Storage 고양이 사진 추가
             homeViewModel.setPhoto(uriPhoto!!, key)
-            Log.d("tag", uriPhoto.toString())
             // DB 고양이 정보 추가
             val catClass = CatAddClass(name, birth, gender, neutral)
 
             homeViewModel.setCatInfo(key, catClass)
             Toast.makeText(applicationContext, "고양이가 등록되었습니다", Toast.LENGTH_SHORT).show()
-
             this.onBackPressed()
         }
     }

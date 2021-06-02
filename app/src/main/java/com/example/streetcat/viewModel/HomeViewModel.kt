@@ -40,11 +40,9 @@ class HomeViewModel() : ViewModel() {
 
     fun setSchoolName(schoolName: String){
         userSchool = schoolName
-        Log.d("학교 이름", userSchool)
     }
     fun getUserRef(): DatabaseReference{
         userKey = mAuth!!.currentUser.uid
-        Log.d("유저유저", userKey)
         return database.getReference("users").child(userKey)
     }
     fun addCat(img: Uri, name: String, catid: String){
@@ -59,8 +57,6 @@ class HomeViewModel() : ViewModel() {
     }
     //자기 학교의 고양이 리스트 참조
     fun getCatRef(): DatabaseReference{
-        Log.d("학교이름", userSchool)
-        Log.d("유저키", userKey)
         return database.getReference("schools").child(userSchool).child("cats")
     }
 

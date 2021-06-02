@@ -18,9 +18,6 @@ class MyFcmService : FirebaseMessagingService()
     override fun onMessageReceived(remoteMessage: RemoteMessage)
     {
         //전달받은 리모트 메시지를 처리
-          Log.d("MyFcmService", "Notification Title :: ${remoteMessage.notification?.title}")
-          Log.d("MyFcmService", "Notification Body :: ${remoteMessage.notification?.body}")
-          Log.d("MyFcmService", "Notification Data :: ${remoteMessage.data}")
     }
 /*
     private fun showNotification(notification: RemoteMessage.Notification)
