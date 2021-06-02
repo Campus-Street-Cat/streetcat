@@ -38,10 +38,9 @@
                 android:id="@+id/cat_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
-                android:text="폼폼이"
-                android:textSize="20sp"/>
+                android:layout_marginStart="10dp"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -75,25 +74,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/rice_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_rice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/siren" />
+
             <TextView
                 android:id="@+id/school_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
 
-                android:text="한국항공대학교"
                 app:layout_constraintStart_toEndOf="@+id/school_icon"
                 app:layout_constraintTop_toTopOf="@id/school_icon" />
 
+
+            <TextView
+                android:id="@+id/input_rice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toEndOf="@+id/school_icon"
+                app:layout_constraintTop_toBottomOf="@+id/sick_name" />
 
             <ImageView
                 android:id="@+id/siren"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="13dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/school_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/school_icon" />
 
             <TextView
                 android:id="@+id/sick_name"

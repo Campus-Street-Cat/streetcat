@@ -60,21 +60,6 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 
 
-
-    fun getTime(button: Button, context: Context){ //time pick 스피너
-
-        val cal = Calendar.getInstance()
-
-        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-            cal.set(Calendar.HOUR_OF_DAY, hour)
-            cal.set(Calendar.MINUTE, minute)
-
-            button.text = SimpleDateFormat("HH:mm").format(cal.time)
-        }
-        TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
-
-    }
-
     private fun onCheckedChanged(view: CompoundButton, isChecked: Boolean) {
         when(view){
             btn_morning-> {
