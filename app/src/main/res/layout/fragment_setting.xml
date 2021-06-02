@@ -60,13 +60,13 @@
         android:textColor="#000000"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logout5"
+        app:layout_constraintBottom_toTopOf="@+id/btn_notice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_logout2"
+        android:id="@+id/btn_changeNickName"
         style="?android:borderlessButtonStyle"
         android:layout_width="400dp"
         android:layout_height="50dp"
@@ -101,10 +101,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_logout3" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_changePassword" />
 
     <Button
-        android:id="@+id/btn_logout5"
+        android:id="@+id/btn_notice"
         style="?android:borderlessButtonStyle"
         android:layout_width="400dp"
         android:layout_height="50dp"
@@ -141,10 +141,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_logout5" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_notice" />
 
     <Button
-        android:id="@+id/btn_logout3"
+        android:id="@+id/btn_changePassword"
         style="?android:borderlessButtonStyle"
         android:layout_width="400dp"
         android:layout_height="50dp"
@@ -160,7 +160,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_logout2" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_changeNickName" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/input_userPicture"
