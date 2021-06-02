@@ -75,9 +75,7 @@ class ProfileChangeActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d("TAG", "Permission: " + permissions[0] + "was " + grantResults[0])
         }else{
-            Log.d("TAG", "Not Permission")
         }
     }
 

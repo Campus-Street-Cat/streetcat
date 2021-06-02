@@ -82,12 +82,10 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
                         viewHolder.heart_btn.setColorFilter(Color.parseColor("#D0CFCF"))
                         users.remove(username)
                         postViewModel.deleteCommentHeart(key, commentList[position].key, username)
-                        Log.d("delete", "ok")
                     }
                     else{
                         viewHolder.heart_btn.setColorFilter(Color.parseColor("#FF0000"))
                         postViewModel.addCommentHeart(key, commentList[position].key, username)
-                        Log.d("add", "ok")
                     }
                 }
             }

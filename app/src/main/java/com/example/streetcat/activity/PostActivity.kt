@@ -53,9 +53,6 @@ class PostActivity : AppCompatActivity() {
         if(userName != null)
             username = userName
 
-        Log.d("key", key)
-        Log.d("username", username)
-
         postViewModel.getPostRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -166,8 +163,6 @@ class PostActivity : AppCompatActivity() {
                     PostCatNameAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int) {
                         //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
-                        Log.d("name", catList[position].name)
-                        Log.d("id", catList[position].catid)
                         val intent = Intent(this@PostActivity, CatInfo::class.java)
                         intent.putExtra("catId", catList[position].catid)
                         intent.putExtra("catName", catList[position].name)
@@ -186,7 +181,6 @@ class PostActivity : AppCompatActivity() {
                     R.id.deletePost -> {
                         println("this")
                         val deleteCheck = AlertDialog.Builder(this)
-
                         deleteCheck.setTitle("게시글을 삭제하시겠습니까?")
                         deleteCheck.setPositiveButton("삭제"){ dialog, which ->
                             // DB에서 포스트 데이터 삭제

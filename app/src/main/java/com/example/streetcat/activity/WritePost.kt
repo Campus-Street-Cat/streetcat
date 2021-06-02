@@ -93,9 +93,7 @@ class WritePost : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d("TAG", "Permission: " + permissions[0] + "was " + grantResults[0])
         }else{
-            Log.d("TAG", "Not Permission")
         }
     }
 
@@ -167,7 +165,6 @@ class WritePost : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
-
         input_catPicture.setOnClickListener{
             if(checkPersmission()){
                 openGalleryForImage()
@@ -210,7 +207,6 @@ class WritePost : AppCompatActivity() {
                     }
                 }
             })
-
             Toast.makeText(applicationContext, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
             this.onBackPressed()
         }

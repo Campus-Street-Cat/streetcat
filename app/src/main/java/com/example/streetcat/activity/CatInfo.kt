@@ -43,7 +43,6 @@ class CatInfo : AppCompatActivity() {
         if(intent.hasExtra("catId")){
             catId = intent.getStringExtra("catId")!!
             catName = intent.getStringExtra("catName")!!
-            Log.d("고양이 아이디", catId)
             //고양이 정보 등록
             catViewModel.getCatRef(catId).get().addOnSuccessListener {
                 school_name.text = it.child("school").value.toString()
