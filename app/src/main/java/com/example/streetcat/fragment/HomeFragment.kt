@@ -39,9 +39,16 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         add_btn.setOnClickListener(AddBtnListener())
         rand_btn.setOnClickListener(RandBtnListener())
+        univ_text.text = homeViewModel.getSchool()
+        when(homeViewModel.getSchool()){
+            "한국항공대학교" -> Picasso.get().load(R.drawable.kau).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
+            "서울대학교" -> Picasso.get().load(R.drawable.seoul).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
+            "KAIST" -> Picasso.get().load(R.drawable.kaist).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
+        }
 
         homeViewModel.getUserRef().addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -50,17 +57,6 @@ class HomeFragment : Fragment() {
 
             override fun onDataChange(data: DataSnapshot) {
                 val userCat = ArrayList<Cat>()
-                val schoolCat = ArrayList<Cat>()
-
-                val school = data.child("schoolName").value.toString()!!
-                univ_text.text = school
-
-                when(school){
-                "한국항공대학교" -> Picasso.get().load(R.drawable.kau).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
-                "서울대학교" -> Picasso.get().load(R.drawable.seoul).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
-                "KAIST" -> Picasso.get().load(R.drawable.kaist).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
-                }
-
                 val temp = data.child("cats").children
                 for(cat in temp){
                     userCat.add(Cat(Uri.parse(""), cat.value.toString(), cat.key.toString()))
@@ -75,9 +71,10 @@ class HomeFragment : Fragment() {
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val data = dataSnapshot.children
+                        val schoolCat = ArrayList<Cat>()
                         for(cat in data){
                             val catSchool = cat.child("school").value.toString()
-                            if(catSchool == school){
+                            if(catSchool == homeViewModel.getSchool()){
                                 val img = Uri.parse(cat.child("picture").value.toString())
                                 val name = cat.child("name").value.toString()
                                 schoolCat.add(Cat(img, name, cat.key.toString()))

@@ -38,6 +38,9 @@ class HomeViewModel() : ViewModel() {
         database.getReference("cats").child(catId).child("sick").setValue(sickName)
     }
 
+    fun getSchool(): String {
+        return userSchool
+    }
     fun setSchoolName(schoolName: String){
         userSchool = schoolName
     }
