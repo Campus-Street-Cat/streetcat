@@ -25,6 +25,7 @@ import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_post.*
 
 class PostActivity : AppCompatActivity() {
@@ -53,8 +54,9 @@ class PostActivity : AppCompatActivity() {
         if(userName != null)
             username = userName
 
-        Log.d("key", key)
-        Log.d("username", username)
+        postViewModel.getUserRef().child("picture").get().addOnSuccessListener{
+            postViewModel.setUserImg(it.value.toString())
+        }
 
         postViewModel.getPostRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -72,12 +74,13 @@ class PostActivity : AppCompatActivity() {
                         val cnt = data.child("cnt").value.toString() // 사진 개수
                         tv_total.text = cnt
 
-                        postAuthor = data.child("author").value.toString()
 
+                        Picasso.get().load(data.child("authorImg").value.toString()).error(R.drawable.common_google_signin_btn_icon_dark).into(user_profile_image)
+
+                        postAuthor = data.child("author").value.toString()
                         user_name.text = data.child("author").value.toString() // 작성자 이름 뿌리기
                         context.text = data.child("contents").value.toString() // 글 본문 내용 뿌리기
-
-                        post_school.text = "#" + data.child("school").value.toString()
+                        post_school.text = "#" + data.child("school").value.toString() // 학교 뿌리기
 
 
                         for(i in 0 until cnt.toInt()){
@@ -122,7 +125,7 @@ class PostActivity : AppCompatActivity() {
                             val commentKey = postViewModel.getCommentKey()
 
                             // 사용자 프로필 사진도 DB에 등록해서 가져오기
-                            val profile = Uri.parse("https://firebasestorage.googleapis.com/v0/b/streetcat-fd0b0.appspot.com/o/-MZvXYgCftH-88ExGp6g_1.png?alt=media&token=856d791e-2eab-41b3-8d00-00fe005a779b")
+                            val profile = Uri.parse(postViewModel.getUserImg())
                             val newComment = Comments(profile, username, rep, commentKey)
 
                             postViewModel.setComment(key, commentKey, newComment)
@@ -166,8 +169,6 @@ class PostActivity : AppCompatActivity() {
                     PostCatNameAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int) {
                         //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
-                        Log.d("name", catList[position].name)
-                        Log.d("id", catList[position].catid)
                         val intent = Intent(this@PostActivity, CatInfo::class.java)
                         intent.putExtra("catId", catList[position].catid)
                         intent.putExtra("catName", catList[position].name)

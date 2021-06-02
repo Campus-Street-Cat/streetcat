@@ -32,6 +32,7 @@ class PostViewModel() : ViewModel() {
     private var commentKey : String = ""
     private var userKey : String = ""
     private var nickname : String = ""
+    private var userImg : String = ""
 
     private var tempKey : String = ""
 
@@ -103,6 +104,18 @@ class PostViewModel() : ViewModel() {
     fun getUserRef(): DatabaseReference{
         userKey = mAuth!!.currentUser.uid
         return database.getReference("users").child(userKey)
+    }
+
+    fun setUserImg(img : String){
+        userImg = img
+    }
+
+    fun getUserImg() : String {
+        return userImg
+    }
+
+    fun addUserImg(key : String, img : String) {
+        database.getReference("posts").child(key).child("authorImg").setValue(img)
     }
 
     fun setNickname(nn : String){

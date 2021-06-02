@@ -21,7 +21,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="25dp"
-            app:srcCompat="@drawable/kau" />
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/univ_text"
@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:text="한국항공대학교"
             android:textColor="#000000"
+            android:text=""
             android:textColorHighlight="#000000"
             android:textSize="25sp" />
     </LinearLayout>

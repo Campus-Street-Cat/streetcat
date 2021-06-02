@@ -3,6 +3,7 @@ package com.example.streetcat.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,7 @@ class PostFragment : Fragment() {
                             flag = false
                     }
                     if (flag) {
+                        Log.d("key", data.key.toString())
                         val cnt = data.child("cnt").value.toString().toInt()
 
                         for (idx in 0 until cnt) {
