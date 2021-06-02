@@ -179,6 +179,7 @@
         android:layout_marginStart="25dp"
         android:textColor="#000000"
         android:textStyle="bold"
+        android:text="temp"
         app:layout_constraintStart_toEndOf="@+id/input_userPicture"
         app:layout_constraintTop_toTopOf="@+id/input_userPicture" />
 

@@ -85,9 +85,19 @@ class SettingFragment : Fragment() {
             }
 
             override fun onDataChange(data: DataSnapshot) {
-                input_userNickname.text = data.child("nickName").value.toString()
+                //input_userNickname.text = data.child("nickName").value.toString()
                 input_userSchool.text = data.child("schoolName").value.toString()
                 Picasso.get().load(Uri.parse(data.child("picture").value.toString())).error(R.drawable.common_google_signin_btn_icon_dark).into(input_userPicture)
+            }
+        })
+
+        SettingViewModel.getUserRef().child("nickName").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                input_userNickname.text = data.value.toString()
             }
         })
 
