@@ -47,6 +47,8 @@ class CatInfo : AppCompatActivity() {
             catViewModel.getCatRef(catId).get().addOnSuccessListener {
                 school_name.text = it.child("school").value.toString()
                 cat_name.text = it.child("name").value.toString()
+                input_rice.text = it.child("feeding").value.toString()
+                if(input_rice.text == "null") input_rice.text = "굶주림"
                 sick_name.text = it.child("sick").value.toString()
                 if(sick_name.text == "null") sick_name.text = "정상"
                 if(sick_name.text == "정상") {
@@ -161,6 +163,8 @@ class CatInfo : AppCompatActivity() {
 
         btn_feed.setOnClickListener{
             val intent = Intent(this, FoodInfo::class.java)
+            intent.putExtra("catId", catId)
+            intent.putExtra("catName", catName)
             startActivity(intent)
         }
     }

@@ -2,6 +2,7 @@ package com.example.streetcat.activity
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -19,38 +20,22 @@ import java.util.*
 
 class FoodInfo : AppCompatActivity() {
 
-private val catViewModel: CatInfoViewModel by viewModels()
+var bobTime: String = ""
 
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_food_info)
+    val catId = intent.getStringExtra("catId")!!
+    val catName = intent.getStringExtra("catName")!!
     setButtonClickEvent()
 
-    btn_upload.setOnClickListener(object : View.OnClickListener { //밥 등록시 처리
-        override fun onClick(v: View?) {
-            //TODO
-
-            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef: DatabaseReference = database.getReference("feeding")
-            myRef.setValue("식사")
-
-        //에러
-        /*
-            myRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                    val value = dataSnapshot?.value
-                    textView.text = "$value"
-                }
-
-                override fun onCancelled(p0: DatabaseError?) {
-                    println("Failed to read value.")
-
-                }
-            })*/
-        }
-
-
-    })
+    btn_upload.setOnClickListener {
+        FirebaseDatabase.getInstance().getReference("cats").child(catId).child("feeding").setValue(bobTime)
+        val intent = Intent(this, CatInfo::class.java)
+        intent.putExtra("catId", catId)
+        intent.putExtra("catName", catName)
+        startActivity(intent)
+    }
 }
     private fun setButtonClickEvent(){
         btn_morning.setOnClickListener {onCheckedChanged(btn_morning, btn_morning.isChecked)}
@@ -70,6 +55,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
                     val listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
                         tv_morning.text = "${i}시 ${i2}분"
+                        bobTime = "${i}시 ${i2}분"
                     }
                     val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
@@ -85,7 +71,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
-                        tv_morning.text = "${i}시 ${i2}분"
+                        tv_evening.text = "${i}시 ${i2}분"
+                        bobTime = "${i}시 ${i2}분"
                     }
                     val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()
@@ -102,7 +89,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val listener = TimePickerDialog.OnTimeSetListener { _, i, i2 ->
-                        tv_morning.text = "${i}시 ${i2}분"
+                        tv_afternoon.text = "${i}시 ${i2}분"
+                        bobTime = "${i}시 ${i2}분"
                     }
                     val picker = TimePickerDialog(this, listener, hour, minute, false)
                     picker.show()

@@ -4,105 +4,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"><![CDATA[
-
-        android:src="@drawable/eat"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="214dp" />
-
-
-
-    ]]>
+    android:layout_height="match_parent">
 
     <CheckBox
         android:id="@+id/btn_morning"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="55dp"
         android:background="@drawable/eat"
         android:button="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/btn_evening"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
-
-    <CheckBox
-        android:id="@+id/btn_evening"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/eat"
-        android:button="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_feeding" />
 
     <CheckBox
         android:id="@+id/btn_afternoon"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/eat"
         android:button="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_evening"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_morning" />
+
+    <CheckBox
+        android:id="@+id/btn_evening"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/eat"
+        android:button="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_afternoon" />
 
     <TextView
         android:id="@+id/tv_feeding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="오늘의 식사"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/btn_morning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_morning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="아침식사는?"
-        app:layout_constraintBottom_toTopOf="@+id/btn_evening"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_morning" />
-
-    <TextView
-        android:id="@+id/tv_evening"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:text="점심식사는?"
-        app:layout_constraintBottom_toTopOf="@+id/btn_afternoon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_evening"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_afternoon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="점심식사는?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_afternoon" />
+
+    <TextView
+        android:id="@+id/tv_evening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="저녁식사는?"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_afternoon"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_evening" />
 
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/custom_btn"
         android:backgroundTint="@color/orange"
         android:padding="10dp"
@@ -112,8 +101,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_afternoon"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintStart_toStartOf="parent" />
     />
 </androidx.constraintlayout.widget.ConstraintLayout>
