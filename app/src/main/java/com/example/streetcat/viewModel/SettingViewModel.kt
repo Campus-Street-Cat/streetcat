@@ -20,7 +20,6 @@ class SettingViewModel() : ViewModel() {
     fun setPassword(password : String){
         Firebase.auth.currentUser?.updatePassword(password)
     }
-
     fun setNickname(nickName: String){
         database.getReference("users").child(userKey).child("nickName").setValue(nickName)
     }
