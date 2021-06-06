@@ -71,6 +71,7 @@ class PostViewModel() : ViewModel() {
 
     fun setPost(key: String, post: PostClass){
         database.getReference("posts").child(key).setValue(post)
+        database.getReference("posts").child(key).child("authorId").setValue(mAuth!!.currentUser.uid)
     }
 
     fun setPhoto(uris: ArrayList<Uri?>, key: String){
@@ -101,9 +102,21 @@ class PostViewModel() : ViewModel() {
         database.getReference("posts").child(key).child("comments").child(cKey).child("comment").setValue(com.comment)
     }
 
+    fun setNotice(key: String, authorId: String, context: String, username: String){
+        val noticeKey = database.getReference("users").child(authorId).child("notice").push().key.toString()
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("type").setValue("comment")
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("postkey").setValue(key)
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("context").setValue(context)
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("username").setValue(username)
+    }
+
     fun getUserRef(): DatabaseReference{
         userKey = mAuth!!.currentUser.uid
         return database.getReference("users").child(userKey)
+    }
+
+    fun getUserKey(): String{
+        return userKey
     }
 
     fun setUserImg(img : String){
@@ -121,6 +134,7 @@ class PostViewModel() : ViewModel() {
     fun setNickname(nn : String){
         nickname = nn
     }
+
     fun getNickname() : String{
         return nickname
     }

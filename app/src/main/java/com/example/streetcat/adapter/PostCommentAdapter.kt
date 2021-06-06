@@ -20,7 +20,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
-import android.util.Log
 
 class PostCommentAdapter(private val commentList: ArrayList<Comments> , private val postViewModel: PostViewModel, private val username : String,
                          private val key : String, private val cont : Context, private val menuInflater : MenuInflater) :
@@ -35,7 +34,7 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
         val more_btn : ImageButton
 
         init {
-            imageView = view.comment_user_profile_image
+            imageView = view.notice_image
             username = view.comment_user_name
             comment = view.comment
             cnt = view.comment_like_cnt
