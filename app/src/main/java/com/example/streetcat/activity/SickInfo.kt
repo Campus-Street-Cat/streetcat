@@ -41,7 +41,7 @@ class SickInfo : AppCompatActivity() {
 
                 homeViewModel.setCatSick(catId, sickName)
                 Toast.makeText(applicationContext, "이상 증상이 등록되었습니다", Toast.LENGTH_SHORT).show()
-                this.onBackPressed()
+                onBackPressed()
                 val intent = Intent(this, CatInfo::class.java)
                 intent.putExtra("catId", catId)
                 intent.putExtra("catName", catName)

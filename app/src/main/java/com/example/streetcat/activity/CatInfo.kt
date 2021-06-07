@@ -153,6 +153,7 @@ class CatInfo : AppCompatActivity() {
         })
 
         cat_health.setOnClickListener{
+            onBackPressed()
             val intent = Intent(this, SickInfo::class.java)
             intent.putExtra("catId", catId)
             intent.putExtra("catName", catName)
@@ -160,6 +161,7 @@ class CatInfo : AppCompatActivity() {
         }
 
         btn_feed.setOnClickListener{
+            onBackPressed()
             val intent = Intent(this, FoodInfo::class.java)
             intent.putExtra("catId", catId)
             intent.putExtra("catName", catName)

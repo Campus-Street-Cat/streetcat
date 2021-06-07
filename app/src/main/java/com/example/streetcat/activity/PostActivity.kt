@@ -37,6 +37,7 @@ class PostActivity : AppCompatActivity() {
     lateinit var postAuthor : String
     lateinit var key : String
     lateinit var username : String
+    lateinit var authorId: String
 
     var imm : InputMethodManager? = null
 
@@ -78,6 +79,7 @@ class PostActivity : AppCompatActivity() {
                         Picasso.get().load(data.child("authorImg").value.toString()).error(R.drawable.common_google_signin_btn_icon_dark).into(user_profile_image)
 
                         postAuthor = data.child("author").value.toString()
+                        authorId = data.child("authorId").value.toString()
                         user_name.text = data.child("author").value.toString() // 작성자 이름 뿌리기
                         context.text = data.child("contents").value.toString() // 글 본문 내용 뿌리기
                         post_school.text = "#" + data.child("school").value.toString() // 학교 뿌리기
@@ -129,6 +131,7 @@ class PostActivity : AppCompatActivity() {
                             val newComment = Comments(profile, username, rep, commentKey)
 
                             postViewModel.setComment(key, commentKey, newComment)
+                            postViewModel.setNotice(key, authorId, rep, username);
 
                             Toast.makeText(applicationContext, "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show()
                             reply.setText(null)
