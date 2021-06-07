@@ -29,6 +29,10 @@ class RegisterViewModel() : ViewModel() {
         return userKey
     }
 
+    fun setToken(token: String, key: String){
+        database.getReference("users").child(key).child("token").setValue(token)
+    }
+
     fun setInfo(key: String, post: UserInfo){
         database.getReference("users").child(key).setValue(post)
     }

@@ -79,6 +79,11 @@ class NoticeFragment : Fragment() {
 
             }
         })
+
+        btn_fcm_test.setOnClickListener {
+            val intent = Intent(context, FcmActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
