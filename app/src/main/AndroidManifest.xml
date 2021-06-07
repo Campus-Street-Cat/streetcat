@@ -25,9 +25,6 @@
             android:label="@string/title_activity_notice"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
         <activity
-            android:label="@string/title_activity_sick_select"
-            android:theme="@style/Theme.Streetcat.NoActionBar" />
-        <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Streetcat.NoActionBar" />

@@ -31,6 +31,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
     btn_upload.setOnClickListener {
         FirebaseDatabase.getInstance().getReference("cats").child(catId).child("feeding").setValue(bobTime)
+        finish()
         val intent = Intent(this, CatInfo::class.java)
         intent.putExtra("catId", catId)
         intent.putExtra("catName", catName)
