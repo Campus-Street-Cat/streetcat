@@ -27,9 +27,11 @@ class CatInfoViewModel : ViewModel() {
 
     fun addCat(key : String, name : String){
         database.getReference("users").child(userKey).child("cats").child(key).setValue(name)
+        database.getReference("cats").child(key).child("users").child(userKey).setValue(userKey)
     }
 
     fun deleteCat(key : String){
         database.getReference("users").child(userKey).child("cats").child(key).setValue(null)
+        database.getReference("cats").child(key).child("users").child(userKey).setValue(null)
     }
 }
