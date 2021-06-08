@@ -1,5 +1,6 @@
 package com.example.streetcat.activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -14,26 +15,36 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.example.streetcat.data.Comments
 import com.example.streetcat.R
 import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.adapter.PostCatNameAdapter
 import com.example.streetcat.adapter.PostCommentAdapter
 import com.example.streetcat.adapter.PostViewPagerAdapter
-import com.example.streetcat.data.Cat
+import com.example.streetcat.data.*
+import com.example.streetcat.viewModel.FcmViewModel
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_fcm.*
 import kotlinx.android.synthetic.main.activity_post.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PostActivity : AppCompatActivity() {
     lateinit var adapter: PostViewPagerAdapter
     lateinit var commentAdapter : PostCommentAdapter
     lateinit var postCatNameAdapter : PostCatNameAdapter
-
+    val TAG = "FcmActivity"
     private val postViewModel: PostViewModel by viewModels()
+    private val fcmViewModel: FcmViewModel by viewModels()
+
     lateinit var postAuthor : String
     lateinit var key : String
     lateinit var username : String
@@ -131,7 +142,8 @@ class PostActivity : AppCompatActivity() {
                             val newComment = Comments(profile, username, rep, commentKey)
 
                             postViewModel.setComment(key, commentKey, newComment)
-                            postViewModel.setNotice(key, authorId, rep, username);
+                            postViewModel.setNotice(key, authorId, rep, username)
+                            fcmViewModel.sendAlarm(authorId, "comment")
 
                             Toast.makeText(applicationContext, "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show()
                             reply.setText(null)
@@ -229,6 +241,19 @@ class PostActivity : AppCompatActivity() {
         val view = this.currentFocus
         if (view != null) {
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful) {
+                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+            } else {
+                Log.e(TAG, response.errorBody().toString())
+            }
+        } catch(e: Exception) {
+            Log.e(TAG, e.toString())
         }
     }
 }
