@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetcat.R
 import com.example.streetcat.adapter.SickListAdapter
 import com.example.streetcat.data.SickList
+import com.example.streetcat.viewModel.FcmViewModel
 import com.example.streetcat.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_cat_main.*
 import kotlinx.android.synthetic.main.activity_food_info.*
@@ -22,6 +23,7 @@ import java.util.*
 
 class SickInfo : AppCompatActivity() {
     private val homeViewModel: HomeViewModel by viewModels()
+    private val fcmViewModel: FcmViewModel by viewModels()
     lateinit var sickName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +42,8 @@ class SickInfo : AppCompatActivity() {
                 else sickName = sickname4.text.toString()
 
                 homeViewModel.setCatSick(catId, sickName)
+                fcmViewModel.getUserKeyForAlarm(catId, sickName)
+
                 Toast.makeText(applicationContext, "이상 증상이 등록되었습니다", Toast.LENGTH_SHORT).show()
                 onBackPressed()
                 val intent = Intent(this, CatInfo::class.java)

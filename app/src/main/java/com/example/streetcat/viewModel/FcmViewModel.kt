@@ -2,7 +2,6 @@ package com.example.streetcat.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.streetcat.activity.TOPIC
 import com.example.streetcat.data.NotificationData
 import com.example.streetcat.data.PushNotification
 import com.example.streetcat.data.RetrofitInstance
@@ -27,12 +26,36 @@ class FcmViewModel() : ViewModel() {
         val tokenRef = database.getReference("users").child(id).child("token")
         tokenRef.get().addOnSuccessListener {
             token = it.value.toString()
-            val PushNotification = PushNotification(
-                NotificationData("StreetCat", "내가 쓴 게시글에 댓글이 달렸어요!"),
-                token
-            )
-            sendNotification(PushNotification)
+            if(type == "comment") {
+                val PushNotification = PushNotification(
+                    NotificationData("StreetCat", "내가 쓴 게시글에 댓글이 달렸어요!"),
+                    token
+                )
+                sendNotification(PushNotification)
+            }
+            else{
+                val PushNotification = PushNotification(
+                    NotificationData("StreetCat", "고양이가 아파요"),
+                    token
+                )
+                sendNotification(PushNotification)
+            }
         }
+    }
+
+    fun getUserKeyForAlarm(catId: String, sickName: String) {
+        database.getReference("cats").child(catId).child("users")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onDataChange(data: DataSnapshot) {
+                    for (user in data.children) {
+                        sendAlarm(user.value.toString(), "sick")
+                    }
+                }
+            })
     }
 
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {

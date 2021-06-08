@@ -1,6 +1,7 @@
 package com.example.streetcat.data
 
 import com.example.streetcat.data.Constants.Companion.BASE_URL
+import com.example.streetcat.activity.NotificationAPI
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

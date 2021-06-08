@@ -1,7 +1,8 @@
-package com.example.streetcat.data
+package com.example.streetcat.activity
 
 import com.example.streetcat.data.Constants.Companion.CONTENT_TYPE
 import com.example.streetcat.data.Constants.Companion.SERVER_KEY
+import com.example.streetcat.data.PushNotification
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

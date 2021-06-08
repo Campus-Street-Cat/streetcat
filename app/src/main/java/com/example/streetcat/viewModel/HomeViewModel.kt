@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
@@ -44,6 +45,7 @@ class HomeViewModel() : ViewModel() {
 
     lateinit var schoolAdapter: HomeRecyclerViewAdapter //학교 고양이 리사이클러뷰 어댑터
     lateinit var favoriteAdapter: HomeRecyclerViewAdapter //즐겨찾기 고양이 리사이클러뷰 어댑터
+
 
 
     fun getCats(): ArrayList<Cat>{
