@@ -60,9 +60,6 @@ class CatAdd : AppCompatActivity() {
             grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-        }else{
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

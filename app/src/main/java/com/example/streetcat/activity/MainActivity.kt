@@ -16,18 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureBottomNavigation(){
 
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    print("get token failed ${task.exception}")
-                    return@OnCompleteListener
-                }
-
-                val token = task.result!!.token
-                print("get token : $token")
-            })
-
-
         vp_ac_main_frag_pager.adapter = HomeViewPagerAdapter(supportFragmentManager, 4)
 
         tl_ac_main_bottom_menu.setupWithViewPager(vp_ac_main_frag_pager)

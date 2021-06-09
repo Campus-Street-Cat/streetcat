@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_cat_add.*
-import kotlinx.android.synthetic.main.activity_fcm.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 

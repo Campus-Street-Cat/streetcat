@@ -28,10 +28,6 @@
             </intent-filter>
         </service>
         <activity
-            android:name=".activity.NoticeActivity"
-            android:label="@string/title_activity_notice"
-            android:theme="@style/Theme.Streetcat.NoActionBar" />
-        <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
@@ -53,12 +49,6 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.ProfileChangeActivity" />
         <activity android:name=".activity.SickInfo" />
-        <activity android:name=".activity.NotificationBasic" />
-        <service android:name=".services.MyFcmService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
 
 
