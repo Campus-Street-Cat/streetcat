@@ -1,29 +1,18 @@
 package com.example.streetcat.adapter
 
-import android.database.Cursor
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.streetcat.R
 import com.example.streetcat.data.GalleryPhoto
-import com.example.streetcat.viewModel.PostViewModel
-import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_gallery.view.*
 
-
+// postFragment와 CatInfo에서 게시글을 보여주는 리사이클러 뷰에 대한 어댑터
 class CatInfoGalleryAdapter(private val photos : ArrayList<GalleryPhoto>) :
-        RecyclerView.Adapter<CatInfoGalleryAdapter.ViewHolder>() { //, Filterable {
-
-    private var searchList = ArrayList<GalleryPhoto>()
+        RecyclerView.Adapter<CatInfoGalleryAdapter.ViewHolder>() {
 
     interface ItemClickListener{
         fun onClick(view : View, position: Int)

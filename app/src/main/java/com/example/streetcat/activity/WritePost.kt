@@ -109,10 +109,11 @@ class WritePost : AppCompatActivity() {
         postViewModel.getUserRef().child("nickName").get().addOnSuccessListener {
             postViewModel.setNickname(it.value.toString())
         }
+        // 유저 프로필 사진 set
         postViewModel.getUserRef().child("picture").get().addOnSuccessListener {
             postViewModel.setUserImg(it.value.toString())
         }
-
+        // DB에 있는 학교 이름 set ( 한국항공대학교, 서울대학교, KAIST )
         postViewModel.getSchoolRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -132,6 +133,7 @@ class WritePost : AppCompatActivity() {
 
         val cont = this
 
+        // spinner에서 선택된 학교에 저장된 고양이 정보 가져오기
         school.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -149,12 +151,13 @@ class WritePost : AppCompatActivity() {
                         if(schoolCats.isNotEmpty())
                             schoolCats.clear()
                         for(data in dataSnapshot.children){
-                            if(data.key == selectedSchool){
+                            if(data.key == selectedSchool){ // 선택된 학교의 고양이 정보 set
                                 val cats = data.child("cats").children
                                 for(cat in cats){
                                     schoolCats.add(Cat(Uri.parse(""), cat.key.toString(), cat.value.toString()))
                                 }
 
+                                // 가져온 고양이 정보를 checkBox에 set
                                 school_cat.layoutManager = LinearLayoutManager(cont, LinearLayoutManager.VERTICAL, false)
                                 checkboxAdapter = CheckboxAdapter(schoolCats, postViewModel, Ckey)
                                 school_cat.adapter = checkboxAdapter
@@ -168,6 +171,8 @@ class WritePost : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
+
+        // 게시글에 들어가는 사진 선택
         input_catPicture.setOnClickListener{
             if(checkPersmission()){
                 openGalleryForImage()
@@ -176,6 +181,7 @@ class WritePost : AppCompatActivity() {
             }
         }
 
+        // 게시글 등록하기 버튼 리스너
         writePost_button.setOnClickListener{
             val contents = postContents.editableText.toString()
             val username = postViewModel.getNickname()
@@ -186,8 +192,6 @@ class WritePost : AppCompatActivity() {
 
             postViewModel.setPhoto(uriPhoto!!, key)
             postViewModel.addPost(uriPhoto!!, key)
-
-
 
             val post = PostClass(username, contents, uriPhoto.size)
             postViewModel.setPost(key, post)
