@@ -78,7 +78,6 @@ class PostActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val uri = ArrayList<Uri>()
                 val cmts = ArrayList<Comments>()
-                val catList = ArrayList<Cat>()
                 val users = ArrayList<String>()
 
                 for (data in dataSnapshot.children) {
@@ -191,7 +190,7 @@ class PostActivity : AppCompatActivity() {
                     }
                 })
             }
-        }) // onDataChange
+        })
 
 
         more_btn.setOnClickListener { // 게시글 삭제하기 버튼 기능

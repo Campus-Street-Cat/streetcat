@@ -1,12 +1,16 @@
 package com.example.streetcat.viewModel
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.streetcat.activity.PostActivity
 import com.example.streetcat.adapter.CatInfoGalleryAdapter
 import com.example.streetcat.data.*
@@ -35,6 +39,9 @@ class PostViewModel() : ViewModel() {
     private var userImg : String = ""
 
     private var tempKey : String = ""
+
+    private val searchList = ArrayList<GalleryPhoto>()
+    lateinit var adapter: CatInfoGalleryAdapter
 
 
     fun getPosts(): ArrayList<GalleryPhoto>{
@@ -190,5 +197,104 @@ class PostViewModel() : ViewModel() {
 
     fun deleteCommentHeart(postKey : String, commentKey : String, username : String){
         database.getReference("posts").child(postKey).child("comments").child(commentKey).child("users").child(username).setValue(null)
+    }
+
+    fun showPostFragmentRcView(context: Context, post_gallery: RecyclerView, search_view : SearchView){
+        database.reference.child("posts").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (data in dataSnapshot.children) {
+                    val uris = ArrayList<Uri?>()
+                    var flag = true
+                    for (comp in getPosts()) {
+                        if (comp.key == data.key && comp.photo.isNotEmpty())
+                            flag = false
+                    }
+                    if (flag) {
+                        val cnt = data.child("cnt").value.toString().toInt()
+
+                        for (idx in 0 until cnt) {
+                            val v = data.child("pictures").child(idx.toString()).value
+                            if (v != null)
+                                uris.add(Uri.parse(v.toString()))
+                        }
+
+                        val key = data.key.toString()
+                        if (uris.isNotEmpty())
+                            addPost(uris, key)
+                    }
+                }
+
+                post_gallery.layoutManager = GridLayoutManager(context, 3)
+                adapter = CatInfoGalleryAdapter(getPosts())
+                post_gallery.adapter = adapter
+
+                search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        if (newText == "") {
+                            adapter = CatInfoGalleryAdapter(getPosts())
+                            post_gallery.adapter = adapter
+                            searchList.clear()
+
+                            adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener {
+                                override fun onClick(view: View, position: Int) {
+                                    moveToPost(position, getPosts(), context)
+                                }
+                            })
+                        }
+                        return true
+                    }
+
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        for (data in dataSnapshot.children) {
+                            val cats = ArrayList<String>()
+                            val uris = ArrayList<Uri?>()
+                            val school = data.child("school").value.toString()
+                            val temp = data.child("cats").children
+                            for (cat in temp) {
+                                cats.add(cat.key.toString())
+                            }
+
+                            val cnt = data.child("cnt").value.toString().toInt()
+
+                            for (idx in 0 until cnt) {
+                                val v = data.child("pictures").child(idx.toString()).value
+                                if (v != null)
+                                    uris.add(Uri.parse(v.toString()))
+                            }
+
+                            if (query != null && cats.contains(query) || school.contains(query.toString())) {
+                                searchList.add(GalleryPhoto(uris, data.key.toString()))
+                            }
+                        }
+                        adapter = CatInfoGalleryAdapter(searchList)
+                        post_gallery.adapter = adapter
+
+                        adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener {
+                            override fun onClick(view: View, position: Int) {
+                                moveToPost(position, getPosts(), context)
+                            }
+                        })
+                        return false
+                    }
+                })
+
+                adapter.setItemClickListener(object : CatInfoGalleryAdapter.ItemClickListener {
+                    override fun onClick(view: View, position: Int) {
+                        moveToPost(position, getPosts(), context)
+                    }
+                })
+            }
+        })
+    }
+
+    fun moveToPost(position : Int, array : ArrayList<GalleryPhoto>, context : Context){
+        val intent = Intent(context, PostActivity::class.java)
+        intent.putExtra("postKey", Uri.parse(array[position].key).toString()) // 해당 게시글로 갈 수 있도록 key 값을 넘겨서 화면 전환
+        intent.putExtra("username", getNickname())
+        startActivity(context, intent, null)
     }
 }
