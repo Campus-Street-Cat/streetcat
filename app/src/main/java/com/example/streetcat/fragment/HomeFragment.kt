@@ -1,27 +1,17 @@
 package com.example.streetcat.fragment
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.R
 import com.example.streetcat.activity.CatAdd
-import com.example.streetcat.activity.CatInfo
-import com.example.streetcat.data.Cat
 import com.example.streetcat.viewModel.HomeViewModel
-import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
-import kotlin.collections.ArrayList
-
 
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
@@ -30,7 +20,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        
         //홈 화면 --> 학교 이름에 따라 화면 변화
         homeViewModel.getUserRef().child("schoolName").get().addOnSuccessListener {
             homeViewModel.setSchoolName(it.value.toString())
@@ -41,7 +30,6 @@ class HomeFragment : Fragment() {
                 "KAIST" -> Picasso.get().load(R.drawable.kaist).error(R.drawable.common_google_signin_btn_icon_dark).into(univ_logo)
             }
         }
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -69,6 +57,5 @@ class HomeFragment : Fragment() {
         override fun onClick(v: View?) {
             homeViewModel.showRandomCat(context!!)
         }
-
     }
 }

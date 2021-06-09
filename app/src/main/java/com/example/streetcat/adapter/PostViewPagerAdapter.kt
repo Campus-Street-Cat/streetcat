@@ -12,6 +12,7 @@ import com.example.streetcat.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_view_pager.view.*
 
+// 한 게시글( PostActivity ) 에서 여러 장 등록된 사진을 슬라이드해서 넘길 수 있게 하는 어댑터
 class PostViewPagerAdapter(private val context: Context, private val items: ArrayList<Uri>) :
     RecyclerView.Adapter<PostViewPagerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =

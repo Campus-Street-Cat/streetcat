@@ -1,6 +1,5 @@
 package com.example.streetcat.activity
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.streetcat.R
-import com.example.streetcat.adapter.HomeRecyclerViewAdapter
 import com.example.streetcat.adapter.PostCatNameAdapter
 import com.example.streetcat.adapter.PostCommentAdapter
 import com.example.streetcat.adapter.PostViewPagerAdapter
@@ -25,13 +23,9 @@ import com.example.streetcat.viewModel.FcmViewModel
 import com.example.streetcat.viewModel.PostViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_fcm.*
 import kotlinx.android.synthetic.main.activity_post.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,15 +55,18 @@ class PostActivity : AppCompatActivity() {
         val postKey : String? = intent.getStringExtra("postKey")
         val userName : String? = intent.getStringExtra("username")
         val cont = this
+        // PostActivity를 시작할 때 넘겨받은 postKey와 작성한 유저 이름 값 저장
         if(postKey != null)
             key = postKey
         if(userName != null)
             username = userName
 
+        // 현재 유저의 프로필 사진 set
         postViewModel.getUserRef().child("picture").get().addOnSuccessListener{
             postViewModel.setUserImg(it.value.toString())
         }
 
+        // DB에서 post의 정보 가져와서 set
         postViewModel.getPostRef().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -82,19 +79,15 @@ class PostActivity : AppCompatActivity() {
                 val users = ArrayList<String>()
 
                 for (data in dataSnapshot.children) {
-                    if(data.key == postKey){ // 키 값이 같은 데이터를 찾으면
+                    if(data.key == postKey){ // post 키 값이 같은 데이터를 찾으면 가져옴
                         val cnt = data.child("cnt").value.toString() // 사진 개수
                         tv_total.text = cnt
-
-
                         Picasso.get().load(data.child("authorImg").value.toString()).error(R.drawable.common_google_signin_btn_icon_dark).into(user_profile_image)
-
                         postAuthor = data.child("author").value.toString()
                         authorId = data.child("authorId").value.toString()
                         user_name.text = data.child("author").value.toString() // 작성자 이름 뿌리기
                         context.text = data.child("contents").value.toString() // 글 본문 내용 뿌리기
                         post_school.text = "#" + data.child("school").value.toString() // 학교 뿌리기
-
 
                         for(i in 0 until cnt.toInt()){
                             uri.add(Uri.parse(data.child("pictures").child(i.toString()).value.toString())) // 사진 uri
@@ -104,7 +97,7 @@ class PostActivity : AppCompatActivity() {
                         var temp = data.child("comments").children
                         var i = 0
 
-                        for(cmt in temp){ // 댓글 내용
+                        for(cmt in temp){ // 댓글 내용 set
                             val profile = Uri.parse(cmt.child("userImg").value.toString())
                             val name = cmt.child("username").value.toString()
                             val c = cmt.child("comment").value.toString()
@@ -137,7 +130,7 @@ class PostActivity : AppCompatActivity() {
                             postViewModel.setCommentRef(key)
                             val commentKey = postViewModel.getCommentKey()
 
-                            // 사용자 프로필 사진도 DB에 등록해서 가져오기
+                            // 사용자 프로필 사진 가져오기
                             val profile = Uri.parse(postViewModel.getUserImg())
                             val newComment = Comments(profile, username, rep, commentKey)
 
@@ -151,14 +144,14 @@ class PostActivity : AppCompatActivity() {
                         }
                     }
 
-                    // 좋아요 버튼 기능
+                    // 게시글 좋아요 버튼 클릭 리스너
                     image_heart.setOnClickListener {
                         if(users.contains(username)){ // 이미 누른 상태에서 다시 누르는 거 -> 회색으로 바꾸고 DB에서 삭제
                             image_heart.setColorFilter(Color.parseColor("#D0CFCF"))
                             users.remove(username)
                             postViewModel.deleteHeart(key, username)
                         }
-                        else{
+                        else{ // 새로 좋아요 누름 -> 빨간색으로 바꾸고 DB에 저장
                             image_heart.setColorFilter(Color.parseColor("#FF0000"))
                             postViewModel.addHeart(key, username)
                         }
@@ -183,7 +176,6 @@ class PostActivity : AppCompatActivity() {
                 postCatNameAdapter.setItemClickListener(object :
                     PostCatNameAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int) {
-                        //intent에 해당 고양이의 database id를 같이 넘겨 보내준다.
                         val intent = Intent(this@PostActivity, CatInfo::class.java)
                         intent.putExtra("catId", catList[position].catid)
                         intent.putExtra("catName", catList[position].name)
@@ -193,8 +185,8 @@ class PostActivity : AppCompatActivity() {
             }
         }) // onDataChange
 
-
-        more_btn.setOnClickListener { // 게시글 삭제하기 버튼 기능
+        // 게시글 삭제하기 버튼 클릭 리스너
+        more_btn.setOnClickListener {
             val popup = PopupMenu(this, it)
             menuInflater.inflate(R.menu.post_delete_menu, popup.menu)
             popup.setOnMenuItemClickListener { item ->
@@ -207,7 +199,7 @@ class PostActivity : AppCompatActivity() {
                             // DB에서 포스트 데이터 삭제
                             postViewModel.deletePost(key)
                             val intent = Intent(cont, MainActivity::class.java)
-                            startActivity(intent) // 삭제하면 postFragment로 가게 하고싶은데 activity -> fragment가 되나? 일단은 mainActivity로 이동
+                            startActivity(intent)
                         }
                         deleteCheck.setNegativeButton("취소", null)
                         deleteCheck.show()
@@ -219,9 +211,8 @@ class PostActivity : AppCompatActivity() {
                 popup.show()
         }
 
-        // 게시글에서 사진 개수랑 현재 페이지가 몇 번째인지 띄워주는 코드      ->   1 / 3
+        // 게시글에서 사진 개수랑 현재 페이지가 몇 번째인지 띄워주는 코드 ->   1 / 3
         ViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -244,6 +235,7 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
+    // 알림 보내는 코드
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val response = RetrofitInstance.api.postNotification(notification)
