@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.activity_registration.btn_profilePictureChange
 
-
+//설정 -> 프로필 사진 변경 액티비티
 class ProfileChangeActivity : AppCompatActivity() {
     private val SettingViewModel: SettingViewModel by viewModels()
 

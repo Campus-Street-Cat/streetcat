@@ -42,9 +42,14 @@ class NoticeRecyclerViewAdapter(private val noticeList: ArrayList<Notice>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.noticeContent.text = noticeList[position].context
-        viewHolder.noticeType.text = "새로운 댓글이 달렸어요!"
-        Picasso.get().load(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
-        viewHolder.imageView.setImageResource(R.drawable.ic_cat_smile)
+        if(noticeList[position].type == "comment") {
+            viewHolder.noticeType.text = "새로운 댓글이 달렸어요!"
+            viewHolder.imageView.setImageResource(R.drawable.ic_cat_smile)
+        }
+        else{
+            viewHolder.noticeType.text = "고양이 상태가 이상해요!"
+            viewHolder.imageView.setImageResource(R.drawable.siren)
+        }
         viewHolder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }

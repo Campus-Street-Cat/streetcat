@@ -84,7 +84,6 @@ override fun onCreate(savedInstanceState: Bundle?) {
             }
 
             btn_afternoon -> {
-                //TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()\
                 if (isChecked) {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR)

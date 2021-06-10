@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val TAG = "FirebaseEmailPassword"
-
     private var Auth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +37,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        val currentUser = Auth!!.currentUser
-    }
-
+    //로그인 버튼 리스너
     override fun onClick(view: View?) {
         val i = view!!.id
 
@@ -55,7 +48,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
+    //로그인
     private fun signIn(email: String, password: String) {
         if (!validateForm(email, password)) {
             return
@@ -76,10 +69,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    private fun signOut() {
-        Auth!!.signOut()
-    }
-
+    //로그인 형식 확인
     private fun validateForm(email: String, password: String): Boolean {
 
         if (TextUtils.isEmpty(email)) {

@@ -42,8 +42,9 @@ class SickInfo : AppCompatActivity() {
                 else sickName = sickname4.text.toString()
 
                 homeViewModel.setCatSick(catId, sickName)
-                fcmViewModel.getUserKeyForAlarm(catId, sickName)
-
+                if(!sickCheckBox0.isChecked) {
+                    fcmViewModel.getUserKeyForAlarm(catId, sickName, catName)
+                }
                 Toast.makeText(applicationContext, "이상 증상이 등록되었습니다", Toast.LENGTH_SHORT).show()
                 onBackPressed()
                 val intent = Intent(this, CatInfo::class.java)

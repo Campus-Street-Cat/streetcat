@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.example.streetcat.R
 
+//어플 실행 시 처음 나오는 로딩 화면
 class Intro : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

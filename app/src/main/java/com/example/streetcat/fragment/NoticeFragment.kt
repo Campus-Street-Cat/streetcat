@@ -61,6 +61,7 @@ class NoticeFragment : Fragment() {
                     val username = notice.child("username").value.toString()
                     noticeList.add(Notice(type, contexts, postkey, username))
                 }
+                noticeList.reverse()
 
                 rc_notice_view.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 noticeAdapter = NoticeRecyclerViewAdapter(noticeList)
@@ -69,10 +70,18 @@ class NoticeFragment : Fragment() {
                 noticeAdapter.setItemClickListener(object : NoticeRecyclerViewAdapter.ItemClickListener {
                     override fun onClick(view: View, position: Int) {
                         Log.d("클릭 로그", "click")
-                        val intent = Intent(context, PostActivity::class.java)
-                        intent.putExtra("postKey", noticeList[position].postKey)
-                        intent.putExtra("username", postViewModel.getUserKey())
-                        startActivity(intent)
+                        if(noticeList[position].type == "comment") {
+                            val intent = Intent(context, PostActivity::class.java)
+                            intent.putExtra("postKey", noticeList[position].postKey)
+                            intent.putExtra("username", postViewModel.getUserKey())
+                            startActivity(intent)
+                        }
+                        else{
+                            val intent = Intent(context, CatInfo::class.java)
+                            intent.putExtra("catId", noticeList[position].postKey)
+                            intent.putExtra("catName", noticeList[position].userName)
+                            startActivity(intent)
+                        }
                     }
                 })
 

@@ -43,7 +43,7 @@ class FcmViewModel() : ViewModel() {
         }
     }
 
-    fun getUserKeyForAlarm(catId: String, sickName: String) {
+    fun getUserKeyForAlarm(catId: String, sickName: String, catName: String) {
         database.getReference("cats").child(catId).child("users")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
@@ -53,9 +53,18 @@ class FcmViewModel() : ViewModel() {
                 override fun onDataChange(data: DataSnapshot) {
                     for (user in data.children) {
                         sendAlarm(user.value.toString(), "sick")
+                        setNotice(catId, user.value.toString(), sickName, catName)
                     }
                 }
             })
+    }
+
+    fun setNotice(key: String, authorId: String, context: String, username: String){ // 댓글이 달리면 알림 띄움
+        val noticeKey = database.getReference("users").child(authorId).child("notice").push().key.toString()
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("type").setValue("sick")
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("postkey").setValue(key)
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("context").setValue(context)
+        database.getReference("users").child(authorId).child("notice").child(noticeKey).child("username").setValue(username)
     }
 
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {

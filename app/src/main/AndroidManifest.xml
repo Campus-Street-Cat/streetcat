@@ -38,7 +38,7 @@
         <activity android:name=".activity.CatInfo" />
         <activity android:name=".activity.CatAdd" />
         <activity android:name=".activity.WritePost" />
-        <activity android:name=".activity.FcmActivity"/>
+        <activity android:name=".activity.NoticeActivity" />
         <activity android:name=".activity.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
