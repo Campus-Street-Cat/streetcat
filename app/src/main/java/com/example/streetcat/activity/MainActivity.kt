@@ -12,22 +12,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_main)
+        configureBottomNavigation()
+    }
 
     private fun configureBottomNavigation(){
 
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    print("get token failed ${task.exception}")
-                    return@OnCompleteListener
-                }
-
-                val token = task.result!!.token
-                print("get token : $token")
-            })
-
-
+        //네비게이션 바 위 view pager
         vp_ac_main_frag_pager.adapter = HomeViewPagerAdapter(supportFragmentManager, 4)
 
         tl_ac_main_bottom_menu.setupWithViewPager(vp_ac_main_frag_pager)
@@ -39,16 +33,4 @@ class MainActivity : AppCompatActivity() {
         tl_ac_main_bottom_menu.getTabAt(2)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_add_tab) as RelativeLayout
         tl_ac_main_bottom_menu.getTabAt(3)!!.customView = bottomNaviLayout.findViewById(R.id.btn_bottom_navi_like_tab) as RelativeLayout
     }
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
-        configureBottomNavigation()
-
-    }
-
-
 }

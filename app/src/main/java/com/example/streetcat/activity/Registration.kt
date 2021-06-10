@@ -20,6 +20,8 @@ import com.example.streetcat.R
 import com.example.streetcat.data.UserInfo
 import com.example.streetcat.viewModel.RegisterViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_cat_add.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -121,12 +123,18 @@ class Registration : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+
+
             //호출 부분
             mAuth!!.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         RegisterViewModel.setUserRef()
                         val key = mAuth!!.currentUser.uid
+                        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+                            FirebaseService.token = it.token
+                            RegisterViewModel.setToken(it.token, key)
+                        }
                         if(uriPhoto != null){
                             RegisterViewModel.setPhoto(uriPhoto!!, key)
                         }

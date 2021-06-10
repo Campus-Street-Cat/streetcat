@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 저장 권한 설정 (이미지나 동영상을 기기의 외부 장치에 저장할경우) -->
@@ -24,6 +25,13 @@
             android:name=".activity.NoticeActivity"
             android:label="@string/title_activity_notice"
             android:theme="@style/Theme.Streetcat.NoActionBar" />
+        <service android:name=".activity.FirebaseService"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </service>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -35,6 +43,7 @@
         <activity android:name=".activity.CatInfo" />
         <activity android:name=".activity.CatAdd" />
         <activity android:name=".activity.WritePost" />
+        <activity android:name=".activity.NoticeActivity" />
         <activity android:name=".activity.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,12 +54,8 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.ProfileChangeActivity" />
         <activity android:name=".activity.SickInfo" />
-        <activity android:name=".activity.NotificationBasic" />
-        <service android:name=".services.MyFcmService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+
+
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

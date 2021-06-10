@@ -30,7 +30,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
     setButtonClickEvent()
 
     btn_upload.setOnClickListener {
+        onBackPressed()
         FirebaseDatabase.getInstance().getReference("cats").child(catId).child("feeding").setValue(bobTime)
+        finish()
         val intent = Intent(this, CatInfo::class.java)
         intent.putExtra("catId", catId)
         intent.putExtra("catName", catName)
@@ -82,7 +84,6 @@ override fun onCreate(savedInstanceState: Bundle?) {
             }
 
             btn_afternoon -> {
-                //TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()\
                 if (isChecked) {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR)

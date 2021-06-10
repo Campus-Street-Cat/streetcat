@@ -20,8 +20,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
-import android.util.Log
 
+// 한 게시글에서 댓글 리사이클러 뷰에 대한 어댑터
 class PostCommentAdapter(private val commentList: ArrayList<Comments> , private val postViewModel: PostViewModel, private val username : String,
                          private val key : String, private val cont : Context, private val menuInflater : MenuInflater) :
     RecyclerView.Adapter<PostCommentAdapter.ViewHolder>() {
@@ -35,7 +35,7 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
         val more_btn : ImageButton
 
         init {
-            imageView = view.comment_user_profile_image
+            imageView = view.notice_image
             username = view.comment_user_name
             comment = view.comment
             cnt = view.comment_like_cnt
@@ -49,7 +49,6 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         Picasso.get().load(commentList[position].userImg).error(R.drawable.common_google_signin_btn_icon_dark).into(viewHolder.imageView)
         viewHolder.username.text = commentList[position].username
@@ -73,17 +72,19 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
                     }
                 }
 
+                // 현재 유저가 이미 댓글에 좋아요를 눌렀다면 빨간색 하트로 보이게 함
                 if(users.contains(username)){
                     viewHolder.heart_btn.setColorFilter(Color.parseColor("#FF0000"))
                 }
 
+                // 댓글의 좋아요 버튼 클릭 리스너
                 viewHolder.heart_btn.setOnClickListener {
                     if(users.contains(username)){ // 이미 누른 상태에서 다시 누르는 거 -> 회색으로 바꾸고 DB에서 삭제
                         viewHolder.heart_btn.setColorFilter(Color.parseColor("#D0CFCF"))
                         users.remove(username)
                         postViewModel.deleteCommentHeart(key, commentList[position].key, username)
                     }
-                    else{
+                    else{ // 새로 좋아요 누름 -> 빨간색으로 바꾸고 DB에 저장
                         viewHolder.heart_btn.setColorFilter(Color.parseColor("#FF0000"))
                         postViewModel.addCommentHeart(key, commentList[position].key, username)
                     }
@@ -91,7 +92,7 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
             }
         })
 
-
+        // 댓글의 더보기 버튼 클릭 리스너, 댓글을 작성한 유저이면 삭제할 수 있음
         viewHolder.more_btn.setOnClickListener {
             val popup = PopupMenu(cont, it)
             menuInflater.inflate(R.menu.post_delete_menu, popup.menu)
@@ -114,9 +115,6 @@ class PostCommentAdapter(private val commentList: ArrayList<Comments> , private 
             if(username == commentList[position].username) // 본인이 쓴 게시글만 삭제할 수 있도록 함
                 popup.show()
         } // more_btn
-
-
     }
-
     override fun getItemCount() = commentList.size
 }
